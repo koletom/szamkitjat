@@ -12,6 +12,7 @@ namespace szamkitjat
         #region propertiregion
         int gamercount { get; set; }
         #endregion propertiregion
+
         Game g = new Game();
         public void End()
         {
