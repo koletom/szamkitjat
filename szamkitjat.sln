@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szamkitjat", "szamkitjat.csproj", "{94DA9EE4-46C1-47EA-A579-7E901AD3C467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szamkitjatiterfaces", "..\szamkitjatiterfaces\szamkitjatiterfaces.csproj", "{AF098854-F732-4CD4-83EA-B9B7D05B3E67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94DA9EE4-46C1-47EA-A579-7E901AD3C467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94DA9EE4-46C1-47EA-A579-7E901AD3C467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94DA9EE4-46C1-47EA-A579-7E901AD3C467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94DA9EE4-46C1-47EA-A579-7E901AD3C467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF098854-F732-4CD4-83EA-B9B7D05B3E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF098854-F732-4CD4-83EA-B9B7D05B3E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF098854-F732-4CD4-83EA-B9B7D05B3E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF098854-F732-4CD4-83EA-B9B7D05B3E67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1946303-3C00-42FC-BD60-98C0215C7DAE}
+	EndGlobalSection
+EndGlobal
