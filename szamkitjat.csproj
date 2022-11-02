@@ -62,7 +62,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\szamkitjatiterfaces\szamkitjatiterfaces.csproj">
+    <ProjectReference Include="szamkitjatiterfaces\szamkitjatiterfaces.csproj">
       <Project>{af098854-f732-4cd4-83ea-b9b7d05b3e67}</Project>
       <Name>szamkitjatiterfaces</Name>
     </ProjectReference>
