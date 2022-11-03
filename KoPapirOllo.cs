@@ -9,7 +9,9 @@ namespace szamkitjat
 {
     class KoPapirOllo : IGame
     {
-        Game g = new Game();
+        Game g = new Game(); //TODO:Ez nem kell
+
+        //TODO:Az End-be csak az eredményeket írjuk ki 
         public void End()
         {
             Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
@@ -100,6 +102,7 @@ namespace szamkitjat
                     compScore, ++playerScore);
                 }
 
+                //TODO: Végeredmény kiírása az End metódusban legyen
                 if (compScore == 5)
                 {
                     Console.WriteLine("\nVeszítettél! \nA Számítógép: {0}:{1} -ra/-re nyert!", compScore, playerScore);

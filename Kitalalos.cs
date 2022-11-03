@@ -7,15 +7,18 @@ using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
-    
+    //TODO: Bővült az interface!!!
     class Kitalalos : IGame
     {
         //public void KitalalosJatek()
         //{
            
         //}
-        Game g = new Game();
+        Game g = new Game(); //TODO: Ez nem kell
         int gamer = 0;
+
+        //Csak a játék módot kérje be, le kell ellenőrizni, hogy jó-e a readkeybe beolvasott karakter.
+        //Ne innen legyen meghívva a play, a vissza a főmenübe esetén se legyen a g.Kezdés meghívva
         public void Start()
         {
             Console.WriteLine("Válassz játékmódot");
@@ -44,6 +47,7 @@ namespace szamkitjat
 
         public void Play()
         {
+            //TODO:A readkey-ek mindehol legyenek leellenőrizve a nagy betűket is el kelle fogadni
             if (gamer == 1)//Játékos
             {
                     Console.WriteLine("Gondolj egy számra! (1 - 100)");
@@ -144,7 +148,10 @@ namespace szamkitjat
                     ++c;
 
                 }
+                //Ezt az End metódusba rakd át.
                 Console.WriteLine("\nVesztettél, a szám {0} volt.", number);
+
+                //Ez as pár sor nem kell ebbe a metódusba 
                 Console.WriteLine("Új játék? i/n");
                 switch (Console.ReadKey(true).KeyChar)
                 {
@@ -160,6 +167,7 @@ namespace szamkitjat
 
         public void End()
         {
+            //TODO:Itt csak az eredmény legyen kíírva.
             Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
             switch (Console.ReadKey(true).KeyChar)
             {

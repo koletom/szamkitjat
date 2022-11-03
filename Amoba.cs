@@ -93,6 +93,7 @@ namespace szamkitjat
             }
         }
 
+       
         public void Start()
         {
             Console.WriteLine("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe");
@@ -101,7 +102,7 @@ namespace szamkitjat
             Console.WriteLine("0,1,2");
             Console.WriteLine("3,4,5");
             Console.WriteLine("6,7,8");
-            Play();
+            Play();//TODO: Ez ne legyen itt
         }
 
         public void Play()
@@ -123,7 +124,7 @@ namespace szamkitjat
                 {
 
                     Console.WriteLine("Írj be egy számot 0 - 8 ig");
-                    elsoJatekos = int.Parse(Console.ReadLine());
+                    elsoJatekos = int.Parse(Console.ReadLine()); //TODO: Ez itt el fog szállni ha nem számot írnak be ezért inkább az int.TryParse -t használd
                     Console.WriteLine($"A beírt szám:{elsoJatekos}");
                 }
 
@@ -147,6 +148,7 @@ namespace szamkitjat
 
             }
 
+            //TODO: Ez eremények kiírása az End()-ben legyen
             if (nyertes() == 1)
             {
                 Console.WriteLine("\nGratulálunk! Nyertél!");
@@ -179,6 +181,7 @@ namespace szamkitjat
 
         public void End()
         {
+            //TODO:Itt csak az eredmény kiírása legyen 
             Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
             switch (Console.ReadKey(true).KeyChar)
             {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace szamkitjat
 {
+    //TODO:Ha jól látom ez lenne a játék vezérlő. Ennek is legyen 1 interface mondjuk IGameController
+    
     class Game 
     {
         public void Kezdes()
@@ -73,6 +75,8 @@ namespace szamkitjat
         }
     }
     
+
+    //TODO:Ez maradjon a Program.cs-ben
     class Program{
         static void Main(string[] args)
         {
