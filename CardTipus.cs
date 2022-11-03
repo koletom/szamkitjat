@@ -9,13 +9,22 @@ namespace szamkitjat
     
     public class CardTipus
     {
-        CardErtek ertek;
+        CardErtek cardErtek;
         CardSzin szin;
-        public Card()
+
+        public CardErtek Ertek
         {
-            ertek = 0;
-            szin = 0;
+            get { return this.cardErtek; }
         }
+        public CardSzin Szin
+        {
+            get { return this.szin; }
+        }
+        //public Card()
+        //{
+        //    cardErtek = 0;
+        //    szin = 0;
+        //}
 
         public enum CardErtek
             {

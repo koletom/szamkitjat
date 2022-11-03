@@ -14,34 +14,27 @@ namespace szamkitjat
 
         Game g = new Game();
 
-        /// <summary>
-        /// Ebben a metódusban kellene kiíratni a nyerteseket mást nem. Az eredmény kiírása után a readkey nem árt azért, hogy el is lehessen olvasni az eredményt
-        /// A Start, a Play ill. az End metódusok hívását majd a főprogram fogja elvégezni.
-        /// </summary>
-        public void End()
+        public void Start()
         {
-            Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-            switch (Console.ReadKey(true).KeyChar)
-            {
-                case 'i':
-                    g.Kezdes();
-                    break;
-                case 'n':
-                    Console.WriteLine("Új játék? i/n");
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
-                        case 'i':
-                            Start();
-                            break;
-                        case 'n':
-                            End();
-                            break;
-                    }
-                    break;
-            }
-        } 
+            string input;
+            int p = 0;
 
-        //TODO: Ez nem kell
+            Console.WriteLine("\nAz nyer akinek nagyobb száma van vagy előbb lesz 21-e.\nHa valakinek több mint 21 az veszít");
+            do
+            {
+                Console.WriteLine("Adja meg a játékosok számát (max 5)");
+                input = Console.ReadLine();
+                if (!int.TryParse(input, out p))
+                {
+
+                    Console.WriteLine("Játékosok száma 1-5 -ig szám lehet");
+                }
+
+            } while (p < 1 || p > 5);
+            gamercount = p;
+
+        }
+
         int card
         {
             get
@@ -69,7 +62,8 @@ namespace szamkitjat
                 var m = string.Join(",", cards[i]); //TODO: Ezt akár berakhatod a Generate metódusba, annak visszatérési értékeként, és akkor az egész generate hívást  
                                                     //betehed a következő Console...-os sorba
 
-                Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: Ez kinézhete akár így is: Console.WriteLine("{0}. játékos lapjai:{1}",i,Generate(i, cards));
+                Console.WriteLine($"{i}. játékos lapjai:{m}");
+                //Console.WriteLine("{0}. játékos lapjai:{1}",i,Generate(i, cards));
                 int hit = 0;
                 char rk;
                 do
@@ -77,49 +71,54 @@ namespace szamkitjat
                     Console.WriteLine($"{i}. játékos húz-e új lapot? i/n");
                     rk = Console.ReadKey(true).KeyChar;
                     // Le kellene ellenőrizni, hogy csak 'i', 'I', 'n', 'N' karaktereket adott-e meg a felhasználó ha nem ezeket adta akkor újra bekérünk 
+
                     
-                    hit++; //TODO: Ezt rakd át a while feltételbe
-                    
+
                     m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
+                    Generate(i, cards);
                                   
                     Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
-                    Console.WriteLine($"{i}. játékos húz-e új lapot? i/n"); //TODO:Ez nem kell ide
+                   
 
+                    hit++; //TODO: Ezt rakd át a while feltételbe
                 } while (hit < 3 || rk == 'i');
             }
+        }
 
-
+        /// <summary>
+        /// Ebben a metódusban kellene kiíratni a nyerteseket mást nem. Az eredmény kiírása után a readkey nem árt azért, hogy el is lehessen olvasni az eredményt
+        /// A Start, a Play ill. az End metódusok hívását majd a főprogram fogja elvégezni.
+        /// </summary>
+        public void End()
+        {
             if (card == 21) //TODO: Ilyen soha nem lesz, itt azt kellene leellenőrizni, hogy cards tömb valamelyik lista elemeinek az összege 21 és ha talál akkor annak az indexét,
                             //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a 
                             //többi játékos lista elem összegeinél. A teljes ellenőrzést nem itt kellene lefuttatni, hanem az End metódusban
             {
                 Console.WriteLine($"{gamercount}. játékos nyert.");
             }
-            
-            End(); //TODO:Ezt a metódust nem itt hívjuk hanem majd a játék vezérlő fogja
-
         }
-
-        public void Start()
+        void Exit()
         {
-            string input;
-            int p = 0;
-
-            Console.WriteLine("\nAz nyer akinek nagyobb száma van vagy előbb lesz 21-e.\nHa valakinek több mint 21 az veszít");
-            do
+            Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
+            switch (Console.ReadKey(true).KeyChar)
             {
-                Console.WriteLine("Adja meg a játékosok számát (max 5)");
-                input = Console.ReadLine();
-                if (!int.TryParse(input, out p))
-                {
-
-                    Console.WriteLine("Játékosok száma 1-5 -ig szám lehet");
-                }
-
-            } while (p < 1 || p > 5);
-            gamercount = p;
-
-            Play(); //TODO:Ezt a metódust nem itt hívjuk hanem majd a játék vezérlő fogja
+                case 'i':
+                    g.Kezdes();
+                    break;
+                case 'n':
+                    Console.WriteLine("Új játék? i/n");
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+                        case 'i':
+                            Start();
+                            break;
+                        case 'n':
+                            End();
+                            break;
+                    }
+                    break;
+            }
         }
     }
 }

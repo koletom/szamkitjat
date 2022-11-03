@@ -10,49 +10,26 @@ namespace szamkitjat
     class KoPapirOllo : IGame
     {
         Game g = new Game(); //TODO:Ez nem kell
-
-        //TODO:Az End-be csak az eredményeket írjuk ki 
-        public void End()
+        #region propertiregion
+        int gamercount { get; set; }
+        public string Name => "KPO";
+        #endregion propertiregion
+        public void Start()
         {
-            Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-            switch (Console.ReadKey(true).KeyChar)
-            {
-                case 'i':
-                    g.Kezdes();
-                    break;
-                case 'n':
-                    Console.WriteLine("Új játék? i/n");
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
-                        case 'i':
-                            Start();
-                            break;
-                        case 'n':
-                            End();
-                            break;
-                    }
-                    break;
-            }
+            Console.WriteLine("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
+            Console.WriteLine("\nA játék 5 pontig megy!");
         }
-
-        //public void KPO()
-        //{
-            
-        //}
-
+        
+        int compScore = 0;
+        int playerScore = 0;
         public void Play()
         {
-            int j = 0;
-
             Random kpo = new Random();
 
-            string compChoice = "";
-            string playerChoice = "";
-            int compScore = 0;
-            int playerScore = 0;
-
-            while (j < 30)
+            do
             {
+                string compChoice = "";
+                string playerChoice = "";
                 Console.WriteLine("Mit választasz? (k/p/o)");
 
                 switch (Console.ReadKey(true).KeyChar)
@@ -101,45 +78,66 @@ namespace szamkitjat
                     Console.WriteLine("\nNyertél! Az állás:\nSzámítógép: {0}\nJátékos:{1}",
                     compScore, ++playerScore);
                 }
+            } while (playerScore <= 4 && compScore != 5
+                    || compScore <= 4 && playerScore != 5);
+        }
 
-                //TODO: Végeredmény kiírása az End metódusban legyen
-                if (compScore == 5)
+       
+        //TODO:Az End-be csak az eredményeket írjuk ki 
+
+        public void End()
+        {
+            if (compScore == 5)
+            {
+                Console.WriteLine("\nVeszítettél! \nA Számítógép: {0}:{1} -ra/-re nyert!", compScore, playerScore);
+                Console.WriteLine("Új próbálkozás? i/n");
+                switch (Console.ReadKey(true).KeyChar)
                 {
-                    Console.WriteLine("\nVeszítettél! \nA Számítógép: {0}:{1} -ra/-re nyert!", compScore, playerScore);
-                    Console.WriteLine("Új próbálkozás? i/n");
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
-                        case 'i':
-                            Start();
-                            break;
-                        case 'n':
-                            End();
-                            break;
-                    }
+                    case 'i':
+                        Start();
+                        break;
+                    case 'n':
+                        Exit();
+                        break;
                 }
-                if (playerScore == 5)
+            }
+            if (playerScore == 5)
+            {
+                Console.WriteLine("\nGratulálunk! Nyertél! \nA Játékos: {0}:{1} -ra/-re nyert!", compScore, playerScore);
+                Console.WriteLine("Új játék? i/n");
+                switch (Console.ReadKey(true).KeyChar)
                 {
-                    Console.WriteLine("\nGratulálunk! Nyertél! \nA Játékos: {0}:{1} -ra/-re nyert!", compScore, playerScore);
-                    Console.WriteLine("Új játék? i/n");
-                    switch (Console.ReadKey(true).KeyChar)
-                    {
-                        case 'i':
-                            Start();
-                            break;
-                        case 'n':
-                            End();
-                            break;
-                    }
+                    case 'i':
+                        Start();
+                        break;
+                    case 'n':
+                        Exit();
+                        break;
                 }
-                ++j;
             }
         }
-
-        public void Start()
-        {
-            Console.WriteLine("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
-            Console.WriteLine("\nA játék 5 pontig megy!");
-            Play();
+        void Exit()
+            {
+                Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
+                switch (Console.ReadKey(true).KeyChar)
+                {
+                    case 'i':
+                        g.Kezdes();
+                        break;
+                    case 'n':
+                        Console.WriteLine("Új játék? i/n");
+                        switch (Console.ReadKey(true).KeyChar)
+                        {
+                            case 'i':
+                                Start();
+                                break;
+                            case 'n':
+                                End();
+                                break;
+                        }
+                        break;
+                }
         }
+            
     }
 }

@@ -12,7 +12,7 @@ namespace szamkitjat
     {
         public void Kezdes()
         {
-            End1 e = new End1();
+            
             Kitalalos kitalalos = new Kitalalos();
             KoPapirOllo koPapirOllo = new KoPapirOllo();
             HuszonegyKartya huszonegyKartya = new HuszonegyKartya();
@@ -28,41 +28,29 @@ namespace szamkitjat
             {
                 case '1':
                     kitalalos.Start();
+                    kitalalos.Play();
+                    kitalalos.End();
                     break;
                 case '2':
                     koPapirOllo.Start();
+                    koPapirOllo.Play();
+                    koPapirOllo.End();
                     break;
                 case '3':
                     huszonegyKartya.Start();
+                    huszonegyKartya.Play();
+                    huszonegyKartya.End();
                     break;
                 case '4':
                     amoba.Start();
+                    amoba.Play();
+                    amoba.End();
                     break;
                 case 'k':
-                    e.Ending();
+                    Ending();
                     break;
                 default:
                     Kezdes();
-                    break;
-            }
-        }
-    }
-    class End1
-    {
-        public void End()
-        {
-            Game g = new Game();
-            Console.WriteLine("\nVissza a főoldalra? i/n");
-            switch (Console.ReadKey(true).KeyChar)
-            {
-                case 'i':
-                    g.Kezdes();
-                    break;
-                case 'n':
-                    g.Kezdes();
-                    break;
-                default:
-                    End();
                     break;
             }
         }
@@ -72,18 +60,6 @@ namespace szamkitjat
             Console.WriteLine("Viszlát");
             System.Threading.Thread.Sleep(2000);
             System.Environment.Exit(1);
-        }
-    }
-    
-
-    //TODO:Ez maradjon a Program.cs-ben
-    class Program{
-        static void Main(string[] args)
-        {
-            Game g = new Game();
-            Console.WriteLine("Üdv a játékban");
-            Console.WriteLine("Négy játékód közül lehet válsztani");
-            g.Kezdes();
         }
     }
 }

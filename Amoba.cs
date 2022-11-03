@@ -9,6 +9,10 @@ namespace szamkitjat
 {
     class Amoba : IGame
     {
+        #region propertiregion
+        int gamercount { get; set; }
+        public string Name => "Amoba";
+        #endregion propertiregion
         Game g = new Game();
         static int[] tabla = new int[9];
       
@@ -102,7 +106,6 @@ namespace szamkitjat
             Console.WriteLine("0,1,2");
             Console.WriteLine("3,4,5");
             Console.WriteLine("6,7,8");
-            Play();//TODO: Ez ne legyen itt
         }
 
         public void Play()
@@ -122,10 +125,21 @@ namespace szamkitjat
             {
                 while (elsoJatekos == -1 || tabla[elsoJatekos] != 0)
                 {
-
+                    int number;
                     Console.WriteLine("Írj be egy számot 0 - 8 ig");
-                    elsoJatekos = int.Parse(Console.ReadLine()); //TODO: Ez itt el fog szállni ha nem számot írnak be ezért inkább az int.TryParse -t használd
-                    Console.WriteLine($"A beírt szám:{elsoJatekos}");
+                    bool placeValid = int.TryParse(Console.ReadLine(), out number);
+                    if (placeValid)
+                    {
+                        Console.WriteLine($"A beírt szám:{number}");
+                    }
+                    if (number >= 9||number<0)
+                    {
+                        Console.WriteLine($"A beírt szám nem megfelelő");
+                    }
+                    else
+                    {
+                        elsoJatekos = number;
+                    }
                 }
 
                 tabla[elsoJatekos] = 1;
@@ -147,8 +161,10 @@ namespace szamkitjat
                 tablazat();
 
             }
+        }
 
-            //TODO: Ez eremények kiírása az End()-ben legyen
+        public void End()
+        {
             if (nyertes() == 1)
             {
                 Console.WriteLine("\nGratulálunk! Nyertél!");
@@ -163,7 +179,6 @@ namespace szamkitjat
                 Console.WriteLine("Döntetlen");
             }
 
-            //Console.WriteLine($"A nyertes a {nyertes()}");
             System.Threading.Thread.Sleep(2000);
 
             Console.WriteLine("Új játék? i/n");
@@ -173,15 +188,12 @@ namespace szamkitjat
                     Start();
                     break;
                 case 'n':
-                    End();
+                    Exit();
                     break;
             }
-           
         }
-
-        public void End()
+        void Exit()
         {
-            //TODO:Itt csak az eredmény kiírása legyen 
             Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
             switch (Console.ReadKey(true).KeyChar)
             {

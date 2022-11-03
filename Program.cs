@@ -1,11 +1,23 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using szamkitjat;
 
-//namespace SzamKitJat
-//{
+namespace SzamKitJat
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Game g = new Game();
+            Console.WriteLine("Üdv a játékban");
+            Console.WriteLine("Négy játékód közül lehet válsztani");
+            g.Kezdes();
+        }
+    }
+}
 //    class Program
 //    {
 //        static void Main(string[] args)
@@ -282,4 +294,5 @@
 //            }
 //        }
 //    }
-//}
+
+
