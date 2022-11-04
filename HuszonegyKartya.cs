@@ -21,6 +21,7 @@ namespace szamkitjat
         public void End()
         {
             Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
+
             switch (Console.ReadKey(true).KeyChar)
             {
                 case 'i':
