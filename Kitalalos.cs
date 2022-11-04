@@ -87,17 +87,7 @@ namespace szamkitjat
                             }
                             break;
                         case 'e':
-                            Console.WriteLine("A számítógép nyert!");
-                            Console.WriteLine("Új játék? i/n");
-                            switch (Console.ReadKey(true).KeyChar)
-                            {
-                                case 'i':
-                                    Start();
-                                    break;
-                                case 'n':
-                                    End();
-                                    break;
-                            }
+                            End();
                             break;
                     }
                     ++i;
