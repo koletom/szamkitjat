@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
     //TODO:Ha jól látom ez lenne a játék vezérlő. Ennek is legyen 1 interface mondjuk IGameController
     
-    class Game 
+    class Game : IGameController
     {
         public void Kezdes()
         {
