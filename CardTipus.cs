@@ -9,24 +9,8 @@ namespace szamkitjat
     
     public class CardTipus
     {
-        CardErtek cardErtek;
-        CardSzin szin;
 
-        public CardErtek Ertek
-        {
-            get { return this.cardErtek; }
-        }
-        public CardSzin Szin
-        {
-            get { return this.szin; }
-        }
-        //public Card()
-        //{
-        //    cardErtek = 0;
-        //    szin = 0;
-        //}
-
-        public enum CardErtek
+        public enum CardSzam
             {
                 Asz = 1,
                 Ketto = 2,
@@ -45,12 +29,79 @@ namespace szamkitjat
 
             public enum CardSzin
             {
-                Kor = 1,
-                Karo = 2,
-                Treff = 3,
-                Pikk = 4
+                Kor,
+                Karo,
+                Treff,
+                Pikk
             }
-            
+
+        public class Card
+        {
+            public CardSzam Szam { get; }
+            public CardSzin Szin { get; }
+            public int Ertek { get; set; }
+
+            public Card(CardSzam szam, CardSzin szin)
+            {
+                Szam = szam;
+                Szin = szin;
+
+                switch (Szam)
+                {
+                    case CardSzam.Tiz:
+                    case CardSzam.Jumbo:
+                    case CardSzam.Dama:
+                    case CardSzam.Kiraly:
+                        Ertek = 10;
+                        break;
+                    case CardSzam.Asz:
+                        Ertek = 11;
+                        break;
+                    default:
+                        Ertek = (int)Szam;
+                        break;
+                }
+            }
+        
+        
+       
+            public void CardFeltetel()
+       
+            {
+        
+                if (Szin == CardSzin.Pikk || Szin == CardSzin.Treff)
+       
+                {
+                    Console.ForegroundColor = ConsoleColor.Black;
+           
+                }
+        
+                else
+        
+                {
+           
+                    Console.ForegroundColor = ConsoleColor.Red;
+     
+                }
+        
+                if (Szam == CardSzam.Asz)
+      
+                {
+              
+                    if (Ertek == 11)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+     
+                }
+       
+            }
+
+        }
     }
-    
+
 }
