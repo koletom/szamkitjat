@@ -25,7 +25,13 @@ namespace szamkitjat
             Console.WriteLine("4 - Amőba");
             Console.WriteLine("k - Kilépés");
 
-            switch (Console.ReadKey(true).KeyChar)
+            char kezdes;
+            bool kilep;
+            kezdes = Console.ReadKey(true).KeyChar;
+            kilep = (kezdes == 'k' ^ kezdes == 'K');
+            if (kilep == true) { kezdes = 'k'; }
+            else { }
+            switch (kezdes)
             {
                 case '1':
                     kitalalos.Start();

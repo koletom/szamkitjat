@@ -64,9 +64,20 @@ namespace szamkitjat
                 int max = 100;
                 while (i < 5)
                 {
+                    char size;
+                    bool lower;
+                    bool higher;
+                    bool equal;
                     Console.WriteLine("A számítógép szerint a szám {0}", x);
                     Console.WriteLine("Szerinted? kisebb, nagyobb, egyenlő (k/n/e)");
-                    switch (Console.ReadKey(true).KeyChar)
+                    size = Console.ReadKey(true).KeyChar;
+                    lower = (size == 'k' ^ size == 'K');
+                    higher = (size == 'n' ^ size == 'N');
+                    equal = (size == 'e' ^ size == 'E');
+                    if (lower == true) { size = 'i'; }
+                    else if (higher == true) { size = 'n'; }
+                    else if (equal == true) { size = 'e'; }
+                    switch (size)
                     {
                         case 'k':
                             if (i == 3)
@@ -167,15 +178,31 @@ namespace szamkitjat
         }
         void Exit()
         {
+            char exit;
+            bool yes;
+            bool no;
             Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-            switch (Console.ReadKey(true).KeyChar)
+            exit = Console.ReadKey(true).KeyChar;
+            yes = (exit == 'i' ^ exit == 'I');
+            no = (exit == 'n' ^ exit == 'N');
+            if (yes == true) { exit = 'i'; }
+            else if (no == true) { exit = 'n'; }
+            switch (exit)
             {
                 case 'i':
                     g.Kezdes();
                     break;
                 case 'n':
+                    char newgame;
+                    bool y;
+                    bool n;
                     Console.WriteLine("Új játék? i/n");
-                    switch (Console.ReadKey(true).KeyChar)
+                    newgame = Console.ReadKey(true).KeyChar;
+                    y = (newgame == 'i' ^ newgame == 'I');
+                    n = (newgame == 'n' ^ newgame == 'N');
+                    if (y == true) { newgame = 'i'; }
+                    else if (n == true) { newgame = 'n'; }
+                    switch (newgame)
                     {
                         case 'i':
                             Start();
@@ -184,6 +211,9 @@ namespace szamkitjat
                             End();
                             break;
                     }
+                    break;
+                default:
+                    Exit();
                     break;
             }
         }

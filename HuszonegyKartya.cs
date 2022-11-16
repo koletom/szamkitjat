@@ -66,13 +66,17 @@ namespace szamkitjat
                 //Console.WriteLine("{0}. játékos lapjai:{1}",i,Generate(i, cards));
                 int hit = 0;
                 char rk;
+                bool newcardyes;
+                bool newcardno;
                 do
                 {
                     Console.WriteLine($"{i}. játékos húz-e új lapot? i/n");
                     rk = Console.ReadKey(true).KeyChar;
+                    newcardyes=(rk == 'i' ^ rk == 'I');
+                    newcardno = (rk == 'n' ^ rk == 'N');
                     // Le kellene ellenőrizni, hogy csak 'i', 'I', 'n', 'N' karaktereket adott-e meg a felhasználó ha nem ezeket adta akkor újra bekérünk 
 
-                    
+
 
                     m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
                     Generate(i, cards);
@@ -81,7 +85,7 @@ namespace szamkitjat
                    
 
                     hit++; //TODO: Ezt rakd át a while feltételbe
-                } while (hit < 3 || rk == 'i');
+                } while (hit < 3 || newcardyes == true );
             }
         }
 
@@ -100,15 +104,31 @@ namespace szamkitjat
         }
         void Exit()
         {
+            char exit;
+            bool yes;
+            bool no;
             Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-            switch (Console.ReadKey(true).KeyChar)
+            exit = Console.ReadKey(true).KeyChar;
+            yes = (exit == 'i' ^ exit == 'I');
+            no = (exit == 'n' ^ exit == 'N');
+            if (yes == true) { exit = 'i'; }
+            else if (no == true) { exit = 'n'; }
+            switch (exit)
             {
                 case 'i':
                     g.Kezdes();
                     break;
                 case 'n':
+                    char newgame;
+                    bool y;
+                    bool n;
                     Console.WriteLine("Új játék? i/n");
-                    switch (Console.ReadKey(true).KeyChar)
+                    newgame = Console.ReadKey(true).KeyChar;
+                    y = (newgame == 'i' ^ newgame == 'I');
+                    n = (newgame == 'n' ^ newgame == 'N');
+                    if (y == true) { newgame = 'i'; }
+                    else if (n == true) { newgame = 'n'; }
+                    switch (newgame)
                     {
                         case 'i':
                             Start();
@@ -117,6 +137,9 @@ namespace szamkitjat
                             End();
                             break;
                     }
+                    break;
+                default:
+                    Exit();
                     break;
             }
         }

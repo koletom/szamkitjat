@@ -31,8 +31,18 @@ namespace szamkitjat
                 string compChoice = "";
                 string playerChoice = "";
                 Console.WriteLine("Mit választasz? (k/p/o)");
-
-                switch (Console.ReadKey(true).KeyChar)
+                char valaszt;
+                bool ko;
+                bool papir;
+                bool ollo;
+                valaszt = Console.ReadKey(true).KeyChar;
+                ko = (valaszt == 'k' ^ valaszt == 'K');
+                papir = (valaszt == 'p' ^ valaszt == 'P');
+                ollo = (valaszt == 'o' ^ valaszt == 'O');
+                if (ko == true)  { valaszt = 'k'; }
+                else if (papir==true) { valaszt = 'p'; }
+                else if (ollo==true) { valaszt = 'o'; }
+                switch (valaszt)
                 {
                     case 'k':
                         playerChoice = "kő";
@@ -73,10 +83,20 @@ namespace szamkitjat
                     Console.WriteLine("\nDöntetlen! Az állás:\nSzámítógép: {0}\nJátékos:{1}",
                     compScore, playerScore);
                 }
-                else
+                else if (
+                    (compChoice == "kő" && playerChoice == "papír")
+                    ||
+                    (compChoice == "papír" && playerChoice == "olló")
+                     ||
+                     (compChoice == "olló" && playerChoice == "kő")
+                   )
                 {
                     Console.WriteLine("\nNyertél! Az állás:\nSzámítógép: {0}\nJátékos:{1}",
                     compScore, ++playerScore);
+                }
+                else
+                {
+                    Console.WriteLine("Csak az alábbi lehetőségek közül lehet választani: (k/p/o)");
                 }
             } while (playerScore <= 4 && compScore != 5
                     || compScore <= 4 && playerScore != 5);
@@ -89,9 +109,17 @@ namespace szamkitjat
         {
             if (compScore == 5)
             {
+                char tryagain;
+                bool y;
+                bool n;
                 Console.WriteLine("\nVeszítettél! \nA Számítógép: {0}:{1} -ra/-re nyert!", compScore, playerScore);
                 Console.WriteLine("Új próbálkozás? i/n");
-                switch (Console.ReadKey(true).KeyChar)
+                tryagain = Console.ReadKey(true).KeyChar;
+                y = (tryagain == 'i' ^ tryagain == 'I');
+                n = (tryagain == 'n' ^ tryagain == 'N');
+                if (y == true) { tryagain = 'i'; }
+                else if (n == true) { tryagain = 'n'; }
+                switch (tryagain)
                 {
                     case 'i':
                         Start();
@@ -104,8 +132,16 @@ namespace szamkitjat
             if (playerScore == 5)
             {
                 Console.WriteLine("\nGratulálunk! Nyertél! \nA Játékos: {0}:{1} -ra/-re nyert!", compScore, playerScore);
+                char newgame;
+                bool y;
+                bool n;
                 Console.WriteLine("Új játék? i/n");
-                switch (Console.ReadKey(true).KeyChar)
+                newgame = Console.ReadKey(true).KeyChar;
+                y = (newgame == 'i' ^ newgame == 'I');
+                n = (newgame == 'n' ^ newgame == 'N');
+                if (y == true) { newgame = 'i'; }
+                else if (n == true) { newgame = 'n'; }
+                switch (newgame)
                 {
                     case 'i':
                         Start();
@@ -117,26 +153,45 @@ namespace szamkitjat
             }
         }
         void Exit()
+        {
+            char exit;
+            bool yes;
+            bool no;
+            Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
+            exit = Console.ReadKey(true).KeyChar;
+            yes = (exit == 'i' ^ exit == 'I');
+            no = (exit == 'n' ^ exit == 'N');
+            if (yes == true) { exit = 'i'; }
+            else if (no == true) { exit = 'n'; }
+            switch (exit)
             {
-                Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-                switch (Console.ReadKey(true).KeyChar)
-                {
-                    case 'i':
-                        g.Kezdes();
-                        break;
-                    case 'n':
-                        Console.WriteLine("Új játék? i/n");
-                        switch (Console.ReadKey(true).KeyChar)
-                        {
-                            case 'i':
-                                Start();
-                                break;
-                            case 'n':
-                                End();
-                                break;
-                        }
-                        break;
-                }
+                case 'i':
+                    g.Kezdes();
+                    break;
+                case 'n':
+                    char newgame;
+                    bool y;
+                    bool n;
+                    Console.WriteLine("Új játék? i/n");
+                    newgame = Console.ReadKey(true).KeyChar;
+                    y = (newgame == 'i' ^ newgame == 'I');
+                    n = (newgame == 'n' ^ newgame == 'N');
+                    if (y == true) { newgame = 'i'; }
+                    else if (n == true) { newgame = 'n'; }
+                    switch (newgame)
+                    {
+                        case 'i':
+                            Start();
+                            break;
+                        case 'n':
+                            End();
+                            break;
+                    }
+                    break;
+                default:
+                    Exit();
+                    break;
+            }
         }
             
     }
