@@ -35,6 +35,8 @@ namespace szamkitjat
 
         }
 
+        private static CardDeck cardDeck = new CardDeck();
+
         int card
         {
             get
@@ -51,6 +53,11 @@ namespace szamkitjat
             {
                 gamercards[gamernum].Add(card);
             }
+        }
+
+        static void KezdoKezek()
+        {
+            cardDeck.Elokeszit();
         }
         public void Play()
         {
@@ -74,8 +81,7 @@ namespace szamkitjat
                     rk = Console.ReadKey(true).KeyChar;
                     newcardyes=(rk == 'i' ^ rk == 'I');
                     newcardno = (rk == 'n' ^ rk == 'N');
-                    // Le kellene ellenőrizni, hogy csak 'i', 'I', 'n', 'N' karaktereket adott-e meg a felhasználó ha nem ezeket adta akkor újra bekérünk 
-
+                   
 
 
                     m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni

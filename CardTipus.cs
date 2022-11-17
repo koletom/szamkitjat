@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static szamkitjat.CardSzam;
+using static szamkitjat.CardSzin;
+
 namespace szamkitjat
 {
-    
-    public class CardTipus
-    {
 
-        public enum CardSzam
+    public enum CardSzam
             {
-                Asz = 1,
-                Ketto = 2,
-                Harom = 3,
-                Negy = 4,
-                Ot = 5,
-                Hat = 6,
-                Het = 7,
-                Nyolc = 8,
-                Kilenc = 9,
-                Tiz = 10,
-                Jumbo = 11,
-                Dama = 12,
-                Kiraly = 13
+                Asz,
+                Ketto,
+                Harom,
+                Negy,
+                Ot,
+                Hat,
+                Het,
+                Nyolc,
+                Kilenc,
+                Tiz,
+                Jumbo,
+                Dama,
+                Kiraly
             }
 
             public enum CardSzin
@@ -35,30 +35,42 @@ namespace szamkitjat
                 Pikk
             }
 
-        public class Card
-        {
+        public class CardTipus
+    {
             public CardSzam Szam { get; }
             public CardSzin Szin { get; }
             public int Ertek { get; set; }
 
-            public Card(CardSzam szam, CardSzin szin)
+            public CardTipus(CardSzam szam, CardSzin szin)
             {
                 Szam = szam;
                 Szin = szin;
 
+                switch (Szin)
+                {
+                    case Kor:
+                        break;
+                    case Karo:
+                        break;
+                    case Treff:
+                        break;
+                    case Pikk:
+                        break;
+                }
+
                 switch (Szam)
                 {
-                    case CardSzam.Tiz:
-                    case CardSzam.Jumbo:
-                    case CardSzam.Dama:
-                    case CardSzam.Kiraly:
+                    case Tiz:
+                    case Jumbo:
+                    case Dama:
+                    case Kiraly:
                         Ertek = 10;
                         break;
-                    case CardSzam.Asz:
+                    case Asz:
                         Ertek = 11;
                         break;
                     default:
-                        Ertek = (int)Szam;
+                        Ertek = (int)Szam+1;
                         break;
                 }
             }
@@ -69,7 +81,7 @@ namespace szamkitjat
        
             {
         
-                if (Szin == CardSzin.Pikk || Szin == CardSzin.Treff)
+                if (Szin == Pikk || Szin == Treff)
        
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
@@ -84,7 +96,7 @@ namespace szamkitjat
      
                 }
         
-                if (Szam == CardSzam.Asz)
+                if (Szam == Asz)
       
                 {
               
@@ -102,6 +114,4 @@ namespace szamkitjat
             }
 
         }
-    }
-
 }

@@ -41,7 +41,7 @@ namespace szamkitjat
                     Play();
                     break;
                 case '3':
-                    g.Kezdes();
+                    Exit();
                     break;
                 default:
                     Start();
