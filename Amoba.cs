@@ -13,7 +13,6 @@ namespace szamkitjat
         int gamercount { get; set; }
         public string Name => "Amoba";
         #endregion propertiregion
-        Game g = new Game();
         static int[] tabla = new int[9];
       
         private static bool dontetlen()

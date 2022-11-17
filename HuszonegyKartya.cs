@@ -12,7 +12,6 @@ namespace szamkitjat
         public string Name => "Huszonegy";
         #endregion propertiregion
 
-        Game g = new Game();
 
         public void Start()
         {

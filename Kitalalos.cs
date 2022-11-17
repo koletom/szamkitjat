@@ -18,7 +18,6 @@ namespace szamkitjat
         int gamercount { get; set; }
         public string Name => "Kitalalos";
         #endregion propertiregion
-        Game g = new Game(); //TODO: Ez nem kell
         int gamer = 0;
 
         //Csak a játék módot kérje be, le kell ellenőrizni, hogy jó-e a readkeybe beolvasott karakter.

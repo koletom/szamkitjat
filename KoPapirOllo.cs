@@ -9,7 +9,6 @@ namespace szamkitjat
 {
     class KoPapirOllo : IGame
     {
-        Game g = new Game(); //TODO:Ez nem kell
         #region propertiregion
         int gamercount { get; set; }
         public string Name => "KPO";

@@ -11,19 +11,23 @@ namespace szamkitjat
     
     class Game : IGameController
     {
+        private IGame[] _games;
+        public Game(IGame[] games)
+        {
+            _games = games;
+        }
         public void Kezdes()
         {
-            
-            Kitalalos kitalalos = new Kitalalos();
-            KoPapirOllo koPapirOllo = new KoPapirOllo();
-            HuszonegyKartya huszonegyKartya = new HuszonegyKartya();
-            Amoba amoba = new Amoba();
+            if ( _games is null )
+            {
+
+            }
+            else
+            {
+
+            }
             Console.WriteLine("Válassz játékmódot");
-            Console.WriteLine("1 - Kitalálós");
-            Console.WriteLine("2 - Kő, Papír, Olló");
-            Console.WriteLine("3 - 21 kártyajáték");
-            Console.WriteLine("4 - Amőba");
-            Console.WriteLine("k - Kilépés");
+            
 
             char kezdes;
             bool kilep;
