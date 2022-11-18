@@ -55,6 +55,17 @@ namespace szamkitjat
             return kez;
         }
 
+        public List<CardTipus> OsztoKez() //Osztó kéz 2 lappal
+        {
+            List<CardTipus> kez = new List<CardTipus>();
+            kez.Add(cards[0]);
+            kez.Add(cards[1]);
+
+            cards.RemoveRange(0, 2);
+
+            return kez;
+        }
+
         public CardTipus LapHuzas()
         {
             CardTipus card = cards[0];

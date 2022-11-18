@@ -36,14 +36,16 @@ namespace szamkitjat
 
         private static CardDeck cardDeck = new CardDeck();
 
-        int card
-        {
-            get
-            {
-                Random num = new Random();
-                return num.Next(1, 10);
-            }
-        } 
+        //int card
+        //{
+        //    get
+        //    {
+        //        Random num = new Random();
+        //        return num.Next(1, 10);
+        //    }
+        //} 
+
+        
 
         void Generate(int gamernum, List<int>[] gamercards)
         {
@@ -57,9 +59,21 @@ namespace szamkitjat
         static void KezdoKezek()
         {
             cardDeck.Elokeszit();
+
+            Players.Hand = cardDeck.KezdoKez();
+            Oszto.OsztoCards = cardDeck.OsztoKez();
+
+            Players.KezMutat();
+            Oszto.KezMutat();
         }
         public void Play()
         {
+            Console.Clear();
+            Players.KezMutat();
+            Oszto.KezMutat();
+
+
+
             List<int>[] cards = new List<int>[gamercount];
 
             for (int i = 0; i < gamercount; i++)
@@ -71,26 +85,70 @@ namespace szamkitjat
                 Console.WriteLine($"{i}. játékos lapjai:{m}");
                 //Console.WriteLine("{0}. játékos lapjai:{1}",i,Generate(i, cards));
                 int hit = 0;
-                char rk;
-                bool newcardyes;
-                bool newcardno;
+                string rk;
+                //bool newcardyes;
+                //bool newcardno;
                 do
                 {
-                    Console.WriteLine($"{i}. játékos húz-e új lapot? i/n");
-                    rk = Console.ReadKey(true).KeyChar;
-                    newcardyes=(rk == 'i' ^ rk == 'I');
-                    newcardno = (rk == 'n' ^ rk == 'N');
-                   
+                    Console.WriteLine($"{i}. játékos húz-e új lapot?");
+                    Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
+                    rk = Console.ReadLine();
+                    //newcardyes=(rk == 'i' ^ rk == 'I');
+                    //newcardno = (rk == 'n' ^ rk == 'N');
+                    switch (rk.ToUpper())
+                    {
+                        case "HIT":
+                            Players.Hand.Add(cardDeck.LapHuzas());
+                            break;
+                        case "STOP":
+                            break;
+                        default:
+                            Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
+                            break;
+                    }
 
+                    if (Players.KezErtek() >21)
+                    {
+                        foreach (CardTipus card in Players.Hand)
+                        {
+                            if (card.Ertek == 11)
+                            {
+                                card.Ertek = 1;
+                                break;
+                            }
+                        }
+                    }
 
                     m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
                     Generate(i, cards);
-                                  
+
                     Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
-                   
+
 
                     hit++; //TODO: Ezt rakd át a while feltételbe
-                } while (hit < 3 || newcardyes == true );
+                } while (!rk.ToUpper().Equals("STOP") && Players.KezErtek() <= 21); /*while (hit < 3 || newcardyes == true );*/
+            }
+        }
+
+        private enum Vegeredmeny
+        {
+            NYERT,
+            VESZTETT,
+            DONTETLEN
+        }
+
+        static void KorVege(Vegeredmeny vegeredmeny)
+        {
+            switch (vegeredmeny)
+            {
+                case Vegeredmeny.NYERT:
+                    break;
+                case Vegeredmeny.VESZTETT:
+                    break;
+                case Vegeredmeny.DONTETLEN:
+                    break;
+                default:
+                    break;
             }
         }
 

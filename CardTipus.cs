@@ -85,7 +85,6 @@ namespace szamkitjat
        
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
-           
                 }
         
                 else
@@ -93,7 +92,6 @@ namespace szamkitjat
                 {
            
                     Console.ForegroundColor = ConsoleColor.Red;
-     
                 }
         
                 if (Szam == Asz)
@@ -102,11 +100,11 @@ namespace szamkitjat
               
                     if (Ertek == 11)
                     {
-
+                        Console.WriteLine();
                     }
                     else
                     {
-
+                        Console.WriteLine();
                     }
      
                 }

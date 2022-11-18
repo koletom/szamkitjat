@@ -11,10 +11,13 @@ namespace SzamKitJat
     {
         static void Main(string[] args)
         {
-            Game g = new Game();
+           
             Console.WriteLine("Üdv a játékban");
             Console.WriteLine("Négy játékód közül lehet válsztani");
-            g.Kezdes();
+            Console.WriteLine("1-");
+            Console.WriteLine("2-");
+            Console.WriteLine("3-");
+            Console.WriteLine("4-");
         }
     }
 }

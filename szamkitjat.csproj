@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Amoba.cs" />
     <Compile Include="CardDeck.cs" />
+    <Compile Include="CardPlayers.cs" />
     <Compile Include="CardTipus.cs" />
     <Compile Include="Computer.cs" />
     <Compile Include="HuszonegyKartya.cs" />
