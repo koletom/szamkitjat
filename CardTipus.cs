@@ -78,7 +78,6 @@ namespace szamkitjat
         
        
             public void CardFeltetel()
-       
             {
         
                 if (Szin == Pikk || Szin == Treff)
@@ -88,27 +87,25 @@ namespace szamkitjat
                 }
         
                 else
-        
                 {
-           
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
         
                 if (Szam == Asz)
-      
                 {
-              
                     if (Ertek == 11)
                     {
-                        Console.WriteLine();
-                    }
+                        Console.WriteLine($"{Szin} {Szam} (értéke:11)");
+                }
                     else
                     {
-                        Console.WriteLine();
+                        Console.WriteLine($"{Szin} {Szam} (értéke:1)");
                     }
-     
                 }
-       
+                else
+                {
+                    Console.WriteLine($"{Szin} {Szam}");
+                }
             }
 
         }

@@ -22,7 +22,7 @@ namespace szamkitjat
 
         public static void KezMutat()
         {
-
+            Console.WriteLine($"Kézben levő lapok értéke: {KezErtek()}");
         }
     }
     public class Oszto
@@ -41,7 +41,7 @@ namespace szamkitjat
 
         public static void KezMutat()
         {
-
+            Console.WriteLine($"Osztó kezében levő lapok értéke: {OsztoKezErtek()}");
         }
     }
 
