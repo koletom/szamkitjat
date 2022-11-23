@@ -29,7 +29,7 @@ namespace szamkitjat
     {
         public static List<CardTipus> OsztoCards { get; set; } = new List<CardTipus>();
 
-        public int OsztoKezErtek()
+        public static int OsztoKezErtek()
         {
             int ertek = 0;
             foreach (CardTipus card in OsztoCards)

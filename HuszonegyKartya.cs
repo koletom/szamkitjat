@@ -132,6 +132,7 @@ namespace szamkitjat
 
         private enum Vegeredmeny
         {
+            BLACKJACK,
             NYERT,
             VESZTETT,
             DONTETLEN
@@ -141,29 +142,75 @@ namespace szamkitjat
         {
             switch (vegeredmeny)
             {
+                case Vegeredmeny.BLACKJACK:
+                    Console.WriteLine("Blackjack. Játékos nyert");
+                    break;
                 case Vegeredmeny.NYERT:
+                    Console.WriteLine("Játékos nyert");
                     break;
                 case Vegeredmeny.VESZTETT:
+                    Console.WriteLine("Osztó nyert");
                     break;
                 case Vegeredmeny.DONTETLEN:
+                    Console.WriteLine("Döntetlen");
                     break;
                 default:
+                    Console.WriteLine("Hiba történt!");
                     break;
             }
         }
 
+        public static bool Blackjack(List<CardTipus> kez)
+        {
+            if (kez.Count == 2)
+            {
+                if (kez[0].Szam == CardSzam.Asz && kez[1].Ertek == 10)
+                {
+                    return true;
+                }
+                else if (kez[1].Szam == CardSzam.Asz && kez[0].Ertek == 10)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         /// <summary>
         /// Ebben a metódusban kellene kiíratni a nyerteseket mást nem. Az eredmény kiírása után a readkey nem árt azért, hogy el is lehessen olvasni az eredményt
         /// A Start, a Play ill. az End metódusok hívását majd a főprogram fogja elvégezni.
         /// </summary>
         public void End()
         {
-            if (card == 21) //TODO: Ilyen soha nem lesz, itt azt kellene leellenőrizni, hogy cards tömb valamelyik lista elemeinek az összege 21 és ha talál akkor annak az indexét,
-                            //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a 
-                            //többi játékos lista elem összegeinél. A teljes ellenőrzést nem itt kellene lefuttatni, hanem az End metódusban
+            if (Players.KezErtek() > Oszto.OsztoKezErtek())
             {
-                Console.WriteLine($"{gamercount}. játékos nyert.");
+                if (Blackjack(Players.Hand))
+                {
+                    KorVege(Vegeredmeny.BLACKJACK);
+                }
+                else
+                {
+                    KorVege(Vegeredmeny.NYERT);
+                }
             }
+            else if (Oszto.OsztoKezErtek() > 21)
+            {
+                KorVege(Vegeredmeny.NYERT);
+            }
+            else if (Oszto.OsztoKezErtek() > Players.KezErtek())
+            {
+                KorVege(Vegeredmeny.VESZTETT);
+            }
+            else if (Oszto.OsztoKezErtek() == Players.KezErtek())
+            {
+                KorVege(Vegeredmeny.DONTETLEN);
+            }
+
+            //if (card == 21) //TODO: Ilyen soha nem lesz, itt azt kellene leellenőrizni, hogy cards tömb valamelyik lista elemeinek az összege 21 és ha talál akkor annak az indexét,
+            //                //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a 
+            //                //többi játékos lista elem összegeinél. A teljes ellenőrzést nem itt kellene lefuttatni, hanem az End metódusban
+            //{
+            //    Console.WriteLine($"{gamercount}. játékos nyert.");
+            //}
         }
         void Exit()
         {
