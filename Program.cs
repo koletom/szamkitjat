@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using szamkitjat;
+using szamkitjatiterfaces;
 
 namespace SzamKitJat
 {
@@ -11,13 +12,32 @@ namespace SzamKitJat
     {
         static void Main(string[] args)
         {
-           
+
             Console.WriteLine("Üdv a játékban");
             Console.WriteLine("Négy játékód közül lehet válsztani");
-            Console.WriteLine("1-");
-            Console.WriteLine("2-");
-            Console.WriteLine("3-");
-            Console.WriteLine("4-");
+            Console.WriteLine("1- Amőba");
+            Console.WriteLine("2- Kitalálós");
+            Console.WriteLine("3- Huszonegy");
+            Console.WriteLine("4- Kő, Papír, Olló");
+            Console.WriteLine("Válassz játékmódot");
+
+
+            int s = Console.ReadKey(true).KeyChar - 1;
+            //if ()
+            //{
+            //}
+
+            IGame[] games = new IGame[4];
+
+            games[0] = new Amoba();
+            games[1] = new Kitalalos();
+            games[2] = new HuszonegyKartya();
+            games[3] = new KoPapirOllo();
+
+            var n = new Game(games);
+            
+            n.Kezdes();
+            n.Ending();
         }
     }
 }

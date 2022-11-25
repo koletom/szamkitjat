@@ -18,16 +18,13 @@ namespace szamkitjat
         }
         public void Kezdes()
         {
-            if ( _games is null )
+            if ( _games is null || _games.Length==0)
             {
-
+                Console.WriteLine("Nincs érték");
+                return;
             }
-            else
-            {
 
-            }
-            Console.WriteLine("Válassz játékmódot");
-            
+            //_games
 
             char kezdes;
             bool kilep;
@@ -35,38 +32,15 @@ namespace szamkitjat
             kilep = (kezdes == 'k' ^ kezdes == 'K');
             if (kilep == true) { kezdes = 'k'; }
             else { }
-            switch (kezdes)
-            {
-                case '1':
-                    kitalalos.Start();
-                    kitalalos.Play();
-                    kitalalos.End();
-                    break;
-                case '2':
-                    koPapirOllo.Start();
-                    koPapirOllo.Play();
-                    koPapirOllo.End();
-                    break;
-                case '3':
-                    huszonegyKartya.Start();
-                    huszonegyKartya.Play();
-                    huszonegyKartya.End();
-                    break;
-                case '4':
-                    amoba.Start();
-                    amoba.Play();
-                    amoba.End();
-                    break;
-                case 'k':
-                    Ending();
-                    break;
-                default:
-                    Kezdes();
-                    break;
-            }
+
+            //if (Console.ReadKey(true).KeyChar == 1)
+            //{
+            //}
+            //else if
+
         }
 
-        public void Ending()
+            public void Ending()
         {
             Console.WriteLine("Viszlát");
             System.Threading.Thread.Sleep(2000);
