@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using szamkitjatiterfaces;
 
 namespace szamkitjat
-{
-    //TODO:Ha jól látom ez lenne a játék vezérlő. Ennek is legyen 1 interface mondjuk IGameController
-    
+{   
     class Game : IGameController
     {
         private IGame[] _games;
@@ -23,14 +21,14 @@ namespace szamkitjat
                 Console.WriteLine("Nincs érték");
                 return;
             }
-
-            //_games
-
+            
+            //TODO: Jelenítsd meg a menüt!!! 
+            //(ciklus kiir ciklusindex, IGame.Name)
             char kezdes;
             bool kilep;
             kezdes = Console.ReadKey(true).KeyChar;
-            kilep = (kezdes == 'k' ^ kezdes == 'K');
-            if (kilep == true) { kezdes = 'k'; }
+            kilep = (kezdes == 'k' ^ kezdes == 'K'); //TODO:Logikai kifejezésben ne használj bitwise operátorokat.
+            if (kilep == true) { kezdes = 'k'; } 
             else { }
 
             //if (Console.ReadKey(true).KeyChar == 1)

@@ -4,7 +4,7 @@ using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
-
+    //TODO: https://hu.wikipedia.org/wiki/Huszonegy e szerint működjön
     class HuszonegyKartya : IGame
     {
         #region propertiregion
