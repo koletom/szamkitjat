@@ -189,7 +189,7 @@ namespace szamkitjat
             switch (exit)
             {
                 case 'i':
-                    g.Kezdes();
+                    //g.Kezdes();
                     break;
                 case 'n':
                     char newgame;

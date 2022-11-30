@@ -8,7 +8,44 @@ namespace szamkitjat
 {
     public class Players
     {
+        public int Coin { get; set; } = 100;
+        public int Tet { get; set; }
+
         public static List<CardTipus> Hand { get; set; }
+
+        public void AddTet(int tet)
+        {
+            Tet += tet;
+            Coin -= tet;
+        }
+
+        public void TetNullaz()
+        {
+            Tet = 0;
+        }
+
+        public void TetVisszakap()
+        {
+            Coin += Tet;
+            TetNullaz();
+        }
+
+        public int TetNyer(bool blackjack)
+        {
+            int nyeremeny;
+            if (blackjack)
+            {
+                nyeremeny = Tet * 3;
+            }
+            else
+            {
+                nyeremeny = Tet * 2;
+            }
+
+            Coin += nyeremeny;
+            TetNullaz();
+            return nyeremeny;
+        }
 
         public static int KezErtek()
         {

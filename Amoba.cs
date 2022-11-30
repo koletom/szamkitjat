@@ -213,7 +213,7 @@ namespace szamkitjat
             switch (exit)
             {
                 case 'i':
-                    Kezdes();
+                    //Kezdes();
                     break;
                 case 'n':
                     char newgame;
