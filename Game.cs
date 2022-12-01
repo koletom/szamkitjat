@@ -64,6 +64,7 @@ namespace szamkitjat
                 selectedGame.Play();
                 selectedGame.End();
 
+                //TODO:Ez a kiírás nem az igazi, javítsd ki, hogy jó legyen.
                 Console.WriteLine("Akarsz újra {0} játszani? (i/n)");
                 
                 c = Console.ReadKey(true).KeyChar;
