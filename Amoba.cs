@@ -15,7 +15,7 @@ namespace szamkitjat
         #endregion propertiregion
         static int[] tabla = new int[9];
       
-        private static bool dontetlen()
+        private static bool megszakit()
         {
             bool tele = true;
             for (int i = 0; i < tabla.Length; i++)
@@ -99,6 +99,7 @@ namespace szamkitjat
        
         public void Start()
         {
+            Console.Clear();
             Console.WriteLine("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe");
             Console.WriteLine("A Játékos az X-el, a Gép a O-rel van.");
             Console.WriteLine("A számok a rácson az alábbi helyeket foglalják el:");
@@ -118,7 +119,7 @@ namespace szamkitjat
             int elsoJatekos = -1;
             int gepJatekos = -1;
             Random rand = new Random();
-            
+
             tablazat();
             while (nyertes() == 0)
             {
@@ -127,6 +128,7 @@ namespace szamkitjat
                     int number;
                     Console.WriteLine("Írj be egy számot 0 - 8 ig");
                     bool placeValid = int.TryParse(Console.ReadLine(), out number);
+                    Console.Clear();
                     if (placeValid)
                     {
                         Console.WriteLine($"A beírt szám:{number}");
@@ -143,7 +145,7 @@ namespace szamkitjat
 
                 tabla[elsoJatekos] = 1;
 
-                if (dontetlen())
+                if (megszakit())
                     break;
 
                 while (gepJatekos == -1 || tabla[gepJatekos] != 0)
@@ -154,7 +156,7 @@ namespace szamkitjat
 
                 tabla[gepJatekos] = 2;
 
-                if (dontetlen())
+                if (megszakit())
                     break;
 
                 tablazat();
@@ -164,81 +166,26 @@ namespace szamkitjat
 
         public void End()
         {
+            var h = new Hang();
             if (nyertes() == 1)
             {
                 Console.WriteLine("\nGratulálunk! Nyertél!");
                 Console.WriteLine("Jatékos nyert");
+                h.Win();
             }
             if (nyertes() == 2)
             {
                 Console.WriteLine("\nVeszítettél! \nA Számítógép nyert!");
+                h.Lose();
             }
-            if (dontetlen())
+            if (nyertes() != 1 && nyertes() != 2)
             {
                 Console.WriteLine("Döntetlen");
+                h.Tie();
             }
 
             System.Threading.Thread.Sleep(2000);
 
-            char newgame;
-            bool y;
-            bool n;
-            Console.WriteLine("Új játék? i/n");
-            newgame = Console.ReadKey(true).KeyChar;
-            y = (newgame == 'i' ^ newgame == 'I');
-            n = (newgame == 'n' ^ newgame == 'N');
-            if (y == true) { newgame = 'i'; }
-            else if (n == true) { newgame = 'n'; }
-            switch (newgame)
-            {
-                case 'i':
-                    Start();
-                    break;
-                case 'n':
-                    Exit();
-                    break;
-            }
-        }
-        void Exit()
-        {
-            char exit;
-            bool yes;
-            bool no;
-            Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-            exit = Console.ReadKey(true).KeyChar;
-            yes = (exit == 'i' ^ exit == 'I');
-            no = (exit == 'n' ^ exit == 'N');
-            if (yes == true) { exit = 'i'; }
-            else if (no == true) { exit = 'n'; }
-            switch (exit)
-            {
-                case 'i':
-                    //Kezdes();
-                    break;
-                case 'n':
-                    char newgame;
-                    bool y;
-                    bool n;
-                    Console.WriteLine("Új játék? i/n");
-                    newgame = Console.ReadKey(true).KeyChar;
-                    y = (newgame == 'i' ^ newgame == 'I');
-                    n = (newgame == 'n' ^ newgame == 'N');
-                    if (y == true) { newgame = 'i'; }
-                    else if (n == true) { newgame = 'n'; }
-                    switch (newgame)
-                    {
-                        case 'i':
-                            Start();
-                            break;
-                        case 'n':
-                            End();
-                            break;
-                    }
-                    break;
-                default:
-                    Exit();
-                    break;
-            }
         }
     }
 }

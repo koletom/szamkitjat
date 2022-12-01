@@ -24,6 +24,7 @@ namespace szamkitjat
         //Ne innen legyen meghívva a play, a vissza a főmenübe esetén se legyen a g.Kezdés meghívva
         public void Start()
         {
+            Console.Clear();
             Console.WriteLine("Válassz játékmódot");
             Console.WriteLine("1 - Te gondolsz egy számra");
             Console.WriteLine("2 - A számítógép gondol egy számra");
@@ -40,7 +41,6 @@ namespace szamkitjat
                     Play();
                     break;
                 case '3':
-                    Exit();
                     break;
                 default:
                     Start();
@@ -61,7 +61,7 @@ namespace szamkitjat
                 int x = 50;
                 int min = 0;
                 int max = 100;
-                while (i < 5)
+                while (i < 5)   //Ezt még ki kell javítani
                 {
                     char size;
                     bool lower;
@@ -73,7 +73,7 @@ namespace szamkitjat
                     lower = (size == 'k' ^ size == 'K');
                     higher = (size == 'n' ^ size == 'N');
                     equal = (size == 'e' ^ size == 'E');
-                    if (lower == true) { size = 'i'; }
+                    if (lower == true) { size = 'k'; }
                     else if (higher == true) { size = 'n'; }
                     else if (equal == true) { size = 'e'; }
                     switch (size)
@@ -97,6 +97,7 @@ namespace szamkitjat
                             }
                             break;
                         case 'e':
+                            cc = 20;
                             End();
                             break;
                     }
@@ -107,15 +108,15 @@ namespace szamkitjat
 
             }
             if (gamer == 2) //Gep
-                {
+            {
 
                     Console.WriteLine("\nA gép gondolt egy számra 0-100-ig \n5 tipped lehet!");
                     Random r = new Random();
                     int number = r.Next(100);
                     int c = 1;
                     int y = 0;
-                    while (c <= 5)
-                    {
+                    while (c <= 5)   //Ezt még ki kell javítani
+                {
                         Console.WriteLine($"\n{c}. tipped: ");
                         y = int.Parse(Console.ReadLine());
 
@@ -135,86 +136,51 @@ namespace szamkitjat
                         else
                         {
                             cc = 15;
+                            End();
                         }
                         ++c;
                     }
-                }
-            
+            }
         }
         public void End()
         {
-            if (cc==5)
+            var h = new Hang();
+            if (cc == 5)
             {
-                Console.WriteLine("A számítógép nem tudta kitalálni a számot.");
+                Console.WriteLine("Nyertél! A számítógép nem tudta kitalálni a számot.");
+                h.Win();
             }
-            if (cc==10) {
+            else if (cc == 10) {
                 Console.WriteLine("Eltaláltad!\nNyertél!");
-                Console.WriteLine("Új játék? i/n");
-                switch (Console.ReadKey(true).KeyChar)
-                {
-                    case 'i':
-                        Start();
-                        break;
-                    case 'n':
-                        End();
-                        break;
-                }
+                h.Win();
             }
-            else if(cc==15)
+            else if (cc == 15)
             {
                 Console.WriteLine("\nVesztettél, a szám {number} volt.");
+                h.Lose();
             }
-            Console.WriteLine("Új játék? i/n");
-            switch (Console.ReadKey(true).KeyChar)
+            else if (cc == 20)
             {
-                case 'i':
-                    Start();
-                    break;
-                case 'n':
-                    Exit();
-                    break;
+                Console.WriteLine("Vesztettél, a számítógép kitalálta a számot.");
+                h.Lose();
             }
+            
         }
-        void Exit()
+
+        void KitalalRestart(IGame game)
         {
-            char exit;
-            bool yes;
-            bool no;
-            Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-            exit = Console.ReadKey(true).KeyChar;
-            yes = (exit == 'i' ^ exit == 'I');
-            no = (exit == 'n' ^ exit == 'N');
-            if (yes == true) { exit = 'i'; }
-            else if (no == true) { exit = 'n'; }
-            switch (exit)
+            char c;
+            do
             {
-                case 'i':
-                    //g.Kezdes();
-                    break;
-                case 'n':
-                    char newgame;
-                    bool y;
-                    bool n;
-                    Console.WriteLine("Új játék? i/n");
-                    newgame = Console.ReadKey(true).KeyChar;
-                    y = (newgame == 'i' ^ newgame == 'I');
-                    n = (newgame == 'n' ^ newgame == 'N');
-                    if (y == true) { newgame = 'i'; }
-                    else if (n == true) { newgame = 'n'; }
-                    switch (newgame)
-                    {
-                        case 'i':
-                            Start();
-                            break;
-                        case 'n':
-                            End();
-                            break;
-                    }
-                    break;
-                default:
-                    Exit();
-                    break;
-            }
+                Start();
+                Play();
+                End();
+
+                Console.WriteLine("Akarsz újra {0} játékkal játszani? (i/n)", game.Name);
+
+                c = Console.ReadKey(true).KeyChar;
+
+            } while (char.ToUpper(c) == 'I');
         }
     }
 }

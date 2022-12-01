@@ -15,6 +15,7 @@ namespace szamkitjat
         #endregion propertiregion
         public void Start()
         {
+            Console.Clear();
             Console.WriteLine("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
             Console.WriteLine("\nA játék 5 pontig megy!");
         }
@@ -23,6 +24,7 @@ namespace szamkitjat
         int playerScore = 0;
         public void Play()
         {
+            var h = new Hang();
             Random kpo = new Random();
 
             do
@@ -74,13 +76,17 @@ namespace szamkitjat
                      (playerChoice == "olló" && compChoice == "kő")
                    )
                 {
-                    Console.WriteLine("\nVeszítettél! Az állás:\nSzámítógép: {0}\nJátékos:{1}",
-                    ++compScore, playerScore);
+                    Console.Clear();
+                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
+                    Console.WriteLine("\nVeszítettél! Az állás:\nSzámítógép: {0}\nJátékos:{1}",++compScore, playerScore);
+                    h.Bad();
                 }
                 else if (playerChoice == compChoice)
                 {
-                    Console.WriteLine("\nDöntetlen! Az állás:\nSzámítógép: {0}\nJátékos:{1}",
-                    compScore, playerScore);
+                    Console.Clear();
+                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
+                    Console.WriteLine("\nDöntetlen! Az állás:\nSzámítógép: {0}\nJátékos:{1}",compScore, playerScore);
+                    h.Tie();
                 }
                 else if (
                     (compChoice == "kő" && playerChoice == "papír")
@@ -90,11 +96,15 @@ namespace szamkitjat
                      (compChoice == "olló" && playerChoice == "kő")
                    )
                 {
-                    Console.WriteLine("\nNyertél! Az állás:\nSzámítógép: {0}\nJátékos:{1}",
-                    compScore, ++playerScore);
+                    Console.Clear();
+                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
+                    Console.WriteLine("\nNyertél! Az állás:\nSzámítógép: {0}\nJátékos:{1}",compScore, ++playerScore);
+                    h.Good();
                 }
                 else
                 {
+                    Console.Clear();
+                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
                     Console.WriteLine("Csak az alábbi lehetőségek közül lehet választani: (k/p/o)");
                 }
             } while (playerScore <= 4 && compScore != 5
@@ -106,14 +116,20 @@ namespace szamkitjat
 
         public void End()
         {
+            var h = new Hang();
+            
             if (compScore == 5)
             {
-                Console.WriteLine("\nVeszítettél! \nA Számítógép: {0}:{1} -ra/-re nyert!", compScore, playerScore);                
+                h.Lose();
+                Console.WriteLine("\nVeszítettél! \nA Számítógép: {0}:{1} -ra/-re nyert!", compScore, playerScore);
             }
             if (playerScore == 5)
             {
-                Console.WriteLine("\nGratulálunk! Nyertél! \nA Játékos: {0}:{1} -ra/-re nyert!", compScore, playerScore);                
+                h.Win();
+                Console.WriteLine("\nGratulálunk! Nyertél! \nA Játékos: {0}:{1} -ra/-re nyert!", compScore, playerScore);
             }
+            compScore = 0;
+            playerScore = 0;
         }       
             
     }

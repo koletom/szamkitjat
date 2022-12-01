@@ -27,7 +27,7 @@ namespace szamkitjat
             {
                 sbyte jatekmod = -1;
                 
-                Console.WriteLine("Üdv a Játékok Univerzumában\n");
+               
                 Console.WriteLine("Az alábbi {0} játékmód közül lehet válsztani\n", _games.Length);
 
                 for (int i = 0; i < _games.Length; i++)
@@ -35,8 +35,9 @@ namespace szamkitjat
                     Console.WriteLine("{0} -> {1}", i, _games[i].Name);
                 }
 
-                Console.WriteLine("\nK -> Kilépés a játék univerzumból\n");
+                Console.WriteLine("\nX -> Kilépés a játék univerzumból\n");
                 Console.WriteLine("Válassz játékmódot / Add meg a játékmód számát (0-{0})", _games.Length - 1);
+
                 valasztas = Console.ReadKey(true).KeyChar;
 
                 if (sbyte.TryParse(((char)valasztas).ToString(), out jatekmod))
@@ -47,7 +48,7 @@ namespace szamkitjat
                     }
                 }
                 Console.Clear();
-            } while (char.ToUpper(valasztas) != 'K');
+            } while (char.ToUpper(valasztas) != 'X');
         }
 
         public void Ending()
@@ -64,7 +65,7 @@ namespace szamkitjat
                 selectedGame.Play();
                 selectedGame.End();
 
-                Console.WriteLine("Akarsz újra {0} játszani? (i/n)");
+                Console.WriteLine("Akarsz újra {0} játékkal játszani? (i/n)", selectedGame.Name);
                 
                 c = Console.ReadKey(true).KeyChar;
 
