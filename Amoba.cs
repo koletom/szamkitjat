@@ -99,6 +99,8 @@ namespace szamkitjat
        
         public void Start()
         {
+            var h = new Hang();
+            h.Good();
             Console.Clear();
             Console.WriteLine("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe");
             Console.WriteLine("A Játékos az X-el, a Gép a O-rel van.");
@@ -110,7 +112,7 @@ namespace szamkitjat
 
         public void Play()
         {
-            
+            var h = new Hang();
             for (int i = 0; i < 9; i++)
             {
                 tabla[i] = 0;
@@ -128,6 +130,7 @@ namespace szamkitjat
                     int number;
                     Console.WriteLine("Írj be egy számot 0 - 8 ig");
                     bool placeValid = int.TryParse(Console.ReadLine(), out number);
+                    h.Lepes();
                     Console.Clear();
                     if (placeValid)
                     {
@@ -135,6 +138,7 @@ namespace szamkitjat
                     }
                     if (number >= 9||number<0)
                     {
+                        h.Hiba();
                         Console.WriteLine($"A beírt szám nem megfelelő");
                     }
                     else

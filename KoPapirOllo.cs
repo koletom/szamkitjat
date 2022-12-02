@@ -15,6 +15,8 @@ namespace szamkitjat
         #endregion propertiregion
         public void Start()
         {
+            var h = new Hang();
+            h.Good();
             Console.Clear();
             Console.WriteLine("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
             Console.WriteLine("\nA játék 5 pontig megy!");
@@ -37,6 +39,8 @@ namespace szamkitjat
                 bool papir;
                 bool ollo;
                 valaszt = Console.ReadKey(true).KeyChar;
+                h.Lepes();
+                System.Threading.Thread.Sleep(500);
                 ko = (valaszt == 'k' ^ valaszt == 'K');
                 papir = (valaszt == 'p' ^ valaszt == 'P');
                 ollo = (valaszt == 'o' ^ valaszt == 'O');
@@ -104,11 +108,13 @@ namespace szamkitjat
                 else
                 {
                     Console.Clear();
+                    h.Hiba();
                     Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
                     Console.WriteLine("Csak az alábbi lehetőségek közül lehet választani: (k/p/o)");
                 }
             } while (playerScore <= 4 && compScore != 5
                     || compScore <= 4 && playerScore != 5);
+            System.Threading.Thread.Sleep(500);
         }
 
        

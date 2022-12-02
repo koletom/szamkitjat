@@ -84,6 +84,31 @@ namespace szamkitjat
                 Console.Beep(TI[oct1], 800);
             }
         }
+        public void Lepes()
+        {
+            int oct1 = 0;
+            int oct2 = 1;
+            int oct3 = 2;
+            int oct4 = 3;
+
+            for (int i = 0; i < 1; i++)
+            {
+                Console.Beep(RE[oct3], 200);
+            }
+        }
+        public void Hiba()
+        {
+            int oct1 = 0;
+            int oct2 = 1;
+            int oct3 = 2;
+            int oct4 = 3;
+
+            for (int i = 0; i < 1; i++)
+            {
+                Console.Beep(TI[oct4], 300);
+                Console.Beep(TI[oct4], 400);
+            }
+        }
         public void Music()
         {
             int oct1 = 0;
