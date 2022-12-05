@@ -16,7 +16,7 @@ namespace szamkitjat
         static int[] LA = new int[] { 220, 440, 880, 1760 };
         static int[] TI = new int[] { 247, 494, 988, 1976 };
 
-
+        
         public void Lose()
         {
             int oct1 = 0;

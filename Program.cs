@@ -10,9 +10,12 @@ namespace SzamKitJat
 {
     class Program
     {
+                
         static void Main(string[] args)
         {
-            var h = new Hang();
+            var h = new Hang(); 
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             h.Music();
             Console.WriteLine("Üdv a Játékok Univerzumában\n");
             h.Music();
@@ -29,6 +32,7 @@ namespace SzamKitJat
             h.Music();
             n.Ending();
             h.Music();
+
         }
     }
 }

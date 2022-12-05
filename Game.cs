@@ -38,6 +38,8 @@ namespace szamkitjat
                 Console.WriteLine("\nX -> Kilépés a játék univerzumból\n");
                 Console.WriteLine("Válassz játékmódot / Add meg a játékmód számát (0-{0})", _games.Length - 1);
 
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
                 valasztas = Console.ReadKey(true).KeyChar;
 
                 if (sbyte.TryParse(((char)valasztas).ToString(), out jatekmod))
@@ -58,6 +60,7 @@ namespace szamkitjat
 
         void PlayGame(IGame selectedGame)
         {
+            var h = new Hang();
             char c;
             do
             {
@@ -70,7 +73,8 @@ namespace szamkitjat
                 c = Console.ReadKey(true).KeyChar;
 
             } while ( char.ToUpper(c) == 'I');
-            
+
+            h.Music();
         }
     }
 }
