@@ -15,7 +15,7 @@ namespace szamkitjat
         #endregion propertiregion
         static int[] tabla = new int[9];
       
-        private static bool dontetlen()
+        private static bool megszakit()
         {
             bool tele = true;
             for (int i = 0; i < tabla.Length; i++)
@@ -76,19 +76,23 @@ namespace szamkitjat
         {
             for (int i = 0; i < 9; i++)
             {
+                Console.BackgroundColor = ConsoleColor.White;
                 if (tabla[i] == 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write(".");
                 }
                 if (tabla[i] == 1)
                 {
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Write("X");
                 }
                 if (tabla[i] == 2)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("O");
                 }
-
+                Console.BackgroundColor = ConsoleColor.Black;
                 if (i == 2 || i == 5 || i == 8)
                 {
                     Console.WriteLine();
@@ -96,9 +100,12 @@ namespace szamkitjat
             }
         }
 
-       
         public void Start()
         {
+            var h = new Hang();
+            h.Good();
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe");
             Console.WriteLine("A Játékos az X-el, a Gép a O-rel van.");
             Console.WriteLine("A számok a rácson az alábbi helyeket foglalják el:");
@@ -109,7 +116,7 @@ namespace szamkitjat
 
         public void Play()
         {
-            
+            var h = new Hang();
             for (int i = 0; i < 9; i++)
             {
                 tabla[i] = 0;
@@ -118,22 +125,36 @@ namespace szamkitjat
             int elsoJatekos = -1;
             int gepJatekos = -1;
             Random rand = new Random();
-            
+
             tablazat();
             while (nyertes() == 0)
             {
                 while (elsoJatekos == -1 || tabla[elsoJatekos] != 0)
                 {
                     int number;
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Írj be egy számot 0 - 8 ig");
                     bool placeValid = int.TryParse(Console.ReadLine(), out number);
+                    h.Lepes();
+                    Console.Clear();
                     if (placeValid)
                     {
                         Console.WriteLine($"A beírt szám:{number}");
                     }
                     if (number >= 9||number<0)
                     {
+                        h.Hiba();
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"A beírt szám nem megfelelő");
+                        
+                        tablazat();
+                    }
+                    else if (number == elsoJatekos || number == gepJatekos)
+                    {
+                        h.Hiba();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"A beírt szám helye foglalt");
+                        tablazat();
                     }
                     else
                     {
@@ -143,7 +164,7 @@ namespace szamkitjat
 
                 tabla[elsoJatekos] = 1;
 
-                if (dontetlen())
+                if (megszakit())
                     break;
 
                 while (gepJatekos == -1 || tabla[gepJatekos] != 0)
@@ -154,91 +175,39 @@ namespace szamkitjat
 
                 tabla[gepJatekos] = 2;
 
-                if (dontetlen())
+                if (megszakit())
                     break;
 
                 tablazat();
-
             }
         }
 
         public void End()
         {
+            var h = new Hang();
             if (nyertes() == 1)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nGratulálunk! Nyertél!");
-                Console.WriteLine("Jatékos nyert");
+                Console.WriteLine("Jatékos nyert\n");
+                h.Win();
             }
             if (nyertes() == 2)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nVeszítettél! \nA Számítógép nyert!");
+                h.Lose();
             }
-            if (dontetlen())
+            if (nyertes() != 1 && nyertes() != 2)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Döntetlen");
+                h.Tie();
             }
+            Console.ForegroundColor = ConsoleColor.White;
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
 
-            char newgame;
-            bool y;
-            bool n;
-            Console.WriteLine("Új játék? i/n");
-            newgame = Console.ReadKey(true).KeyChar;
-            y = (newgame == 'i' ^ newgame == 'I');
-            n = (newgame == 'n' ^ newgame == 'N');
-            if (y == true) { newgame = 'i'; }
-            else if (n == true) { newgame = 'n'; }
-            switch (newgame)
-            {
-                case 'i':
-                    Start();
-                    break;
-                case 'n':
-                    Exit();
-                    break;
-            }
-        }
-        void Exit()
-        {
-            char exit;
-            bool yes;
-            bool no;
-            Console.WriteLine("Visszatérés a Főmenübe? (i/n)");
-            exit = Console.ReadKey(true).KeyChar;
-            yes = (exit == 'i' ^ exit == 'I');
-            no = (exit == 'n' ^ exit == 'N');
-            if (yes == true) { exit = 'i'; }
-            else if (no == true) { exit = 'n'; }
-            switch (exit)
-            {
-                case 'i':
-                    //Kezdes();
-                    break;
-                case 'n':
-                    char newgame;
-                    bool y;
-                    bool n;
-                    Console.WriteLine("Új játék? i/n");
-                    newgame = Console.ReadKey(true).KeyChar;
-                    y = (newgame == 'i' ^ newgame == 'I');
-                    n = (newgame == 'n' ^ newgame == 'N');
-                    if (y == true) { newgame = 'i'; }
-                    else if (n == true) { newgame = 'n'; }
-                    switch (newgame)
-                    {
-                        case 'i':
-                            Start();
-                            break;
-                        case 'n':
-                            End();
-                            break;
-                    }
-                    break;
-                default:
-                    Exit();
-                    break;
-            }
         }
     }
 }
