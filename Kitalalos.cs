@@ -31,6 +31,7 @@ namespace szamkitjat
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Clear();
             Console.WriteLine("Válassz játékmódot");
             Console.WriteLine("1 - Te gondolsz egy számra");
             Console.WriteLine("2 - A számítógép gondol egy számra");
@@ -153,12 +154,11 @@ namespace szamkitjat
                     {
                         c = 5;
                         cc = 10;
-                        End();
                     }
                     
                     ++c;
                 } while (c <= 5);
-                if (c < 5)
+                if (c > 5)
                 {
                     cc = 15;
                     Console.WriteLine("\nVesztettél, a szám {0} volt.", number);

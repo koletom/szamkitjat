@@ -8,10 +8,11 @@ namespace szamkitjat
 {
     public class Players
     {
-        public int Coin { get; set; } = 100;
+        public static int MinimumTet { get; } = 10;
+        public int Coin { get; set; } = 1000;
         public int Tet { get; set; }
 
-        public static List<CardTipus> Hand { get; set; }
+        public List<CardTipus> Hand { get; set; }
 
         public void AddTet(int tet)
         {
@@ -47,7 +48,7 @@ namespace szamkitjat
             return nyeremeny;
         }
 
-        public static int KezErtek()
+        public int KezErtek()
         {
             int ertek = 0;
             foreach (CardTipus card in Hand)
@@ -57,7 +58,7 @@ namespace szamkitjat
             return ertek;
         }
 
-        public static void KezMutat()
+        public void KezMutat()
         {
             Console.WriteLine($"Kézben levő lapok értéke: {KezErtek()}");
         }

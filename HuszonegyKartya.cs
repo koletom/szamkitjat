@@ -15,10 +15,14 @@ namespace szamkitjat
 
         public void Start()
         {
+            var h = new Hang();
+            h.Good();
+            Console.Clear();
+
             string input;
             int p = 0;
 
-            Console.WriteLine("\nAz nyer akinek nagyobb száma van vagy előbb lesz 21-e.\nHa valakinek több mint 21 az veszít");
+            Console.WriteLine("\nAz nyer akinél nagyobb száma van vagy előbb lesz 21-e.\nHa valakinek több mint 21 az veszít");
             do
             {
                 Console.WriteLine("Adja meg a játékosok számát (max 5)");
@@ -31,6 +35,7 @@ namespace szamkitjat
 
             } while (p < 1 || p > 5);
             gamercount = p;
+            KorKezdes();
 
         }
 
@@ -60,13 +65,13 @@ namespace szamkitjat
         {
             cardDeck.Elokeszit();
 
-            Players.Hand = cardDeck.KezdoKez();
+            players.Hand = cardDeck.KezdoKez();
             Oszto.OsztoCards = cardDeck.OsztoKez();
 
             //nem lehet egyszerre 2 Ász
-            if (Players.Hand[0].Szam == CardSzam.Asz && Players.Hand[1].Szam == CardSzam.Asz)
+            if (players.Hand[0].Szam == CardSzam.Asz && players.Hand[1].Szam == CardSzam.Asz)
             {
-                Players.Hand[1].Ertek = 1;
+                players.Hand[1].Ertek = 1;
             }
 
             if (Oszto.OsztoCards[0].Szam == CardSzam.Asz && Oszto.OsztoCards[1].Szam == CardSzam.Asz)
@@ -74,14 +79,14 @@ namespace szamkitjat
                 Oszto.OsztoCards[1].Ertek = 1;
             }
 
-            Players.KezMutat();
+            players.KezMutat();
             Oszto.KezMutat();
         }
         public void KorKezdes()
         {
             Console.Clear();
 
-            if (!Tet())
+            if (!Tetek())
             {
                 KorVege(Vegeredmeny.NINCSENTET);
                 return;
@@ -90,10 +95,10 @@ namespace szamkitjat
             KezdoKezek();
             Play();
 
-            Players.KezMutat();
+            players.KezMutat();
             Oszto.KezMutat();
 
-            if (Players.KezErtek()>21)
+            if (players.KezErtek()>21)
             {
                 KorVege(Vegeredmeny.VESZTETT);
                 return;
@@ -101,13 +106,14 @@ namespace szamkitjat
             while (Oszto.OsztoKezErtek()<17)
             {
                 Oszto.OsztoCards.Add(cardDeck.LapHuzas());
-            }
-            Players.KezMutat();
-            Oszto.KezMutat();
 
-            if (Players.KezErtek() > Oszto.OsztoKezErtek())
+                players.KezMutat();
+                Oszto.KezMutat();
+            }
+
+            if (players.KezErtek() > Oszto.OsztoKezErtek())
             {
-                if (Blackjack(Players.Hand))
+                if (Blackjack(players.Hand))
                 {
                     KorVege(Vegeredmeny.BLACKJACK);
                 }
@@ -120,11 +126,11 @@ namespace szamkitjat
             {
                 KorVege(Vegeredmeny.NYERT);
             }
-            else if (Oszto.OsztoKezErtek() > Players.KezErtek())
+            else if (Oszto.OsztoKezErtek() > players.KezErtek())
             {
                 KorVege(Vegeredmeny.VESZTETT);
             }
-            else if (Oszto.OsztoKezErtek() == Players.KezErtek())
+            else if (Oszto.OsztoKezErtek() == players.KezErtek())
             {
                 KorVege(Vegeredmeny.DONTETLEN);
             }
@@ -133,49 +139,55 @@ namespace szamkitjat
         {
             List<int>[] cards = new List<int>[gamercount];
 
-            for (int i = 0; i < gamercount; i++)
-            {
-                Generate(i, cards);
-                var m = string.Join(",", cards[i]); //TODO: Ezt akár berakhatod a Generate metódusba, annak visszatérési értékeként, és akkor az egész generate hívást  
-                                                    //betehed a következő Console...-os sorba
+            //for (int i = 0; i < gamercount; i++)
+            //{
+            //    Generate(i, cards);
+            //    var m = string.Join(",", cards[i]); //TODO: Ezt akár berakhatod a Generate metódusba, annak visszatérési értékeként, és akkor az egész generate hívást  
+            //                                        //betehed a következő Console...-os sorba
             
 
-            Console.WriteLine($"{i}. játékos lapjai:{m}");
+            //Console.WriteLine($"{i}. játékos lapjai:{m}");
             //Console.WriteLine("{0}. játékos lapjai:{1}",i,Generate(i, cards));
-            int hit = 0;
+            //int hit = 0;
 
             //bool newcardyes;
             //bool newcardno;
 
-            Console.Clear();
-            Players.KezMutat();
-            Oszto.KezMutat();
+            
 
             string rk;
             do
                     {
-                        Console.Clear();
-                        Console.WriteLine($"{i}. játékos húz-e új lapot?");
+                Console.Clear();
+                players.KezMutat();
+                Oszto.KezMutat();
+                Console.WriteLine($"A játékos húz-e új lapot?");
+                Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
+                rk = Console.ReadLine();
+                //newcardyes=(rk == 'i' ^ rk == 'I');
+                //newcardno = (rk == 'n' ^ rk == 'N');
+                switch (rk.ToUpper())
+                {
+                    case "HIT":
+                        players.Hand.Add(cardDeck.LapHuzas());
+                        break;
+                    case "STOP":
+                        break;
+                    case "SURRENDER":
+                        players.Hand.Clear();
+                        break;
+                        case "DOUBLE":
+                        break;
+                    default:
                         Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
-                        rk = Console.ReadLine();
-                        //newcardyes=(rk == 'i' ^ rk == 'I');
-                        //newcardno = (rk == 'n' ^ rk == 'N');
-                        switch (rk.ToUpper())
-                        {
-                            case "HIT":
-                                Players.Hand.Add(cardDeck.LapHuzas());
-                                break;
-                            case "STOP":
-                                break;
-                            default:
-                                Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
-                                Console.ReadKey();
-                                break;
-                        }
+                        Console.WriteLine("Nyomj egy gombot az új próbához.");
+                        Console.ReadKey();
+                        break;
+                }
 
-                        if (Players.KezErtek() >21)
+                if (players.KezErtek() >21)
                         {
-                            foreach (CardTipus card in Players.Hand)
+                            foreach (CardTipus card in players.Hand)
                             {
                                 if (card.Ertek == 11)
                                 {
@@ -184,24 +196,33 @@ namespace szamkitjat
                                 }
                             }
                         }
-
+                
                     //m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
                     //Generate(i, cards);
 
                     //Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
 
+                    //hit++; //TODO: Ezt rakd át a while feltételbe
 
-                    hit++; //TODO: Ezt rakd át a while feltételbe
-                } while (!rk.ToUpper().Equals("STOP") && Players.KezErtek() <= 21); /*while (hit < 3 || newcardyes == true );*/
-            }
+                } while (!rk.ToUpper().Equals("STOP") && !rk.ToUpper().Equals("SURREDER") 
+                && !rk.ToUpper().Equals("DOUBLE") && players.KezErtek() <= 21); /*while (hit < 3 || newcardyes == true );*/
+            //}
         }
 
         public static int MinimumKezdoTet { get; } = 5;
-        static bool Tet()
+        static bool Tetek()
         {
+            Console.Write("Jelnlegi Coin-ok száma:");
+            Console.WriteLine(players.Coin);
+            Console.WriteLine(); 
+            
+            Console.WriteLine("Minimum tét: ");
+            Console.WriteLine(MinimumKezdoTet);
+            Console.WriteLine();
+
             Console.WriteLine("Kérem a téteket:");
             string s = Console.ReadLine();
-            if (Int32.TryParse(s, out int tet) && tet >= MinimumKezdoTet)
+            if (Int32.TryParse(s, out int tet) && tet >= MinimumKezdoTet && players.Coin >= tet)
             {
                 players.AddTet(tet);
                 return true;
@@ -209,7 +230,7 @@ namespace szamkitjat
             return false;
         }
 
-        private enum Vegeredmeny
+        public enum Vegeredmeny
         {
             BLACKJACK,
             NYERT,
@@ -220,7 +241,7 @@ namespace szamkitjat
             NINCSENTET
         }
 
-        static void KorVege(Vegeredmeny vegeredmeny)
+        public void KorVege(Vegeredmeny vegeredmeny)
         {
             switch (vegeredmeny)
             {
@@ -245,6 +266,9 @@ namespace szamkitjat
                     players.TetVisszakap();
                     Console.WriteLine("Döntetlen");
                     break;
+                case Vegeredmeny.NINCSENTET:
+                    Console.WriteLine("Érvénytelten tét");
+                    break;
                 default:
                     Console.WriteLine("Hiba történt!");
                     break;
@@ -253,6 +277,7 @@ namespace szamkitjat
             if (players.Coin<=4)
             {
                 Console.WriteLine("Nincsen a kezdőtéhez elegendő Coin. Coin");
+                players.Coin = 1000;
             }
         }
 
@@ -277,7 +302,10 @@ namespace szamkitjat
         /// </summary>
         public void End()
         {
-            
+            if (players.Coin > 4)
+            {
+                KorKezdes();
+            }
 
             //if (card == 21) //TODO: Ilyen soha nem lesz, itt azt kellene leellenőrizni, hogy cards tömb valamelyik lista elemeinek az összege 21 és ha talál akkor annak az indexét,
             //                //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a 

@@ -10,15 +10,9 @@ namespace SzamKitJat
 {
     class Program
     {
-                
         static void Main(string[] args)
         {
-            var h = new Hang(); 
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            h.Music();
-            Console.WriteLine("Üdv a Játékok Univerzumában\n");
-            h.Music();
+            var h = new Hang();
             IGame[] games = new IGame[4];
 
             games[0] = new Amoba();

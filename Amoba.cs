@@ -92,7 +92,7 @@ namespace szamkitjat
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("O");
                 }
-                Console.BackgroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Gray;
                 if (i == 2 || i == 5 || i == 8)
                 {
                     Console.WriteLine();
@@ -105,7 +105,9 @@ namespace szamkitjat
             var h = new Hang();
             h.Good();
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Clear();
             Console.WriteLine("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe");
             Console.WriteLine("A Játékos az X-el, a Gép a O-rel van.");
             Console.WriteLine("A számok a rácson az alábbi helyeket foglalják el:");
@@ -146,7 +148,6 @@ namespace szamkitjat
                         h.Hiba();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"A beírt szám nem megfelelő");
-                        
                         tablazat();
                     }
                     else if (number == elsoJatekos || number == gepJatekos)
@@ -165,6 +166,8 @@ namespace szamkitjat
                 tabla[elsoJatekos] = 1;
 
                 if (megszakit())
+                    break;
+                if (nyertes() != 0) 
                     break;
 
                 while (gepJatekos == -1 || tabla[gepJatekos] != 0)
@@ -187,6 +190,7 @@ namespace szamkitjat
             var h = new Hang();
             if (nyertes() == 1)
             {
+                tablazat();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nGratulálunk! Nyertél!");
                 Console.WriteLine("Jatékos nyert\n");
@@ -200,6 +204,7 @@ namespace szamkitjat
             }
             if (nyertes() != 1 && nyertes() != 2)
             {
+                tablazat();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Döntetlen");
                 h.Tie();

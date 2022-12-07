@@ -16,6 +16,14 @@ namespace szamkitjat
         }
         public void Kezdes()
         {
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Clear();
+            var h = new Hang();
+            Console.Clear();
+            h.Music();
+            Console.WriteLine("Üdv a Játékok Univerzumában\n");
+            h.Music();
             if (_games is null || _games.Length == 0)
             {
                 Console.WriteLine("Nincs érték");
@@ -26,8 +34,11 @@ namespace szamkitjat
             do
             {
                 sbyte jatekmod = -1;
-                
-               
+
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.Clear();
+
                 Console.WriteLine("Az alábbi {0} játékmód közül lehet válsztani\n", _games.Length);
 
                 for (int i = 0; i < _games.Length; i++)
@@ -38,8 +49,8 @@ namespace szamkitjat
                 Console.WriteLine("\nX -> Kilépés a játék univerzumból\n");
                 Console.WriteLine("Válassz játékmódot / Add meg a játékmód számát (0-{0})", _games.Length - 1);
 
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
+                //Console.BackgroundColor = ConsoleColor.Black;
+                //Console.ForegroundColor = ConsoleColor.White;
                 valasztas = Console.ReadKey(true).KeyChar;
 
                 if (sbyte.TryParse(((char)valasztas).ToString(), out jatekmod))
