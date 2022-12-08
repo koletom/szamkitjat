@@ -290,13 +290,13 @@ namespace szamkitjat
                     break;
             }
 
-            if (players.Coin<=4)
+            if (players.Coin<=4)      //Ha nincs elég Coin meg kellene állni
             {
                 Console.WriteLine("Nincsen a kezdőtéhez elegendő Coin.");
-                players.Coin = 1000;
                 Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                 Console.ReadKey();
                 End();
+                players.Coin = 1000;
             }
         }
 
