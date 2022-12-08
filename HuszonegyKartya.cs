@@ -38,7 +38,7 @@ namespace szamkitjat
             KorKezdes();
 
         }
-
+        //TODO:Ezek miért staticok?
         private static CardDeck cardDeck = new CardDeck();
         private static Players players = new Players();
         //int card
@@ -61,6 +61,7 @@ namespace szamkitjat
             //}
         }
 
+        //Ez miért static
         static void KezdoKezek()
         {
             cardDeck.Elokeszit();
