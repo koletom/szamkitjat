@@ -43,7 +43,7 @@ namespace szamkitjat
                 nyeremeny = Tet * 2;
             }
 
-            Coin += nyeremeny;
+            Coin = Coin+nyeremeny;
             TetNullaz();
             return nyeremeny;
         }

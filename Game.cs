@@ -19,11 +19,10 @@ namespace szamkitjat
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.Clear();
-            var h = new Hang();
             Console.Clear();
-            h.Music();
+            Hang.Music();
             Console.WriteLine("Üdv a Játékok Univerzumában\n");
-            h.Music();
+            Hang.Music();
             if (_games is null || _games.Length == 0)
             {
                 Console.WriteLine("Nincs érték");
@@ -71,7 +70,6 @@ namespace szamkitjat
 
         void PlayGame(IGame selectedGame)
         {
-            var h = new Hang();
             char c;
             do
             {
@@ -85,7 +83,7 @@ namespace szamkitjat
 
             } while ( char.ToUpper(c) == 'I');
 
-            h.Music();
+            Hang.Music();
         }
     }
 }
