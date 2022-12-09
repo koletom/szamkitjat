@@ -20,6 +20,8 @@ namespace szamkitjat
 
             string input;
             int p = 0;
+            players.Coin = 1000;
+            tt = 0;            //Ezt követően az új körben még a végeredmény kiírás nem pontos.
 
             Console.WriteLine("\nAz nyer akinél nagyobb száma van vagy előbb lesz 21-e.\nHa valakinek több mint 21 az veszít");
             do
@@ -48,7 +50,6 @@ namespace szamkitjat
         //        return num.Next(1, 10);
         //    }
         //} 
-
 
 
         void Generate(int gamernum, List<int>[] gamercards)
@@ -152,40 +153,49 @@ namespace szamkitjat
             //bool newcardyes;
             //bool newcardno;
 
-            
-
             string rk;
             do
-                    {
+            {
                 Console.Clear();
                 players.KezMutat();
                 Oszto.KezMutat();
                 Console.WriteLine($"A játékos húz-e új lapot?");
                 Console.WriteLine("Válaztási lehetőségek:(Hit, Stop, Surrender)");
-                rk = Console.ReadLine();
+                if (tt == 1)
+                {
+                    rk = "HIT";
+                    Console.Clear();
+                    Console.WriteLine("Nincs elegendő Coin.");
+                    Console.WriteLine("A játéknak vége!");
+                }
+                else
+                {
+                    rk = Console.ReadLine();
+                }
                 //newcardyes=(rk == 'i' ^ rk == 'I');
                 //newcardno = (rk == 'n' ^ rk == 'N');
                 switch (rk.ToUpper())
-                {
-                    case "HIT":
-                        players.Hand.Add(cardDeck.LapHuzas());
-                        break;
-                    case "STOP":
-                        break;
-                    case "SURRENDER":
-                        players.Hand.Clear();
-                        KorVege(Vegeredmeny.SURRENDER);
-                        break;
-                        case "DOUBLE":
-                        break;
-                    default:
-                        Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
-                        Console.WriteLine("Nyomj egy gombot az új próbához.");
-                        Console.ReadKey();
-                        break;
-                }
+                    {
+                        case "HIT":
+                            players.Hand.Add(cardDeck.LapHuzas());
+                            break;
+                        case "STOP":
+                            break;
+                        case "SURRENDER":
+                            players.Hand.Clear();
+                            KorVege(Vegeredmeny.SURRENDER);
+                            break;
+                            case "DOUBLE":
+                            break;
+                        default:
+                            Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
+                            Console.WriteLine("Nyomj egy gombot az új próbához.");
+                            Console.ReadKey();
+                            break;
+                    }
+                
 
-                if (players.KezErtek() >21)
+                if (players.KezErtek() > 21)
                         {
                             foreach (CardTipus card in players.Hand)
                             {
@@ -197,16 +207,17 @@ namespace szamkitjat
                             }
                         }
                 
-                    //m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
-                    //Generate(i, cards);
 
-                    //Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
+                //m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
+                //Generate(i, cards);
 
-                    //hit++; //TODO: Ezt rakd át a while feltételbe
+                //Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
 
-                } while (!rk.ToUpper().Equals("STOP") && !rk.ToUpper().Equals("SURREDER") 
+                //hit++; //TODO: Ezt rakd át a while feltételbe
+
+            } while (!rk.ToUpper().Equals("STOP") && !rk.ToUpper().Equals("SURREDER") 
                 && !rk.ToUpper().Equals("DOUBLE") && players.KezErtek() <= 21); /*while (hit < 3 || newcardyes == true );*/
-            //}
+                //}
         }
 
         public static int MinimumKezdoTet { get; } = 5;
@@ -241,6 +252,7 @@ namespace szamkitjat
             NINCSENTET
         }
 
+        int tt = 0;
         public void KorVege(Vegeredmeny vegeredmeny)
         {
             switch (vegeredmeny)
@@ -290,14 +302,17 @@ namespace szamkitjat
                     break;
             }
 
-            if (players.Coin<=4)      //Ha nincs elég Coin meg kellene állni
+            if (players.Coin<=4)
             {
-                Console.WriteLine("Nincsen a kezdőtéhez elegendő Coin.");
+                Console.WriteLine("Nincsen a kezdőtéthez elegendő Coin.");
                 Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                 Console.ReadKey();
+                tt = 1;
                 End();
-                players.Coin = 1000;
             }
+            //Console.WriteLine("Nyomj egy gombot új kör kezdéséhez.");
+            //Console.ReadKey();
+            //KorKezdes();
         }
 
         public static bool Blackjack(List<CardTipus> kez)
@@ -325,6 +340,10 @@ namespace szamkitjat
             {
                 KorKezdes();
             }
+            else
+            {
+            }
+
 
             //if (card == 21) //TODO: Ilyen soha nem lesz, itt azt kellene leellenőrizni, hogy cards tömb valamelyik lista elemeinek az összege 21 és ha talál akkor annak az indexét,
             //                //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a 
