@@ -60,7 +60,22 @@ namespace szamkitjat
 
         public void KezMutat()
         {
+            Console.Write("Tét: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(Tet + " ");
+            Szinek.AlapSzin();
+            Console.Write("Coin: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(Coin + " ");
+            Szinek.AlapSzin();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine($"Kézben levő lapok értéke: {KezErtek()}");
+            foreach (CardTipus cardTipus in Hand)
+            {
+                cardTipus.CardFeltetel();
+            }
+            Console.WriteLine();
         }
     }
     public class Oszto
@@ -80,6 +95,11 @@ namespace szamkitjat
         public static void KezMutat()
         {
             Console.WriteLine($"Osztó kezében levő lapok értéke: {OsztoKezErtek()}");
+            foreach (CardTipus  cardTipus in OsztoCards)
+            {
+                cardTipus.CardFeltetel();
+            }
+            Console.WriteLine();
         }
     }
 

@@ -5,6 +5,15 @@ using static szamkitjat.CardSzin;
 
 namespace szamkitjat
 {
+    public class Szinek
+    {
+        public static void AlapSzin()
+        {
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+        }
+    }
+    
     public enum CardSzam
     {
         Asz,
@@ -102,6 +111,7 @@ namespace szamkitjat
             {
                 Console.WriteLine($"{Szin} {Szam}");
             }
+            Szinek.AlapSzin();
         }
     }
 }

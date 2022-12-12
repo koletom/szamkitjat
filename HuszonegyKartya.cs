@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using szamkitjatiterfaces;
 
 namespace szamkitjat
@@ -21,7 +22,7 @@ namespace szamkitjat
             string input;
             int p = 0;
             players.Coin = 1000;
-            tt = 0;            //Ezt követően az új körben még a végeredmény kiírás nem pontos.
+            tt = 0;
 
             Console.WriteLine("\nAz nyer akinél nagyobb száma van vagy előbb lesz 21-e.\nHa valakinek több mint 21 az veszít");
             do
@@ -100,13 +101,15 @@ namespace szamkitjat
 
             if (players.KezErtek()>21)
             {
-                KorVege(Vegeredmeny.VESZTETT);
+                KorVege(Vegeredmeny.BUST);
                 return;
             }
             while (Oszto.OsztoKezErtek()<17)
             {
+                Thread.Sleep(2000);
                 Oszto.OsztoCards.Add(cardDeck.LapHuzas());
 
+                Console.Clear();
                 players.KezMutat();
                 Oszto.KezMutat();
             }
@@ -160,13 +163,14 @@ namespace szamkitjat
                 players.KezMutat();
                 Oszto.KezMutat();
                 Console.WriteLine($"A játékos húz-e új lapot?");
-                Console.WriteLine("Válaztási lehetőségek:(Hit, Stop, Surrender)");
+                Console.WriteLine("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
                 if (tt == 1)
                 {
-                    rk = "HIT";
+                    rk = "STOP";
                     Console.Clear();
                     Console.WriteLine("Nincs elegendő Coin.");
                     Console.WriteLine("A játéknak vége!");
+                    tt = 0;
                 }
                 else
                 {
@@ -176,23 +180,32 @@ namespace szamkitjat
                 //newcardno = (rk == 'n' ^ rk == 'N');
                 switch (rk.ToUpper())
                     {
-                        case "HIT":
-                            players.Hand.Add(cardDeck.LapHuzas());
-                            break;
-                        case "STOP":
-                            break;
-                        case "SURRENDER":
-                            players.Hand.Clear();
-                            KorVege(Vegeredmeny.SURRENDER);
-                            break;
-                            case "DOUBLE":
-                            break;
-                        default:
-                            Console.WriteLine("Válaztási lehetőségek:(Hit, Stop)");
-                            Console.WriteLine("Nyomj egy gombot az új próbához.");
-                            Console.ReadKey();
-                            break;
-                    }
+                    case "HIT":
+                        players.Hand.Add(cardDeck.LapHuzas());
+                        break;
+                    case "STOP":
+                        break;
+                    case "SURRENDER":
+                        players.Hand.Clear();
+                        KorVege(Vegeredmeny.SURRENDER);
+                        break;
+                    case "DOUBLE":
+                        if (players.Coin <= players.Tet)
+                        {
+                            players.AddTet(players.Coin);
+                        }
+                        else
+                        {
+                            players.AddTet(players.Tet);
+                        }
+                        players.Hand.Add(cardDeck.LapHuzas());
+                        break;
+                    default:
+                        Console.WriteLine("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
+                        Console.WriteLine("Nyomj egy gombot az új próbához.");
+                        Console.ReadKey();
+                        break;
+                }
                 
 
                 if (players.KezErtek() > 21)
@@ -259,6 +272,13 @@ namespace szamkitjat
             {
                 case Vegeredmeny.BUST:
                     players.TetNullaz();
+                    Console.WriteLine("A Játékos vesztett! \nA játékos túl sok lapot húzott"); 
+                    Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
+                    Console.ReadKey();
+                    if (players.Coin > 4)
+                    {
+                        KorKezdes();
+                    }
                     break;
                 case Vegeredmeny.SURRENDER:
                     Console.WriteLine("A Játékos feladta. A Játékos "+ (players.Tet / 2) + " Coint visszakap.");
@@ -272,21 +292,31 @@ namespace szamkitjat
                     Console.WriteLine("Blackjack. Játékos nyert. Nyeremény:" + players.TetNyer(true) +" Coin.");
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                     Console.ReadKey();
+                    players.TetNullaz();
                     KorKezdes();
                     break;
                 case Vegeredmeny.NYERT:
                     Console.WriteLine("Játékos nyert. Nyeremény:" + players.TetNyer(false) + " Coin.");
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                     Console.ReadKey();
+                    players.TetNullaz();
                     KorKezdes();
                     break;
                 case Vegeredmeny.VESZTETT:
+                    players.TetNullaz();
                     Console.WriteLine("Osztó nyert");
+                    Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
+                    Console.ReadKey();
+                    if (players.Coin > 4)
+                    {
+                        KorKezdes();
+                    }
                     break;
                 case Vegeredmeny.DONTETLEN:
-                    players.TetVisszakap();
                     Console.WriteLine("Döntetlen"); 
                     Console.WriteLine("A Játékos " + (players.Tet) + " Coint visszakap.");
+                    players.TetVisszakap();
+                    players.TetNullaz();
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                     Console.ReadKey();
                     KorKezdes();
@@ -304,6 +334,7 @@ namespace szamkitjat
 
             if (players.Coin<=4)
             {
+                Console.WriteLine();
                 Console.WriteLine("Nincsen a kezdőtéthez elegendő Coin.");
                 Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                 Console.ReadKey();
