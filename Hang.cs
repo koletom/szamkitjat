@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace szamkitjat
 {
-    public class Hang
+    public static class Hang
     {
         static int[] DO = new int[] { 131, 262, 523, 1046 };
         static int[] RE = new int[] { 147, 294, 587, 1174 };
@@ -17,7 +17,7 @@ namespace szamkitjat
         static int[] TI = new int[] { 247, 494, 988, 1976 };
 
         
-        public void Lose()
+        public static void Lose()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -31,7 +31,7 @@ namespace szamkitjat
                 Console.Beep(FA[oct1], 800);
             }
         }
-        public void Bad()
+        public static void Bad()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -44,7 +44,7 @@ namespace szamkitjat
                 Console.Beep(FA[oct1], 800);
             }
         }
-        public void Win()
+        public static void Win()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -58,7 +58,7 @@ namespace szamkitjat
                 Console.Beep(DO[oct3], 800);
             }
         }
-        public void Good()
+        public static void Good()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -71,7 +71,7 @@ namespace szamkitjat
                 Console.Beep(DO[oct3], 800);
             }
         }
-        public void Tie()
+        public static void Tie()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -84,7 +84,7 @@ namespace szamkitjat
                 Console.Beep(TI[oct1], 800);
             }
         }
-        public void Lepes()
+        public static void Lepes()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -96,7 +96,7 @@ namespace szamkitjat
                 Console.Beep(RE[oct3], 200);
             }
         }
-        public void Hiba()
+        public static void Hiba()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -109,7 +109,7 @@ namespace szamkitjat
                 Console.Beep(TI[oct4], 400);
             }
         }
-        public void Music()
+        public static void Music()
         {
             int oct1 = 0;
             int oct2 = 1;

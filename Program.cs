@@ -12,7 +12,6 @@ namespace SzamKitJat
     {
         static void Main(string[] args)
         {
-            var h = new Hang();
             IGame[] games = new IGame[4];
 
             games[0] = new Amoba();
@@ -23,9 +22,9 @@ namespace SzamKitJat
             var n = new Game(games);
 
             n.Kezdes();
-            h.Music();
+            Hang.Music();
             n.Ending();
-            h.Music();
+            Hang.Music();
 
         }
     }

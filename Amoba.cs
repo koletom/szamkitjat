@@ -102,8 +102,7 @@ namespace szamkitjat
 
         public void Start()
         {
-            var h = new Hang();
-            h.Good();
+            Hang.Good();
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -118,7 +117,6 @@ namespace szamkitjat
 
         public void Play()
         {
-            var h = new Hang();
             for (int i = 0; i < 9; i++)
             {
                 tabla[i] = 0;
@@ -137,7 +135,7 @@ namespace szamkitjat
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Írj be egy számot 0 - 8 ig");
                     bool placeValid = int.TryParse(Console.ReadLine(), out number);
-                    h.Lepes();
+                    Hang.Lepes();
                     Console.Clear();
                     if (placeValid)
                     {
@@ -145,14 +143,14 @@ namespace szamkitjat
                     }
                     if (number >= 9||number<0)
                     {
-                        h.Hiba();
+                        Hang.Hiba();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"A beírt szám nem megfelelő");
                         tablazat();
                     }
                     else if (number == elsoJatekos || number == gepJatekos)
                     {
-                        h.Hiba();
+                        Hang.Hiba();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"A beírt szám helye foglalt");
                         tablazat();
@@ -187,27 +185,26 @@ namespace szamkitjat
 
         public void End()
         {
-            var h = new Hang();
             if (nyertes() == 1)
             {
                 tablazat();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nGratulálunk! Nyertél!");
                 Console.WriteLine("Jatékos nyert\n");
-                h.Win();
+                Hang.Win();
             }
             if (nyertes() == 2)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nVeszítettél! \nA Számítógép nyert!");
-                h.Lose();
+                Hang.Lose();
             }
             if (nyertes() != 1 && nyertes() != 2)
             {
                 tablazat();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Döntetlen");
-                h.Tie();
+                Hang.Tie();
             }
             Console.ForegroundColor = ConsoleColor.White;
 
