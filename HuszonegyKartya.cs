@@ -62,7 +62,7 @@ namespace szamkitjat
             //}
         }
 
-        static void KezdoKezek()
+        public void KezdoKezek()
         {
             cardDeck.Elokeszit();
 
