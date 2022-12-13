@@ -37,6 +37,28 @@ namespace szamkitjat
 
             } while (p < 1 || p > 5);
             gamercount = p;
+
+            string pakli;
+            do
+            {
+                Console.WriteLine("Válassz kártya paklit.\nMagyar, Francia");
+                pakli = Console.ReadLine();
+
+                switch (pakli.ToUpper())
+                {
+                    case "MAGYAR":
+                        break;
+                    case "FRANCIA":
+                        break;
+                    default:
+                        Console.WriteLine("Lehetséges válaszok:");
+                        Console.WriteLine("Magyar, Francia");
+                        Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
+                        Console.ReadKey();
+                        break;
+                }
+
+            } while (!pakli.ToUpper().Equals("MAGYAR") && !pakli.ToUpper().Equals("FRANCIA"));
             KorKezdes();
 
         }
@@ -264,15 +286,22 @@ namespace szamkitjat
             BUST,
             NINCSENTET
         }
-
+        public static void HSzinek()
+        {
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+        }
         int tt = 0;
         public void KorVege(Vegeredmeny vegeredmeny)
         {
+            Thread.Sleep(1000);
             switch (vegeredmeny)
             {
                 case Vegeredmeny.BUST:
                     players.TetNullaz();
-                    Console.WriteLine("A Játékos vesztett! \nA játékos túl sok lapot húzott"); 
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("A Játékos vesztett! \nA játékos túl sok lapot húzott");
+                    HSzinek();
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                     Console.ReadKey();
                     if (players.Coin > 4)
@@ -281,7 +310,11 @@ namespace szamkitjat
                     }
                     break;
                 case Vegeredmeny.SURRENDER:
-                    Console.WriteLine("A Játékos feladta. A Játékos "+ (players.Tet / 2) + " Coint visszakap.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("A Játékos feladta.");
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("A Játékos "+ (players.Tet / 2) + " Coint visszakap.");
+                    HSzinek();
                     players.Coin = players.Coin+players.Tet / 2;
                     players.TetNullaz();
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
@@ -289,14 +322,18 @@ namespace szamkitjat
                     KorKezdes();
                     break;
                 case Vegeredmeny.BLACKJACK:
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Blackjack. Játékos nyert. Nyeremény:" + players.TetNyer(true) +" Coin.");
+                    HSzinek();
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                     Console.ReadKey();
                     players.TetNullaz();
                     KorKezdes();
                     break;
                 case Vegeredmeny.NYERT:
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Játékos nyert. Nyeremény:" + players.TetNyer(false) + " Coin.");
+                    HSzinek();
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                     Console.ReadKey();
                     players.TetNullaz();
@@ -304,7 +341,9 @@ namespace szamkitjat
                     break;
                 case Vegeredmeny.VESZTETT:
                     players.TetNullaz();
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Osztó nyert");
+                    HSzinek();
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
                     Console.ReadKey();
                     if (players.Coin > 4)
@@ -313,8 +352,11 @@ namespace szamkitjat
                     }
                     break;
                 case Vegeredmeny.DONTETLEN:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Döntetlen"); 
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("A Játékos " + (players.Tet) + " Coint visszakap.");
+                    HSzinek();
                     players.TetVisszakap();
                     players.TetNullaz();
                     Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
@@ -322,7 +364,9 @@ namespace szamkitjat
                     KorKezdes();
                     break;
                 case Vegeredmeny.NINCSENTET:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Érvénytelten tét");
+                    HSzinek();
                     Console.WriteLine("Nyomj egy gombot az újra próbáláshoz.");
                     Console.ReadKey();
                     KorKezdes();
@@ -332,7 +376,7 @@ namespace szamkitjat
                     break;
             }
 
-            if (players.Coin<=4)
+            if (players.Coin<=4)  //A második körtől kezdeve néha véletlenszerűen ismétlődik
             {
                 Console.WriteLine();
                 Console.WriteLine("Nincsen a kezdőtéthez elegendő Coin.");

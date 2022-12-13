@@ -83,4 +83,81 @@ namespace szamkitjat
         }
 
     }
+    public class CardDeckMagyar
+    {
+        private List<CardTipusMagyar> cards;
+
+        public CardDeckMagyar()
+        {
+            Elokeszit();
+        }
+
+        public List<CardTipusMagyar> UjPakli()
+        {
+            List<CardTipusMagyar> ujPakli = new List<CardTipusMagyar>();
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    ujPakli.Add(new CardTipusMagyar((CardSzamMagyar)i, (CardSzinMagyar)k));
+                }
+            }
+            return ujPakli;
+        }
+
+        public void Keveres()
+        {
+            Random kever = new Random();
+
+            int a = cards.Count;
+            while (a > 1)
+            {
+                a--;
+                int z = kever.Next(a + 1);
+                CardTipusMagyar card = cards[z];
+                cards[z] = cards[a];
+                cards[a] = card;
+            }
+        }
+
+        public List<CardTipusMagyar> KezdoKez() //Kezdő kéz 2 lappal
+        {
+            List<CardTipusMagyar> kez = new List<CardTipusMagyar>();
+            kez.Add(cards[0]);
+            kez.Add(cards[1]);
+
+            cards.RemoveRange(0, 2);
+
+            return kez;
+        }
+
+        public List<CardTipusMagyar> OsztoKez() //Osztó kéz 2 lappal
+        {
+            List<CardTipusMagyar> kez = new List<CardTipusMagyar>();
+            kez.Add(cards[0]);
+            kez.Add(cards[1]);
+
+            cards.RemoveRange(0, 2);
+
+            return kez;
+        }
+
+        public CardTipusMagyar LapHuzas()
+        {
+            CardTipusMagyar card = cards[0];
+
+            cards.Remove(card);
+
+            return card;
+        }
+
+
+        public void Elokeszit()
+        {
+            cards = UjPakli();
+            Keveres();
+        }
+
+    }
 }
