@@ -47,8 +47,12 @@ namespace szamkitjat
                 switch (pakli.ToUpper())
                 {
                     case "MAGYAR":
+                        Console.Clear();
+                        Console.WriteLine("A lapok értéke: \nAlsó: 2 \nFelső: 3 \nKirály: 4 \nSzámozott lapok: (7-10) \nÁsz: 11");
                         break;
                     case "FRANCIA":
+                        Console.Clear();
+                        Console.WriteLine("A lapok értéke: \nSzámozott lapok: (2-10) \nKirály, Dáma, Bubi: 10 \nÁsz: 1 vagy 11"); 
                         break;
                     default:
                         Console.WriteLine("Lehetséges válaszok:");
@@ -57,7 +61,8 @@ namespace szamkitjat
                         Console.ReadKey();
                         break;
                 }
-
+                Console.WriteLine("Nyomj egy gombot a kezdéshez.");
+                Console.ReadKey();
             } while (!pakli.ToUpper().Equals("MAGYAR") && !pakli.ToUpper().Equals("FRANCIA"));
             KorKezdes();
 
@@ -65,6 +70,18 @@ namespace szamkitjat
 
         private CardDeck cardDeck = new CardDeck();
         private Players players = new Players();
+        private Oszto oszto = new Oszto();
+
+        public enum Vegeredmeny
+        {
+            BLACKJACK,
+            NYERT,
+            VESZTETT,
+            DONTETLEN,
+            SURRENDER,
+            BUST,
+            //NINCSENTET
+        }
         //int card
         //{
         //    get
@@ -89,7 +106,7 @@ namespace szamkitjat
             cardDeck.Elokeszit();
 
             players.Hand = cardDeck.KezdoKez();
-            Oszto.OsztoCards = cardDeck.OsztoKez();
+            oszto.OsztoCards = cardDeck.OsztoKez();
 
             //nem lehet egyszerre 2 Ász
             if (players.Hand[0].Szam == CardSzam.Asz && players.Hand[1].Szam == CardSzam.Asz)
@@ -97,13 +114,13 @@ namespace szamkitjat
                 players.Hand[1].Ertek = 1;
             }
 
-            if (Oszto.OsztoCards[0].Szam == CardSzam.Asz && Oszto.OsztoCards[1].Szam == CardSzam.Asz)
+            if (oszto.OsztoCards[0].Szam == CardSzam.Asz && oszto.OsztoCards[1].Szam == CardSzam.Asz)
             {
-                Oszto.OsztoCards[1].Ertek = 1;
+                oszto.OsztoCards[1].Ertek = 1;
             }
 
             players.KezMutat();
-            Oszto.KezMutat();
+            oszto.KezMutat();
         }
         public void KorKezdes()
         {
@@ -111,7 +128,12 @@ namespace szamkitjat
 
             if (!Tetek())
             {
-                KorVege(Vegeredmeny.NINCSENTET);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Érvénytelten tét");
+                HSzinek();
+                Console.WriteLine("Nyomj egy gombot az újra próbáláshoz.");
+                Console.ReadKey();
+                KorKezdes();
                 return;
             }
 
@@ -119,24 +141,31 @@ namespace szamkitjat
             Play();
 
             players.KezMutat();
-            Oszto.KezMutat();
+            oszto.KezMutat();
+            if (tt != 1)
+            {
+                Ellenorzes();
+            }
+        }
 
-            if (players.KezErtek()>21)
+        public void Ellenorzes()
+        {
+            if (players.KezErtek() > 21)
             {
                 KorVege(Vegeredmeny.BUST);
                 return;
             }
-            while (Oszto.OsztoKezErtek()<17)
+            while (oszto.OsztoKezErtek() < 17)
             {
                 Thread.Sleep(2000);
-                Oszto.OsztoCards.Add(cardDeck.LapHuzas());
+                oszto.OsztoCards.Add(cardDeck.LapHuzas());
 
                 Console.Clear();
                 players.KezMutat();
-                Oszto.KezMutat();
+                oszto.KezMutat();
             }
 
-            if (players.KezErtek() > Oszto.OsztoKezErtek())
+            if (players.KezErtek() > oszto.OsztoKezErtek())
             {
                 if (Blackjack(players.Hand))
                 {
@@ -147,15 +176,15 @@ namespace szamkitjat
                     KorVege(Vegeredmeny.NYERT);
                 }
             }
-            else if (Oszto.OsztoKezErtek() > 21)
+            else if (oszto.OsztoKezErtek() >= 22)
             {
                 KorVege(Vegeredmeny.NYERT);
             }
-            else if (Oszto.OsztoKezErtek() > players.KezErtek())
+            else if (oszto.OsztoKezErtek() > players.KezErtek())
             {
                 KorVege(Vegeredmeny.VESZTETT);
             }
-            else if (Oszto.OsztoKezErtek() == players.KezErtek())
+            else if (oszto.OsztoKezErtek() == players.KezErtek())
             {
                 KorVege(Vegeredmeny.DONTETLEN);
             }
@@ -183,7 +212,7 @@ namespace szamkitjat
             {
                 Console.Clear();
                 players.KezMutat();
-                Oszto.KezMutat();
+                oszto.KezMutat();
                 Console.WriteLine($"A játékos húz-e új lapot?");
                 Console.WriteLine("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
                 if (tt == 1)
@@ -275,17 +304,6 @@ namespace szamkitjat
             }
             return false;
         }
-
-        public enum Vegeredmeny
-        {
-            BLACKJACK,
-            NYERT,
-            VESZTETT,
-            DONTETLEN,
-            SURRENDER,
-            BUST,
-            NINCSENTET
-        }
         public static void HSzinek()
         {
             Console.BackgroundColor = ConsoleColor.Cyan;
@@ -307,6 +325,15 @@ namespace szamkitjat
                     if (players.Coin > 4)
                     {
                         KorKezdes();
+                    }
+                    else if (players.Coin <= 4)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Nincsen a kezdőtéthez elegendő Coin.");
+                        Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
+                        Console.ReadKey();
+                        tt = 1;
+                        End();
                     }
                     break;
                 case Vegeredmeny.SURRENDER:
@@ -350,6 +377,15 @@ namespace szamkitjat
                     {
                         KorKezdes();
                     }
+                    else if (players.Coin <= 4)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Nincsen a kezdőtéthez elegendő Coin.");
+                        Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
+                        Console.ReadKey();
+                        tt = 1;
+                        End();
+                    }
                     break;
                 case Vegeredmeny.DONTETLEN:
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -363,31 +399,11 @@ namespace szamkitjat
                     Console.ReadKey();
                     KorKezdes();
                     break;
-                case Vegeredmeny.NINCSENTET:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Érvénytelten tét");
-                    HSzinek();
-                    Console.WriteLine("Nyomj egy gombot az újra próbáláshoz.");
-                    Console.ReadKey();
-                    KorKezdes();
-                    break;
                 default:
                     Console.WriteLine("Hiba történt!");
                     break;
             }
 
-            if (players.Coin<=4)  //A második körtől kezdeve néha véletlenszerűen ismétlődik
-            {
-                Console.WriteLine();
-                Console.WriteLine("Nincsen a kezdőtéthez elegendő Coin.");
-                Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
-                Console.ReadKey();
-                tt = 1;
-                End();
-            }
-            //Console.WriteLine("Nyomj egy gombot új kör kezdéséhez.");
-            //Console.ReadKey();
-            //KorKezdes();
         }
 
         public static bool Blackjack(List<CardTipus> kez)
@@ -418,7 +434,6 @@ namespace szamkitjat
             else
             {
             }
-
 
             //if (card == 21) //TODO: Ilyen soha nem lesz, itt azt kellene leellenőrizni, hogy cards tömb valamelyik lista elemeinek az összege 21 és ha talál akkor annak az indexét,
             //                //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a 

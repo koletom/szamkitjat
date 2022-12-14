@@ -80,9 +80,9 @@ namespace szamkitjat
     }
     public class Oszto
     {
-        public static List<CardTipus> OsztoCards { get; set; } = new List<CardTipus>();
+        public List<CardTipus> OsztoCards { get; set; } = new List<CardTipus>();
 
-        public static int OsztoKezErtek()
+        public int OsztoKezErtek()
         {
             int ertek = 0;
             foreach (CardTipus card in OsztoCards)
@@ -92,7 +92,7 @@ namespace szamkitjat
             return ertek;
         }
 
-        public static void KezMutat()
+        public void KezMutat()
         {
             Console.WriteLine($"Osztó kezében levő lapok értéke: {OsztoKezErtek()}");
             foreach (CardTipus  cardTipus in OsztoCards)
