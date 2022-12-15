@@ -11,8 +11,10 @@ namespace szamkitjat
         public static int MinimumTet { get; } = 10;
         public int Coin { get; set; } = 1000;
         public int Tet { get; set; }
+        public int DeckTipeP { get; set; } = 0;
 
         public List<CardTipus> Hand { get; set; }
+        public List<CardTipusMagyar> HandM { get; set; }
 
         public void AddTet(int tet)
         {
@@ -51,9 +53,21 @@ namespace szamkitjat
         public int KezErtek()
         {
             int ertek = 0;
-            foreach (CardTipus card in Hand)
+            if (DeckTipeP == 1)
             {
-                ertek += card.Ertek;
+                foreach (CardTipus card in Hand)
+                {
+                    ertek += card.Ertek;
+                }
+                return ertek;
+            }
+            else if (DeckTipeP == 2)
+                {
+                    foreach (CardTipusMagyar card in HandM)
+                    {
+                        ertek += card.Ertek;
+                    }
+                    return ertek;
             }
             return ertek;
         }
@@ -71,23 +85,50 @@ namespace szamkitjat
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine($"Kézben levő lapok értéke: {KezErtek()}");
-            foreach (CardTipus cardTipus in Hand)
+
+            if (DeckTipeP == 1)
             {
-                cardTipus.CardFeltetel();
+                foreach (CardTipus cardTipus in Hand)
+                {
+                    cardTipus.CardFeltetel();
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
+            else if (DeckTipeP == 2)
+            {
+                foreach (CardTipusMagyar cardTipusMagyar in HandM)
+                {
+                    cardTipusMagyar.CardFeltetelMagyar();
+                }
+                Console.WriteLine();
+            }
         }
     }
     public class Oszto
     {
+        public int DeckTipeO { get; set; } = 0;
+
         public List<CardTipus> OsztoCards { get; set; } = new List<CardTipus>();
+        public List<CardTipusMagyar> OsztoCardsM { get; set; } = new List<CardTipusMagyar>();
 
         public int OsztoKezErtek()
         {
             int ertek = 0;
-            foreach (CardTipus card in OsztoCards)
+            if (DeckTipeO == 1)
             {
-                ertek += card.Ertek;
+                foreach (CardTipus card in OsztoCards)
+                {
+                    ertek += card.Ertek;
+                }
+                return ertek;
+            }
+            else if (DeckTipeO == 2)
+            {
+                foreach (CardTipusMagyar card in OsztoCardsM)
+                {
+                    ertek += card.Ertek;
+                }
+                return ertek;
             }
             return ertek;
         }
@@ -95,11 +136,22 @@ namespace szamkitjat
         public void KezMutat()
         {
             Console.WriteLine($"Osztó kezében levő lapok értéke: {OsztoKezErtek()}");
-            foreach (CardTipus  cardTipus in OsztoCards)
+            if (DeckTipeO == 1)
             {
-                cardTipus.CardFeltetel();
+                foreach (CardTipus cardTipus in OsztoCards)
+                {
+                    cardTipus.CardFeltetel();
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
+            else if (DeckTipeO == 2)
+            {
+                foreach (CardTipusMagyar cardTipusMagyar in OsztoCardsM)
+                {
+                    cardTipusMagyar.CardFeltetelMagyar();
+                }
+                Console.WriteLine();
+            }
         }
     }
 

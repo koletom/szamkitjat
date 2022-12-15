@@ -204,7 +204,7 @@ namespace szamkitjat
             }
             else if (SzinM == CardSzinMagyar.Zold)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
             }
                 Console.WriteLine($"{SzinM} {SzamM}");
             
