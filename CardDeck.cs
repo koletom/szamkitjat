@@ -46,6 +46,11 @@ namespace szamkitjat
 
         public List<CardTipus> KezdoKez() //Kezdő kéz 2 lappal
         {
+            if (cards.Count <= 1)
+            {
+                Elokeszit();
+            }
+
             List<CardTipus> kez = new List<CardTipus>();
             kez.Add(cards[0]);
             kez.Add(cards[1]);
@@ -57,6 +62,11 @@ namespace szamkitjat
 
         public List<CardTipus> OsztoKez() //Osztó kéz 2 lappal
         {
+            if (cards.Count <= 1)
+            {
+                Elokeszit();
+            }
+
             List<CardTipus> kez = new List<CardTipus>();
             kez.Add(cards[0]);
             kez.Add(cards[1]);
@@ -68,13 +78,17 @@ namespace szamkitjat
 
         public CardTipus LapHuzas()
         {
-            CardTipus card = cards[0];
+            if (cards.Count <= 0)
+            {
+                Elokeszit();
+            }
 
+            CardTipus card = cards[0];
+            
             cards.Remove(card);
 
             return card;
         }
-
         
         public void Elokeszit()
         {
@@ -123,6 +137,11 @@ namespace szamkitjat
 
         public List<CardTipusMagyar> KezdoKez() //Kezdő kéz 2 lappal
         {
+            if (cards.Count <= 1)
+            {
+                Elokeszit();
+            }
+
             List<CardTipusMagyar> kez = new List<CardTipusMagyar>();
             kez.Add(cards[0]);
             kez.Add(cards[1]);
@@ -134,6 +153,11 @@ namespace szamkitjat
 
         public List<CardTipusMagyar> OsztoKez() //Osztó kéz 2 lappal
         {
+            if (cards.Count <= 1)
+            {
+                Elokeszit();
+            }
+
             List<CardTipusMagyar> kez = new List<CardTipusMagyar>();
             kez.Add(cards[0]);
             kez.Add(cards[1]);
@@ -145,13 +169,17 @@ namespace szamkitjat
 
         public CardTipusMagyar LapHuzas()
         {
+            if (cards.Count <= 0)
+            {
+                Elokeszit();
+            }
+
             CardTipusMagyar card = cards[0];
 
             cards.Remove(card);
 
             return card;
         }
-
 
         public void Elokeszit()
         {

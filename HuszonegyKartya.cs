@@ -225,7 +225,7 @@ namespace szamkitjat
         }
         public void EllenorzesM()
         {
-            if (players.KezErtek() > 21)
+            if (players.KezErtek() > 22)
             {
                 KorVege(Vegeredmeny.BUST);
                 return;
@@ -289,9 +289,6 @@ namespace szamkitjat
             string rk;
             do
             {
-                CardDeck cardDeck = new CardDeck();                        //Ha túl sok lapot húzunk elfogynak a lapok 
-                CardDeckMagyar cardDeckMagyar = new CardDeckMagyar();
-
                 Console.Clear();
                 players.KezMutat();
                 oszto.KezMutat();
@@ -381,7 +378,7 @@ namespace szamkitjat
                         {
                             if (card.Ertek == 11)
                             {
-                                card.Ertek = 1;
+                                card.Ertek = 11;
                                 break;
                             }
                         }
