@@ -225,11 +225,22 @@ namespace szamkitjat
         }
         public void EllenorzesM()
         {
-            if (players.KezErtek() > 22)
+            if (oszto.OsztoKezErtek() == 22)
+            {
+                KorVege(Vegeredmeny.VESZTETT);
+            }
+
+            if (BlackjackM2(players.HandM))
+            {
+                KorVege(Vegeredmeny.WIN);
+            }
+
+            if (players.KezErtek() > 21)
             {
                 KorVege(Vegeredmeny.BUST);
                 return;
             }
+
             while (oszto.OsztoKezErtek() < 14)
             {
                 Thread.Sleep(2000);
@@ -242,11 +253,7 @@ namespace szamkitjat
 
             if (players.KezErtek() > oszto.OsztoKezErtek())
             {
-                if (BlackjackM2(players.HandM))
-                {
-                    KorVege(Vegeredmeny.WIN); 
-                }
-                else if (BlackjackM(players.HandM))
+                if (BlackjackM(players.HandM))
                 {
                     KorVege(Vegeredmeny.BLACKJACK);
                 }
