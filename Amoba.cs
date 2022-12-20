@@ -9,6 +9,11 @@ namespace szamkitjat
 {
     class Amoba : IGame
     {
+        IGameUI _gameUI;
+        public Amoba (IGameUI gameUI)
+        {
+            _gameUI = gameUI;
+        }
         #region propertiregion
         int gamercount { get; set; }
         public string Name => "Amoba";
@@ -76,26 +81,21 @@ namespace szamkitjat
         {
             for (int i = 0; i < 9; i++)
             {
-                Console.BackgroundColor = ConsoleColor.White;
                 if (tabla[i] == 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write(".");
+                    _gameUI.Print(".", ConsoleColor.DarkGray, ConsoleColor.White);
                 }
                 if (tabla[i] == 1)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write("X");
+                    _gameUI.Print("X", ConsoleColor.Blue, ConsoleColor.White);
                 }
                 if (tabla[i] == 2)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("O");
+                    _gameUI.Print("O", ConsoleColor.Red, ConsoleColor.White);
                 }
-                Console.BackgroundColor = ConsoleColor.Gray;
                 if (i == 2 || i == 5 || i == 8)
                 {
-                    Console.WriteLine();
+                    _gameUI.PrintLNBcg("", ConsoleColor.Gray);
                 }
             }
         }
@@ -103,16 +103,13 @@ namespace szamkitjat
         public void Start()
         {
             Hang.Good();
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Gray;
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Clear();
-            Console.WriteLine("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe");
-            Console.WriteLine("A Játékos az X-el, a Gép a O-rel van.");
-            Console.WriteLine("A számok a rácson az alábbi helyeket foglalják el:");
-            Console.WriteLine("0,1,2");
-            Console.WriteLine("3,4,5");
-            Console.WriteLine("6,7,8");
+            _gameUI.Clear();
+            _gameUI.PrintLN("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe", ConsoleColor.DarkGray, ConsoleColor.Gray);
+            _gameUI.PrintLN("A Játékos az X-el, a Gép a O-rel van.", ConsoleColor.DarkGray, ConsoleColor.Gray);
+            _gameUI.PrintLN("A számok a rácson az alábbi helyeket foglalják el:", ConsoleColor.DarkGray, ConsoleColor.Gray);
+            _gameUI.PrintLN("0,1,2", ConsoleColor.DarkGray, ConsoleColor.Gray);
+            _gameUI.PrintLN("3,4,5", ConsoleColor.DarkGray, ConsoleColor.Gray);
+            _gameUI.PrintLN("6,7,8", ConsoleColor.DarkGray, ConsoleColor.Gray);
         }
 
         public void Play()
@@ -132,27 +129,24 @@ namespace szamkitjat
                 while (elsoJatekos == -1 || tabla[elsoJatekos] != 0)
                 {
                     int number;
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Írj be egy számot 0 - 8 ig");
-                    bool placeValid = int.TryParse(Console.ReadLine(), out number);
+                    _gameUI.PrintLN("Írj be egy számot 0 - 8 ig", ConsoleColor.Blue);
+                    bool placeValid = int.TryParse(_gameUI.ReadLine(), out number);
                     Hang.Lepes();
-                    Console.Clear();
+                    _gameUI.Clear();
                     if (placeValid)
                     {
-                        Console.WriteLine($"A beírt szám:{number}");
+                        _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                     }
                     if (number >= 9||number<0)
                     {
                         Hang.Hiba();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"A beírt szám nem megfelelő");
+                        _gameUI.PrintLN($"A beírt szám nem megfelelő", ConsoleColor.Red);
                         tablazat();
                     }
                     else if (number == elsoJatekos || number == gepJatekos)
                     {
                         Hang.Hiba();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"A beírt szám helye foglalt");
+                        _gameUI.PrintLN($"A beírt szám helye foglalt", ConsoleColor.Red);
                         tablazat();
                     }
                     else
@@ -171,7 +165,7 @@ namespace szamkitjat
                 while (gepJatekos == -1 || tabla[gepJatekos] != 0)
                 {
                     gepJatekos = rand.Next(8);
-                    Console.WriteLine($"A gép által választott szám {gepJatekos}");
+                    _gameUI.PrintLN($"A gép által választott szám {gepJatekos}", ConsoleColor.Blue);
                 }
 
                 tabla[gepJatekos] = 2;
@@ -188,25 +182,21 @@ namespace szamkitjat
             if (nyertes() == 1)
             {
                 tablazat();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\nGratulálunk! Nyertél!");
-                Console.WriteLine("Jatékos nyert\n");
+                _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.Green);
+                _gameUI.PrintLN("Jatékos nyert\n", ConsoleColor.Green);
                 Hang.Win();
             }
             if (nyertes() == 2)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nVeszítettél! \nA Számítógép nyert!");
+                _gameUI.PrintLN("\nVeszítettél! \nA Számítógép nyert!", ConsoleColor.Red);
                 Hang.Lose();
             }
             if (nyertes() != 1 && nyertes() != 2)
             {
                 tablazat();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Döntetlen");
+                _gameUI.PrintLN("Döntetlen", ConsoleColor.Yellow);
                 Hang.Tie();
             }
-            Console.ForegroundColor = ConsoleColor.White;
 
             System.Threading.Thread.Sleep(1000);
 

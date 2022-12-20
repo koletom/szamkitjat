@@ -12,12 +12,13 @@ namespace SzamKitJat
     {
         static void Main(string[] args)
         {
+            IGameUI ui = new UI(); 
             IGame[] games = new IGame[4];
 
-            games[0] = new Amoba();
-            games[1] = new Kitalalos();
-            games[2] = new HuszonegyKartya();
-            games[3] = new KoPapirOllo();
+            games[0] = new Amoba(ui);
+            games[1] = new Kitalalos(ui);
+            games[2] = new HuszonegyKartya(ui);
+            games[3] = new KoPapirOllo(ui);
 
             var n = new Game(games);
 

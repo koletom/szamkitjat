@@ -9,10 +9,14 @@ namespace szamkitjat
 {
     class KoPapirOllo : IGame
     {
-        public static void KPOSzinek()
+        IGameUI _gameUI;
+        public KoPapirOllo(IGameUI gameUI)
         {
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            _gameUI = gameUI;
+        }
+        public void KPOSzinek()
+        {
+            _gameUI.PrintLN("", ConsoleColor.DarkBlue, ConsoleColor.Cyan);
         }
         #region propertiregion
         int gamercount { get; set; }
@@ -21,9 +25,9 @@ namespace szamkitjat
         public void Start()
         {
             Hang.Good();
-            Console.Clear();
-            Console.WriteLine("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
-            Console.WriteLine("\nA játék 5 pontig megy!");
+            _gameUI.Clear();
+            _gameUI.PrintLN("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
+            _gameUI.PrintLN("\nA játék 5 pontig megy!");
         }
         
         int compScore = 0;
@@ -36,8 +40,8 @@ namespace szamkitjat
             {
                 string compChoice = "";
                 string playerChoice = "";
-                Console.WriteLine();
-                Console.WriteLine("Mit választasz? (k/p/o)");
+                _gameUI.PrintLN("");
+                _gameUI.PrintLN("Mit választasz? (k/p/o)");
                 char valaszt;
                 bool ko;
                 bool papir;
@@ -84,22 +88,20 @@ namespace szamkitjat
                      (playerChoice == "olló" && compChoice == "kő")
                    )
                 {
-                    Console.Clear();
-                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\nVesztettél!");
+                    _gameUI.Clear();
+                    _gameUI.PrintLN($"Játékos:{playerChoice} vs. Gép:{compChoice}");
+                    _gameUI.PrintLN("\nVesztettél!", ConsoleColor.Red);
                     KPOSzinek();
-                    Console.Write(" Az állás:\nSzámítógép: {0}\nJátékos:{1}", ++compScore, playerScore);
+                    _gameUI.PrintLN($" Az állás:\nSzámítógép: {++compScore}\nJátékos:{playerScore}");
                     Hang.Bad();
                 }
                 else if (playerChoice == compChoice)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("\nDöntetlen!");
+                    _gameUI.Clear();
+                    _gameUI.PrintLN($"Játékos:{playerChoice} vs. Gép:{compChoice}");
+                    _gameUI.PrintLN("\nDöntetlen!", ConsoleColor.Yellow);
                     KPOSzinek();
-                    Console.Write(" Az állás:\nSzámítógép: {0}\nJátékos:{1}",compScore, playerScore);
+                    _gameUI.PrintLN($" Az állás:\nSzámítógép: {compScore}\nJátékos:{playerScore}");
                     Hang.Tie();
                 }
                 else if (
@@ -110,20 +112,19 @@ namespace szamkitjat
                      (compChoice == "olló" && playerChoice == "kő")
                    )
                 {
-                    Console.Clear();
-                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("\nNyertél!");
+                    _gameUI.Clear();
+                    _gameUI.PrintLN($"Játékos:{playerChoice} vs. Gép:{compChoice}");
+                    _gameUI.PrintLN("\nNyertél!", ConsoleColor.DarkGreen);
                     KPOSzinek();
-                    Console.Write(" Az állás:\nSzámítógép: {0}\nJátékos:{1}",compScore, ++playerScore);
+                    _gameUI.PrintLN($" Az állás:\nSzámítógép: {compScore}\nJátékos:{++playerScore}");
                     Hang.Good();
                 }
                 else
                 {
-                    Console.Clear();
+                    _gameUI.Clear();
                     Hang.Hiba();
-                    Console.WriteLine("Játékos:{0} vs. Gép:{1}", playerChoice, compChoice);
-                    Console.WriteLine("Csak az alábbi lehetőségek közül lehet választani: (k/p/o)");
+                    _gameUI.PrintLN($"Játékos:{playerChoice} vs. Gép:{compChoice}");
+                    _gameUI.PrintLN("Csak az alábbi lehetőségek közül lehet választani: (k/p/o)");
                 }
             } while (playerScore <= 4 && compScore != 5
                     || compScore <= 4 && playerScore != 5);
@@ -138,18 +139,16 @@ namespace szamkitjat
             if (compScore == 5)
             {
                 Hang.Lose();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nVesztettél!");
+                _gameUI.PrintLN("\nVesztettél!", ConsoleColor.Red);
                     KPOSzinek();
-                Console.Write(" \nA Számítógép: {0}:{1} -ra/-re nyert!", compScore, playerScore);
+                _gameUI.PrintLN($" \nA Számítógép: {compScore}:{playerScore} -ra/-re nyert!\n");
             }
             if (playerScore == 5)
             {
                 Hang.Win();
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("\nGratulálunk! Nyertél!");
+                _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.DarkGreen);
                 KPOSzinek();
-                Console.Write(" \nA Játékos: {0}:{1} -ra/-re nyert!", compScore, playerScore);
+                _gameUI.PrintLN($" \nA Játékos: {compScore}:{playerScore} -ra/-re nyert!\n");
             }
             compScore = 0;
             playerScore = 0;

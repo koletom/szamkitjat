@@ -10,10 +10,11 @@ namespace szamkitjat
     //TODO: Bővült az interface!!!
     class Kitalalos : IGame
     {
-        //public void KitalalosJatek()
-        //{
-
-        //}
+        IGameUI _gameUI;
+        public Kitalalos(IGameUI gameUI)
+        {
+            _gameUI = gameUI;
+        }
         #region propertiregion
         int gamercount { get; set; }
         public string Name => "Kitalalos";
@@ -27,14 +28,11 @@ namespace szamkitjat
         public void Start()
         {
             Hang.Good();
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Clear();
-            Console.WriteLine("Válassz játékmódot");
-            Console.WriteLine("1 - Te gondolsz egy számra");
-            Console.WriteLine("2 - A számítógép gondol egy számra");
-            Console.WriteLine("3 - Vissza a Főmenübe");
+            _gameUI.Clear();
+            _gameUI.PrintLN("Válassz játékmódot", ConsoleColor.DarkRed, ConsoleColor.Yellow);
+            _gameUI.PrintLN("1 - Te gondolsz egy számra", ConsoleColor.DarkRed, ConsoleColor.Yellow);
+            _gameUI.PrintLN("2 - A számítógép gondol egy számra", ConsoleColor.DarkRed, ConsoleColor.Yellow);
+            _gameUI.PrintLN("3 - Vissza a Főmenübe", ConsoleColor.DarkRed, ConsoleColor.Yellow);
 
             switch (Console.ReadKey(true).KeyChar)
             {
@@ -61,9 +59,9 @@ namespace szamkitjat
             //TODO:A readkey-ek mindehol legyenek leellenőrizve a nagy betűket is el kelle fogadni
             if (gamer == 1)//Játékos
             {
-                Console.Clear();
-                Console.WriteLine("Gondolj egy számra! (1 - 100)");
-                Console.WriteLine("Nyomj egy gombot ha készen állsz!");
+                _gameUI.Clear();
+                _gameUI.PrintLN("Gondolj egy számra! (1 - 100)");
+                _gameUI.PrintLN("Nyomj egy gombot ha készen állsz!");
                 Console.ReadKey();
                 Hang.Good();
 
@@ -78,9 +76,9 @@ namespace szamkitjat
                     bool lower;
                     bool higher;
                     bool equal;
-                    Console.Clear();
-                    Console.WriteLine("A számítógép szerint a szám {0}", x);
-                    Console.WriteLine("Szerinted? kisebb, nagyobb, egyenlő (k/n/e)");
+                    _gameUI.Clear();
+                    _gameUI.PrintLN($"A számítógép szerint a szám {x}");
+                    _gameUI.PrintLN("Szerinted? kisebb, nagyobb, egyenlő (k/n/e)");
                     size = Console.ReadKey(true).KeyChar;
                     Hang.Lepes();
                     lower = (size == 'k' ^ size == 'K');
@@ -128,25 +126,25 @@ namespace szamkitjat
             }
             if (gamer == 2) //Gep
             {
-                Console.Clear();
-                    Console.WriteLine("\nA gép gondolt egy számra 0-100-ig \n5 tipped lehet!");
+                _gameUI.Clear();
+                _gameUI.PrintLN("\nA gép gondolt egy számra 0-100-ig \n5 tipped lehet!");
                     Random r = new Random();
                     int number = r.Next(100);
                     int c = 1;
                     int y = 0;
                 do
                 {
-                    Console.WriteLine($"\n{c}. tipped: ");
+                    _gameUI.PrintLN($"\n{c}. tipped: ");
                     y = int.Parse(Console.ReadLine());
                     Hang.Lepes();
 
                     if (y < number)
                     {
-                        Console.WriteLine("A szám ennél nagyobb!");
+                        _gameUI.PrintLN("A szám ennél nagyobb!");
                     }
                     else if (y > number)
                     {
-                        Console.WriteLine("A szám ennél kisebb!");
+                        _gameUI.PrintLN("A szám ennél kisebb!");
                     }
                     else if (y == number)
                     {
@@ -159,7 +157,7 @@ namespace szamkitjat
                 if (c > 5)
                 {
                     cc = 15;
-                    Console.WriteLine("\nVesztettél, a szám {0} volt.", number);
+                    _gameUI.PrintLN($"\nVesztettél, a szám {number} volt.");
                     number = 0;
                     c = 1;
                     y = 0;
@@ -171,18 +169,18 @@ namespace szamkitjat
         {
             if (cc == 5)
             {
-                Console.WriteLine("Nyertél! A számítógép nem tudta kitalálni a számot.");
+                _gameUI.PrintLN("Nyertél! A számítógép nem tudta kitalálni a számot.");
                 Hang.Win();
-                Console.WriteLine("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
+                _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0; 
                 cc = 0;
                 Console.ReadKey();
                 Start();
             }
             else if (cc == 10) {
-                Console.WriteLine("Eltaláltad!\nNyertél!");
+                _gameUI.PrintLN("Eltaláltad!\nNyertél!");
                 Hang.Win();
-                Console.WriteLine("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
+                _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0;
                 cc = 0;
                 Console.ReadKey();
@@ -192,7 +190,7 @@ namespace szamkitjat
             {
                 //Console.WriteLine("\nVesztettél, a szám {0} volt.", number);
                 Hang.Lose();
-                Console.WriteLine("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
+                _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0;
                 cc = 0;
                 Console.ReadKey();
@@ -200,9 +198,9 @@ namespace szamkitjat
             }
             else if (cc == 20)
             {
-                Console.WriteLine("Vesztettél, a számítógép kitalálta a számot.");
+                _gameUI.PrintLN("Vesztettél, a számítógép kitalálta a számot.");
                 Hang.Lose();
-                Console.WriteLine("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
+                _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0;
                 cc = 0;
                 Console.ReadKey();
