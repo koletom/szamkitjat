@@ -32,7 +32,7 @@ namespace szamkitjat
             do
             {
                 _gameUI.PrintLN("Adja meg a játékosok számát (max 5)");
-                input = Console.ReadLine();
+                input = _gameUI.ReadLine;
                 if (!int.TryParse(input, out p))
                 {
 
@@ -47,7 +47,7 @@ namespace szamkitjat
             {
                 _gameUI.Clear();
                 _gameUI.PrintLN("Válassz kártya paklit.\nMagyar, Francia");
-                pakli = Console.ReadLine();
+                pakli = _gameUI.ReadLine;
 
                 switch (pakli.ToUpper())
                 {
@@ -74,13 +74,13 @@ namespace szamkitjat
                         _gameUI.PrintLN("Lehetséges válaszok:");
                         _gameUI.PrintLN("Magyar, Francia");
                         _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                        Console.ReadKey();
+                        _gameUI.ReadKey();
                         break;
                 }
             } while (!pakli.ToUpper().Equals("MAGYAR") && !pakli.ToUpper().Equals("FRANCIA"));
             _gameUI.PrintLN("\nKezdődjön a játék!");
             _gameUI.PrintLN("Nyomj egy gombot a kezdéshez.");
-            Console.ReadKey();
+            _gameUI.ReadKey();
             KorKezdes();
 
         }
@@ -163,7 +163,7 @@ namespace szamkitjat
                 _gameUI.PrintLN("Érvénytelten tét", ConsoleColor.Red);
                 HSzinek();
                 _gameUI.PrintLN("Nyomj egy gombot az újra próbáláshoz.");
-                Console.ReadKey();
+                _gameUI.ReadKey();
                 KorKezdes();
                 return;
             }
@@ -315,7 +315,7 @@ namespace szamkitjat
                 }
                 else
                 {
-                    rk = Console.ReadLine();
+                    rk = _gameUI.ReadLine;
                 }
                 //newcardyes=(rk == 'i' ^ rk == 'I');
                 //newcardno = (rk == 'n' ^ rk == 'N');
@@ -365,7 +365,7 @@ namespace szamkitjat
                     default:
                         _gameUI.PrintLN("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
                         _gameUI.PrintLN("Nyomj egy gombot az új próbához.");
-                        Console.ReadKey();
+                        _gameUI.ReadKey();
                         break;
                 }
                 
@@ -418,10 +418,10 @@ namespace szamkitjat
 
             _gameUI.Print("Minimum tét: ");
             _gameUI.PrintLN($"{MinimumKezdoTet}");
-            Console.WriteLine();
+            _gameUI.PrintLN("");
 
             _gameUI.PrintLN("Kérem a téteket:");
-            string s = Console.ReadLine();
+            string s = _gameUI.ReadLine;
             if (Int32.TryParse(s, out int tet) && tet >= MinimumKezdoTet && players.Coin >= tet)
             {
                 players.AddTet(tet);
@@ -444,7 +444,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("A Játékos vesztett! \nA játékos túl sok lapot húzott", ConsoleColor.Red);
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                    Console.ReadKey();
+                    _gameUI.ReadKey();
                     if (players.Coin > 4)
                     {
                         KorKezdes();
@@ -454,7 +454,7 @@ namespace szamkitjat
                         _gameUI.PrintLN("");
                         _gameUI.PrintLN("Nincsen a kezdőtéthez elegendő Coin.");
                         _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                        Console.ReadKey();
+                        _gameUI.ReadKey();
                         tt = 1;
                         End();
                     }
@@ -466,14 +466,14 @@ namespace szamkitjat
                     players.Coin = players.Coin+players.Tet / 2;
                     players.TetNullaz();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                    Console.ReadKey();
+                    _gameUI.ReadKey();
                     KorKezdes();
                     break;
                 case Vegeredmeny.WIN:
                     _gameUI.PrintLN("A Játékos 2 Ászt húzott. Játékos nyert. Nyeremény:" + players.TetNyer(true) + " Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                    Console.ReadKey();
+                    _gameUI.ReadKey();
                     players.TetNullaz();
                     KorKezdes();
                     break;
@@ -481,15 +481,15 @@ namespace szamkitjat
                     _gameUI.PrintLN("Blackjack. Játékos nyert. Nyeremény:" + players.TetNyer(true) +" Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                    Console.ReadKey();
+                    _gameUI.ReadKey();
                     players.TetNullaz();
                     KorKezdes();
                     break;
                 case Vegeredmeny.NYERT:
                     _gameUI.PrintLN("Játékos nyert. Nyeremény:" + players.TetNyer(false) + " Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
-                    Console.WriteLine("Nyomj egy gombot a folytatáshoz.");
-                    Console.ReadKey();
+                    _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
+                    _gameUI.ReadKey();
                     players.TetNullaz();
                     KorKezdes();
                     break;
@@ -498,7 +498,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("Osztó nyert", ConsoleColor.Red);
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                    Console.ReadKey();
+                    _gameUI.ReadKey();
                     if (players.Coin > 4)
                     {
                         KorKezdes();
@@ -508,7 +508,7 @@ namespace szamkitjat
                         _gameUI.PrintLN("");
                         _gameUI.PrintLN("Nincsen a kezdőtéthez elegendő Coin.");
                         _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                        Console.ReadKey();
+                        _gameUI.ReadKey();
                         tt = 1;
                         End();
                     }
@@ -520,7 +520,7 @@ namespace szamkitjat
                     players.TetVisszakap();
                     players.TetNullaz();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                    Console.ReadKey();
+                    _gameUI.ReadKey();
                     KorKezdes();
                     break;
                 default:

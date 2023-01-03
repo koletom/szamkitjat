@@ -18,7 +18,9 @@ namespace szamkitjatiterfaces
         void PrintLN(string szoveg);
         void PrintLN(string szoveg, ConsoleColor foreground);
         void PrintLNBcg(string szoveg, ConsoleColor background);
-        string ReadLine();
-        char ReadKey();
+        string ReadLine { get; }
+
+        void ReadKey();
+        void ReadKeyTrue();
     }
 }

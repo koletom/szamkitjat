@@ -81,14 +81,16 @@ namespace szamkitjat
         //    Console.ReadKey();
         //}
 
-        public string ReadLine()
-        {
-            throw new NotImplementedException();
-        }
+        public string ReadLine => Console.ReadLine();
 
-        public char ReadKey()
+        public void ReadKey()
         {
-            throw new NotImplementedException();
+            Console.ReadKey();
         }
+        public void ReadKeyTrue()
+        {
+            Console.ReadKey(true);
+        }
+       
     }
 }

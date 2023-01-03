@@ -130,7 +130,7 @@ namespace szamkitjat
                 {
                     int number;
                     _gameUI.PrintLN("Írj be egy számot 0 - 8 ig", ConsoleColor.Blue);
-                    bool placeValid = int.TryParse(_gameUI.ReadLine(), out number);
+                    bool placeValid = int.TryParse(_gameUI.ReadLine, out number);
                     Hang.Lepes();
                     _gameUI.Clear();
                     if (placeValid)

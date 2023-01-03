@@ -62,7 +62,7 @@ namespace szamkitjat
                 _gameUI.Clear();
                 _gameUI.PrintLN("Gondolj egy számra! (1 - 100)");
                 _gameUI.PrintLN("Nyomj egy gombot ha készen állsz!");
-                Console.ReadKey();
+                _gameUI.ReadKey();
                 Hang.Good();
 
                 Random p = new Random();
@@ -135,7 +135,7 @@ namespace szamkitjat
                 do
                 {
                     _gameUI.PrintLN($"\n{c}. tipped: ");
-                    y = int.Parse(Console.ReadLine());
+                    y = int.Parse(_gameUI.ReadLine);
                     Hang.Lepes();
 
                     if (y < number)
@@ -174,7 +174,7 @@ namespace szamkitjat
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0; 
                 cc = 0;
-                Console.ReadKey();
+                _gameUI.ReadKey();
                 Start();
             }
             else if (cc == 10) {
@@ -183,7 +183,7 @@ namespace szamkitjat
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0;
                 cc = 0;
-                Console.ReadKey();
+                _gameUI.ReadKey();
                 Start();
             }
             else if (cc == 15)
@@ -193,7 +193,7 @@ namespace szamkitjat
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0;
                 cc = 0;
-                Console.ReadKey();
+                _gameUI.ReadKey();
                 Start();
             }
             else if (cc == 20)
@@ -203,7 +203,7 @@ namespace szamkitjat
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0;
                 cc = 0;
-                Console.ReadKey();
+                _gameUI.ReadKey();
                 Start();
             }
             else if (cc == 25)
