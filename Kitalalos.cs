@@ -34,7 +34,7 @@ namespace szamkitjat
             _gameUI.PrintLN("2 - A számítógép gondol egy számra", ConsoleColor.DarkRed, ConsoleColor.Yellow);
             _gameUI.PrintLN("3 - Vissza a Főmenübe", ConsoleColor.DarkRed, ConsoleColor.Yellow);
 
-            switch (Console.ReadKey(true).KeyChar)
+            switch (_gameUI.ReadKeyTrue)
             {
                 case '1':
                     gamer = 1;
@@ -79,7 +79,7 @@ namespace szamkitjat
                     _gameUI.Clear();
                     _gameUI.PrintLN($"A számítógép szerint a szám {x}");
                     _gameUI.PrintLN("Szerinted? kisebb, nagyobb, egyenlő (k/n/e)");
-                    size = Console.ReadKey(true).KeyChar;
+                    size = _gameUI.ReadKeyTrue;
                     Hang.Lepes();
                     lower = (size == 'k' ^ size == 'K');
                     higher = (size == 'n' ^ size == 'N');
@@ -132,6 +132,7 @@ namespace szamkitjat
                     int number = r.Next(100);
                     int c = 1;
                     int y = 0;
+                    int ok = 0;
                 do
                 {
                     _gameUI.PrintLN($"\n{c}. tipped: ");
@@ -150,18 +151,30 @@ namespace szamkitjat
                     {
                         c = 5;
                         cc = 10;
+                        ok = 100;
                     }
                     
                     ++c;
                 } while (c <= 5);
                 if (c > 5)
                 {
-                    cc = 15;
-                    _gameUI.PrintLN($"\nVesztettél, a szám {number} volt.");
-                    number = 0;
-                    c = 1;
-                    y = 0;
-                    End();
+                    if (ok == 100)
+                    {
+                        cc = 10; 
+                        number = 0;
+                        c = 1;
+                        y = 0;
+                        End();
+                    }
+                    else
+                    {
+                        cc = 15;
+                        _gameUI.PrintLN($"\nVesztettél, a szám {number} volt.");
+                        number = 0;
+                        c = 1;
+                        y = 0;
+                        End();
+                    }
                 }
             }
         }

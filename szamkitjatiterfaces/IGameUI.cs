@@ -21,6 +21,6 @@ namespace szamkitjatiterfaces
         string ReadLine { get; }
 
         void ReadKey();
-        void ReadKeyTrue();
+        char ReadKeyTrue { get; }
     }
 }

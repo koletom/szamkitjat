@@ -46,7 +46,7 @@ namespace szamkitjat
                 bool ko;
                 bool papir;
                 bool ollo;
-                valaszt = Console.ReadKey(true).KeyChar;
+                valaszt = _gameUI.ReadKeyTrue;
                 Hang.Lepes();
                 System.Threading.Thread.Sleep(500);
                 ko = (valaszt == 'k' ^ valaszt == 'K');

@@ -87,10 +87,7 @@ namespace szamkitjat
         {
             Console.ReadKey();
         }
-        public void ReadKeyTrue()
-        {
-            Console.ReadKey(true);
-        }
-       
+        public char ReadKeyTrue => _ = Console.ReadKey(true).KeyChar;
+
     }
 }
