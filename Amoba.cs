@@ -130,14 +130,17 @@ namespace szamkitjat
                 {
                     int number;
                     _gameUI.PrintLN("Írj be egy számot 0 - 8 ig", ConsoleColor.Blue);
-                    bool placeValid = int.TryParse(_gameUI.ReadLine, out number);
+                    string szam = _gameUI.ReadLine;
+                    bool placeValid = int.TryParse(szam, out number);
                     Hang.Lepes();
                     _gameUI.Clear();
-                    if (placeValid)
+                    if (placeValid == false)
                     {
-                        _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
+                        _gameUI.PrintLN($"A beírt szám:{szam}", ConsoleColor.Blue);
+                        _gameUI.PrintLN($"A beírt karakter nem egy szám", ConsoleColor.Blue);
+                        tablazat();
                     }
-                    if (number >= 9||number<0)
+                    else if (number >= 9||number<0)
                     {
                         Hang.Hiba();
                         _gameUI.PrintLN($"A beírt szám nem megfelelő", ConsoleColor.Red);
@@ -149,8 +152,9 @@ namespace szamkitjat
                         _gameUI.PrintLN($"A beírt szám helye foglalt", ConsoleColor.Red);
                         tablazat();
                     }
-                    else
+                    else if (placeValid == true)
                     {
+                        _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         elsoJatekos = number;
                     }
                 }
@@ -165,8 +169,8 @@ namespace szamkitjat
                 while (gepJatekos == -1 || tabla[gepJatekos] != 0)
                 {
                     gepJatekos = rand.Next(8);
-                    _gameUI.PrintLN($"A gép által választott szám {gepJatekos}", ConsoleColor.Blue);
                 }
+                _gameUI.PrintLN($"A gép által választott szám {gepJatekos}", ConsoleColor.Blue);
 
                 tabla[gepJatekos] = 2;
 

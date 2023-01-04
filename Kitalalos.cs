@@ -69,14 +69,22 @@ namespace szamkitjat
                 int i = 0;
                 int x = 50;
                 int min = 0;
-                int max = 100;
+                int max = 100; 
+                int error = 0;
                 do
                 {
                     char size;
                     bool lower;
                     bool higher;
                     bool equal;
+                    
                     _gameUI.Clear();
+                    if (error == -1)
+                    {
+                        _gameUI.PrintLN("A beírt karakter nincs a lehetőségek között!");
+                        error = 0;
+                    }
+                    _gameUI.PrintLN($"A számítógép {i+1}. tippje.");
                     _gameUI.PrintLN($"A számítógép szerint a szám {x}");
                     _gameUI.PrintLN("Szerinted? kisebb, nagyobb, egyenlő (k/n/e)");
                     size = _gameUI.ReadKeyTrue;
@@ -84,9 +92,16 @@ namespace szamkitjat
                     lower = (size == 'k' ^ size == 'K');
                     higher = (size == 'n' ^ size == 'N');
                     equal = (size == 'e' ^ size == 'E');
+                    
                     if (lower == true) { size = 'k'; }
                     else if (higher == true) { size = 'n'; }
                     else if (equal == true) { size = 'e'; }
+                    else if (lower == false || higher == false || equal == false)
+                    {
+                        error = -1;
+                        --i;
+                    }
+
                     switch (size)
                     {
                         case 'k':
@@ -138,6 +153,12 @@ namespace szamkitjat
                     _gameUI.PrintLN($"\n{c}. tipped: ");
                     y = int.Parse(_gameUI.ReadLine);
                     Hang.Lepes();
+
+                    //if (y > 100 || y < 0)
+                    //{
+                    //    _gameUI.PrintLN("A szám nem esik bele a (0-100) tartományba");
+                    //    --c;
+                    //}
 
                     if (y < number)
                     {
