@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using szamkitjatiterfaces;
 
+
+//TODO: Ezt egy külön projectbe kellene átrakni egy másik namespacebe pl: szamkitjat.UI.Console
 namespace szamkitjat
 {
     public class UI : IGameUI

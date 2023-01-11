@@ -22,5 +22,12 @@ namespace szamkitjatiterfaces
 
         void ReadKey();
         char ReadKeyTrue { get; }
+
+        //TODO:
+        bool ReadKey(char trueChar = 'y', char falseChar = 'n');
+        uint ReadNumber();
+
+        string ReadString(int stringLength);
+        string ReadString(string[] validStrings);
     }
 }
