@@ -34,9 +34,11 @@ namespace szamkitjat
             Console.ForegroundColor = foreground;
             Console.BackgroundColor = background;
             Console.Write(szoveg);
+            
         }
         public void Print(string szoveg)
         {
+            //TODO:Hiányzik a foreground és background beállítása a default értékekre
             Console.Write(szoveg);
         }
         public void Print(string szoveg, ConsoleColor foreground)
