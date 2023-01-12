@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94DA9EE4-46C1-47EA-A579-7E901AD3C467}</ProjectGuid>
+    <ProjectGuid>{D1DAA3FC-D389-4C93-94FE-DDED4B1F9A6F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>szamkitjat</RootNamespace>
-    <AssemblyName>szamkitjat</AssemblyName>
+    <RootNamespace>szamkitjatUIs</RootNamespace>
+    <AssemblyName>szamkitjatUIs</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,29 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Amoba.cs" />
-    <Compile Include="CardDeck.cs" />
-    <Compile Include="CardPlayers.cs" />
-    <Compile Include="CardTipus.cs" />
-    <Compile Include="Computer.cs" />
-    <Compile Include="Hang.cs" />
-    <Compile Include="HuszonegyKartya.cs" />
-    <Compile Include="Ending.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Kitalalos.cs" />
-    <Compile Include="KoPapirOllo.cs" />
-    <Compile Include="Osszeg.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Proba.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Teszt.cs" />
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="szamkitjatiterfaces\szamkitjatiterfaces.csproj">
+    <ProjectReference Include="..\szamkitjatiterfaces\szamkitjatiterfaces.csproj">
       <Project>{af098854-f732-4cd4-83ea-b9b7d05b3e67}</Project>
       <Name>szamkitjatiterfaces</Name>
     </ProjectReference>
