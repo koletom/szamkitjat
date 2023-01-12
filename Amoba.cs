@@ -128,34 +128,48 @@ namespace szamkitjat
             {
                 while (elsoJatekos == -1 || tabla[elsoJatekos] != 0)
                 {
+                    bool placeValid;
                     _gameUI.PrintLN("Írj be egy számot 0 - 8 ig", ConsoleColor.Blue);
-                    int number;
-                    string szam = _gameUI.ReadLine;
-                    bool placeValid = int.TryParse(szam, out number);
+                    int? number;
+                    number = (int?)_gameUI.ReadNumber();
+                    //string szam = _gameUI.ReadLine;
+                    //bool placeValid = int.TryParse(szam, out number);
+
+                    if (number is null)
+                    {
+                        placeValid = false;
+                    }
+                    else
+                    {
+                        placeValid = true;
+                    }
+
                     Hang.Lepes();
                     _gameUI.Clear();
                     if (placeValid == false)
                     {
-                        _gameUI.PrintLN($"A beírt szám:{szam}", ConsoleColor.Blue);
+                        //_gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         _gameUI.PrintLN($"A beírt karakter nem egy szám", ConsoleColor.Blue);
                         tablazat();
                     }
                     else if (number >= 9||number<0)
                     {
                         Hang.Hiba();
+                        _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         _gameUI.PrintLN($"A beírt szám nem megfelelő", ConsoleColor.Red);
                         tablazat();
                     }
                     else if (number == elsoJatekos || number == gepJatekos)
                     {
                         Hang.Hiba();
+                        _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         _gameUI.PrintLN($"A beírt szám helye foglalt", ConsoleColor.Red);
                         tablazat();
                     }
                     else if (placeValid == true)
                     {
                         _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
-                        elsoJatekos = number;
+                        elsoJatekos = (int)number;
                     }
                 }
 

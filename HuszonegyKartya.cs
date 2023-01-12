@@ -31,14 +31,31 @@ namespace szamkitjat
             _gameUI.PrintLN("\nAz nyer akinél nagyobb száma van vagy előbb lesz 21-e.\nHa valakinek több mint 21 az veszít");
             do
             {
+                bool isValid;
+                int? number;
                 _gameUI.PrintLN("Adja meg a játékosok számát (max 5)");
-                //_gameUI.ReadNumber();
-                input = _gameUI.ReadLine;
-                if (!int.TryParse(input, out p))
+                number = (int?)_gameUI.ReadNumber();
+                if (number is null)
                 {
-
-                    _gameUI.PrintLN("Játékosok száma 1-5 -ig szám lehet");
+                    _gameUI.PrintLN("A beírt szöveg men egy szám!");
                 }
+                _gameUI.PrintLN("Játékosok száma 1-5 -ig szám lehet");
+                if (number is null)
+                {
+                    isValid = false;
+                }
+                else
+                {
+                    isValid = true;
+                    p = (int)number;
+                }
+                
+                //input = _gameUI.ReadLine;
+                //if (!int.TryParse(input, out p))
+                //{
+
+                //    _gameUI.PrintLN("Játékosok száma 1-5 -ig szám lehet");
+                //}
             } while (p < 1 || p > 5);
             gamercount = p;
 
@@ -78,6 +95,8 @@ namespace szamkitjat
                         break;
                 }
             } while (!pakli.ToUpper().Equals("MAGYAR") && !pakli.ToUpper().Equals("FRANCIA"));
+
+            _gameUI.PrintLN($"\nA játékot {p} darab játékos játsza {pakli} kártyával.");
             _gameUI.PrintLN("\nKezdődjön a játék!");
             _gameUI.PrintLN("Nyomj egy gombot a kezdéshez.");
             _gameUI.ReadKey();
@@ -424,8 +443,18 @@ namespace szamkitjat
             _gameUI.PrintLN("");
 
             _gameUI.PrintLN("Kérem a téteket:");
-            string s = _gameUI.ReadLine;
-            if (Int32.TryParse(s, out int tet) && tet >= MinimumKezdoTet && players.Coin >= tet)
+
+            //string s = _gameUI.ReadLine;
+            int? number;
+            number = (int?)_gameUI.ReadNumber();
+            if (number is null)
+            {
+                _gameUI.PrintLN($"A beírt adat nem egy szám!");
+                return false;
+            }
+            int tet = (int)number;
+            
+            if (/*Int32.TryParse(s, out int tet) && */tet >= MinimumKezdoTet && players.Coin >= tet)
             {
                 players.AddTet(tet);
                 return true;

@@ -69,6 +69,10 @@
       <Project>{af098854-f732-4cd4-83ea-b9b7d05b3e67}</Project>
       <Name>szamkitjatiterfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="szamkitjatUIs\szamkitjatUIs.csproj">
+      <Project>{d1daa3fc-d389-4c93-94fe-dded4b1f9a6f}</Project>
+      <Name>szamkitjatUIs</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

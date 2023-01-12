@@ -151,8 +151,21 @@ namespace szamkitjat
                 do
                 {
                     _gameUI.PrintLN($"\n{c}. tipped: ");
-                    string szam = _gameUI.ReadLine;
-                    bool isValid = int.TryParse(szam, out y);
+                    bool isValid;
+                    int? num;
+                    num = (int?)_gameUI.ReadNumber();
+                    //string szam = _gameUI.ReadLine;
+                    //bool isValid = int.TryParse(szam, out y);
+                    if (num is null)
+                    {
+                        isValid = false;
+                    }
+                    else
+                    {
+                        isValid = true;
+                        y = (int)num;
+                    }
+
                     Hang.Lepes();
 
                     if (y > 100 || y < 0)
@@ -163,7 +176,7 @@ namespace szamkitjat
 
                     if (isValid == false)
                     {
-                        _gameUI.PrintLN($"A beírt adat: {szam} nem egy szám!");
+                        _gameUI.PrintLN($"A beírt adat nem egy szám!");
                         --c;
                     }
                     else if (y < number )
