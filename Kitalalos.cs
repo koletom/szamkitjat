@@ -28,7 +28,7 @@ namespace szamkitjat
         public void Start()
         {
             Hang.Good();
-            _gameUI.Clear();
+            _gameUI.Clear(ConsoleColor.DarkRed, ConsoleColor.Yellow);
             _gameUI.PrintLN("Válassz játékmódot", ConsoleColor.DarkRed, ConsoleColor.Yellow);
             _gameUI.PrintLN("1 - Te gondolsz egy számra", ConsoleColor.DarkRed, ConsoleColor.Yellow);
             _gameUI.PrintLN("2 - A számítógép gondol egy számra", ConsoleColor.DarkRed, ConsoleColor.Yellow);

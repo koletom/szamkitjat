@@ -103,7 +103,7 @@ namespace szamkitjat
         public void Start()
         {
             Hang.Good();
-            _gameUI.Clear();
+            _gameUI.Clear(ConsoleColor.DarkGray, ConsoleColor.Gray);
             _gameUI.PrintLN("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe", ConsoleColor.DarkGray, ConsoleColor.Gray);
             _gameUI.PrintLN("A Játékos az X-el, a Gép a O-rel van.", ConsoleColor.DarkGray, ConsoleColor.Gray);
             _gameUI.PrintLN("A számok a rácson az alábbi helyeket foglalják el:", ConsoleColor.DarkGray, ConsoleColor.Gray);
@@ -128,8 +128,8 @@ namespace szamkitjat
             {
                 while (elsoJatekos == -1 || tabla[elsoJatekos] != 0)
                 {
-                    int number;
                     _gameUI.PrintLN("Írj be egy számot 0 - 8 ig", ConsoleColor.Blue);
+                    int number;
                     string szam = _gameUI.ReadLine;
                     bool placeValid = int.TryParse(szam, out number);
                     Hang.Lepes();
@@ -186,8 +186,8 @@ namespace szamkitjat
             if (nyertes() == 1)
             {
                 tablazat();
-                _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.Green);
-                _gameUI.PrintLN("Jatékos nyert\n", ConsoleColor.Green);
+                _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.DarkGreen);
+                _gameUI.PrintLN("Jatékos nyert\n", ConsoleColor.DarkGreen);
                 Hang.Win();
             }
             if (nyertes() == 2)

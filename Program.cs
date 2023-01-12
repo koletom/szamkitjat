@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using szamkitjat;
+using szamkitjatUIs.UI;
 using szamkitjatiterfaces;
 
-namespace SzamKitJat
+namespace szamkitjat
 {
     class Program
     {

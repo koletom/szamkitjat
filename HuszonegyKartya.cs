@@ -21,7 +21,7 @@ namespace szamkitjat
         public void Start()
         {
             Hang.Good();
-            _gameUI.Clear();
+            _gameUI.Clear(ConsoleColor.White, ConsoleColor.Black);
 
             string input;
             int p = 0;
@@ -32,13 +32,13 @@ namespace szamkitjat
             do
             {
                 _gameUI.PrintLN("Adja meg a játékosok számát (max 5)");
+                //_gameUI.ReadNumber();
                 input = _gameUI.ReadLine;
                 if (!int.TryParse(input, out p))
                 {
 
                     _gameUI.PrintLN("Játékosok száma 1-5 -ig szám lehet");
                 }
-
             } while (p < 1 || p > 5);
             gamercount = p;
 
@@ -156,7 +156,7 @@ namespace szamkitjat
         }
         public void KorKezdes()
         {
-            _gameUI.Clear();
+            _gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
 
             if (!Tetek())
             {
@@ -308,9 +308,12 @@ namespace szamkitjat
                 if (tt == 1)
                 {
                     rk = "STOP";
-                    _gameUI.Clear();
+                    _gameUI.Clear(ConsoleColor.Black, ConsoleColor.White);
                     _gameUI.PrintLN("Nincs elegendő Coin.");
-                    _gameUI.PrintLN("A játéknak vége!");
+                    _gameUI.PrintLN("A játéknak vége!"); 
+                    _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
+                    _gameUI.ReadKey();
+                    _gameUI.PrintLN("");
                     tt = 0;
                 }
                 else

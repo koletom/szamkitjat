@@ -24,8 +24,8 @@ namespace szamkitjatiterfaces
         char ReadKeyTrue { get; }
 
         //TODO:
-        bool ReadKey(char trueChar = 'y', char falseChar = 'n');
-        uint ReadNumber();
+        bool? ReadKey(char trueChar = 'y', char falseChar = 'n');
+        uint? ReadNumber();
 
         string ReadString(int stringLength);
         string ReadString(string[] validStrings);
