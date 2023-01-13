@@ -7,7 +7,7 @@ using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
-    class Game : IGameController
+    public class Game : IGameController
     {
         private IGame[] _games;
         public Game(IGame[] games)

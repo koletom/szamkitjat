@@ -8,7 +8,7 @@ using szamkitjatiterfaces;
 namespace szamkitjat
 {
     //TODO: Bővült az interface!!!
-    class Kitalalos : IGame
+    public class Kitalalos : IGame
     {
         IGameUI _gameUI;
         public Kitalalos(IGameUI gameUI)

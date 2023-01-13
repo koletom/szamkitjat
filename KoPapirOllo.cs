@@ -7,7 +7,7 @@ using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
-    class KoPapirOllo : IGame
+    public class KoPapirOllo : IGame
     {
         IGameUI _gameUI;
         public KoPapirOllo(IGameUI gameUI)

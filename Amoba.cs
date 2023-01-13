@@ -7,7 +7,7 @@ using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
-    class Amoba : IGame
+    public class Amoba : IGame
     {
         IGameUI _gameUI;
         public Amoba (IGameUI gameUI)

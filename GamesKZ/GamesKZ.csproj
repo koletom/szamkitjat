@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94DA9EE4-46C1-47EA-A579-7E901AD3C467}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>szamkitjat</RootNamespace>
-    <AssemblyName>szamkitjat</AssemblyName>
+    <ProjectGuid>{732F3E36-9867-4581-AA52-A5B702582EB6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GamesKZ</RootNamespace>
+    <AssemblyName>GamesKZ</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,9 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,32 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Amoba.cs" />
-    <Compile Include="CardDeck.cs" />
-    <Compile Include="CardPlayers.cs" />
-    <Compile Include="CardTipus.cs" />
-    <Compile Include="Computer.cs" />
-    <Compile Include="Hang.cs" />
-    <Compile Include="HuszonegyKartya.cs" />
-    <Compile Include="Ending.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Kitalalos.cs" />
-    <Compile Include="KoPapirOllo.cs" />
-    <Compile Include="Osszeg.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Proba.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Teszt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="szamkitjatiterfaces\szamkitjatiterfaces.csproj">
+    <ProjectReference Include="..\szamkitjat.csproj">
+      <Project>{94da9ee4-46c1-47ea-a579-7e901ad3c467}</Project>
+      <Name>szamkitjat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\szamkitjatiterfaces\szamkitjatiterfaces.csproj">
       <Project>{af098854-f732-4cd4-83ea-b9b7d05b3e67}</Project>
       <Name>szamkitjatiterfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="szamkitjatUIs\szamkitjatUIs.csproj">
+    <ProjectReference Include="..\szamkitjatUIs\szamkitjatUIs.csproj">
       <Project>{d1daa3fc-d389-4c93-94fe-dded4b1f9a6f}</Project>
       <Name>szamkitjatUIs</Name>
     </ProjectReference>

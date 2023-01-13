@@ -6,7 +6,7 @@ using szamkitjatiterfaces;
 namespace szamkitjat
 {
     //TODO: https://hu.wikipedia.org/wiki/Huszonegy e szerint működjön
-    class HuszonegyKartya : IGame
+    public class HuszonegyKartya : IGame
     {
         IGameUI _gameUI;
         public HuszonegyKartya(IGameUI gameUI)
@@ -334,6 +334,7 @@ namespace szamkitjat
                     _gameUI.ReadKey();
                     _gameUI.PrintLN("");
                     tt = 0;
+                    End();
                 }
                 else
                 {
