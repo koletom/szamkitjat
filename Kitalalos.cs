@@ -224,7 +224,7 @@ namespace szamkitjat
         {
             if (cc == 5)
             {
-                _gameUI.PrintLN("Nyertél! A számítógép nem tudta kitalálni a számot.");
+                _gameUI.PrintLN("Nyertél! A számítógép nem tudta kitalálni a számot.", ConsoleColor.DarkGreen);
                 Hang.Win();
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0; 
@@ -233,7 +233,7 @@ namespace szamkitjat
                 Start();
             }
             else if (cc == 10) {
-                _gameUI.PrintLN("Eltaláltad!\nNyertél!");
+                _gameUI.PrintLN("Eltaláltad!\nNyertél!", ConsoleColor.DarkGreen);
                 Hang.Win();
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
                 gamer = 0;

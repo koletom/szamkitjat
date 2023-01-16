@@ -16,6 +16,7 @@ namespace szamkitjat
         }
         public void Kezdes()
         {
+            //int wins = 0;
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.Clear();
@@ -37,6 +38,8 @@ namespace szamkitjat
                 Console.BackgroundColor = ConsoleColor.Cyan;
                 Console.ForegroundColor = ConsoleColor.DarkBlue;
                 Console.Clear();
+
+                //Console.WriteLine($"\nMegnyert játékmenetek száma: {wins}\n");
 
                 Console.WriteLine("Az alábbi {0} játékmód közül lehet válsztani\n", _games.Length);
 
