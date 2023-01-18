@@ -144,7 +144,7 @@ namespace szamkitjat
                         placeValid = true;
                     }
 
-                    Hang.Lepes();
+                    Hang.Step();
                     _gameUI.Clear();
                     if (placeValid == false)
                     {
@@ -154,14 +154,14 @@ namespace szamkitjat
                     }
                     else if (number >= 9||number<0)
                     {
-                        Hang.Hiba();
+                        Hang.Error();
                         _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         _gameUI.PrintLN($"A beírt szám nem megfelelő", ConsoleColor.Red);
                         tablazat();
                     }
                     else if (number == elsoJatekos || number == gepJatekos)
                     {
-                        Hang.Hiba();
+                        Hang.Error();
                         _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         _gameUI.PrintLN($"A beírt szám helye foglalt", ConsoleColor.Red);
                         tablazat();

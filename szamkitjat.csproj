@@ -51,7 +51,6 @@
     <Compile Include="CardPlayers.cs" />
     <Compile Include="CardTipus.cs" />
     <Compile Include="Computer.cs" />
-    <Compile Include="Hang.cs" />
     <Compile Include="HuszonegyKartya.cs" />
     <Compile Include="Ending.cs" />
     <Compile Include="Game.cs" />

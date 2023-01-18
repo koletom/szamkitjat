@@ -88,7 +88,7 @@ namespace szamkitjat
                     _gameUI.PrintLN($"A számítógép szerint a szám {x}");
                     _gameUI.PrintLN("Szerinted? kisebb, nagyobb, egyenlő (k/n/e)");
                     size = _gameUI.ReadKeyTrue;
-                    Hang.Lepes();
+                    Hang.Step();
                     lower = (size == 'k' ^ size == 'K');
                     higher = (size == 'n' ^ size == 'N');
                     equal = (size == 'e' ^ size == 'E');
@@ -166,7 +166,7 @@ namespace szamkitjat
                         y = (int)num;
                     }
 
-                    Hang.Lepes();
+                    Hang.Step();
 
                     if (y > 100 || y < 0)
                     {

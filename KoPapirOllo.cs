@@ -47,7 +47,7 @@ namespace szamkitjat
                 bool papir;
                 bool ollo;
                 valaszt = _gameUI.ReadKeyTrue;
-                Hang.Lepes();
+                Hang.Step();
                 System.Threading.Thread.Sleep(500);
                 ko = (valaszt == 'k' ^ valaszt == 'K');
                 papir = (valaszt == 'p' ^ valaszt == 'P');
@@ -122,7 +122,7 @@ namespace szamkitjat
                 else
                 {
                     _gameUI.Clear();
-                    Hang.Hiba();
+                    Hang.Error();
                     _gameUI.PrintLN($"Játékos:{playerChoice} vs. Gép:{compChoice}");
                     _gameUI.PrintLN("Csak az alábbi lehetőségek közül lehet választani: (k/p/o)");
                 }

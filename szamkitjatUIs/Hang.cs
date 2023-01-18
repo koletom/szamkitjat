@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using szamkitjatiterfaces;
 
-namespace szamkitjat
+namespace szamkitjatUIs
 {
-    public static class Hang
+    public class Hang : ISound
     {
+
         static int[] DO = new int[] { 131, 262, 523, 1046 };
         static int[] RE = new int[] { 147, 294, 587, 1174 };
         static int[] MI = new int[] { 165, 330, 659, 1318 };
@@ -17,7 +19,7 @@ namespace szamkitjat
         static int[] TI = new int[] { 247, 494, 988, 1976 };
 
         
-        public static void Lose()
+        public void Lose()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -31,7 +33,7 @@ namespace szamkitjat
                 Console.Beep(FA[oct1], 800);
             }
         }
-        public static void Bad()
+        public void Bad()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -44,7 +46,7 @@ namespace szamkitjat
                 Console.Beep(FA[oct1], 800);
             }
         }
-        public static void Win()
+        public void Win()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -58,7 +60,7 @@ namespace szamkitjat
                 Console.Beep(DO[oct3], 800);
             }
         }
-        public static void Good()
+        public void Good()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -71,7 +73,7 @@ namespace szamkitjat
                 Console.Beep(DO[oct3], 800);
             }
         }
-        public static void Tie()
+        public void Tie()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -84,7 +86,7 @@ namespace szamkitjat
                 Console.Beep(TI[oct1], 800);
             }
         }
-        public static void Lepes()
+        public void Step()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -96,7 +98,7 @@ namespace szamkitjat
                 Console.Beep(RE[oct3], 200);
             }
         }
-        public static void Hiba()
+        public void Error()
         {
             int oct1 = 0;
             int oct2 = 1;
@@ -109,7 +111,7 @@ namespace szamkitjat
                 Console.Beep(TI[oct4], 400);
             }
         }
-        public static void Music()
+        public void Music()
         {
             int oct1 = 0;
             int oct2 = 1;

@@ -13,7 +13,12 @@ namespace szamkitjatUIs.UI
     {
         ConsoleColor _defaultForeground = ConsoleColor.White;
         ConsoleColor _defaultBackground = ConsoleColor.Black;
+        ISound _sound;
 
+        public UI(ISound sound)
+        {
+            _sound = sound;
+        }
         public void Clear()
         {
             Console.ForegroundColor = _defaultForeground;
@@ -125,5 +130,30 @@ namespace szamkitjatUIs.UI
         }
         public string ReadString(int stringLength) => Console.ReadLine();
         public string ReadString(string[] validStrings) => Console.ReadLine();
+
+
+        public void Sound(SoundTipes sound)
+        {
+            switch (sound)
+            {
+                case SoundTipes.Lose:
+                    break;
+                case SoundTipes.Bad:
+                    break;
+                case SoundTipes.Win:
+                    break;
+                case SoundTipes.Good:
+                    break;
+                case SoundTipes.Tie:
+                    break;
+                case SoundTipes.Step:
+                    break;
+                case SoundTipes.Error:
+                    break;
+                case SoundTipes.Music:
+                    break;
+            }
+            
+        }
     }
 }
