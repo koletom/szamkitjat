@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szamkitjatUIs", "szamkitjat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesKZ", "GamesKZ\GamesKZ.csproj", "{732F3E36-9867-4581-AA52-A5B702582EB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{213B49E9-B793-4EC7-AEE6-B0B00A476108}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{6D1447D1-3F4D-4D00-944A-79A8381325F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{732F3E36-9867-4581-AA52-A5B702582EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{732F3E36-9867-4581-AA52-A5B702582EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{732F3E36-9867-4581-AA52-A5B702582EB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{213B49E9-B793-4EC7-AEE6-B0B00A476108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{213B49E9-B793-4EC7-AEE6-B0B00A476108}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{213B49E9-B793-4EC7-AEE6-B0B00A476108}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{213B49E9-B793-4EC7-AEE6-B0B00A476108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1447D1-3F4D-4D00-944A-79A8381325F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1447D1-3F4D-4D00-944A-79A8381325F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1447D1-3F4D-4D00-944A-79A8381325F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1447D1-3F4D-4D00-944A-79A8381325F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
