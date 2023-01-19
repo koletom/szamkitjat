@@ -20,7 +20,7 @@ namespace szamkitjat
 
         public void Start()
         {
-            Hang.Good();
+            _gameUI.Sound(SoundTipes.Good);
             _gameUI.Clear(ConsoleColor.White, ConsoleColor.Black);
 
             string input;

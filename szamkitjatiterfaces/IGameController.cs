@@ -10,5 +10,7 @@ namespace szamkitjatiterfaces
     {
         void Kezdes();
         void Ending();
+
+        IGameController Add(IGame game);
     }
 }

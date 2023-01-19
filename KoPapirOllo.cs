@@ -93,7 +93,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("\nVesztettél!", ConsoleColor.Red);
                     KPOSzinek();
                     _gameUI.PrintLN($" Az állás:\nSzámítógép: {++compScore}\nJátékos:{playerScore}");
-                    Hang.Bad();
+                    _gameUI.Sound(SoundTipes.Bad);
                 }
                 else if (playerChoice == compChoice)
                 {
@@ -102,7 +102,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("\nDöntetlen!", ConsoleColor.Yellow);
                     KPOSzinek();
                     _gameUI.PrintLN($" Az állás:\nSzámítógép: {compScore}\nJátékos:{playerScore}");
-                    Hang.Tie();
+                    _gameUI.Sound(SoundTipes.Tie);
                 }
                 else if (
                     (compChoice == "kő" && playerChoice == "papír")
@@ -117,12 +117,12 @@ namespace szamkitjat
                     _gameUI.PrintLN("\nNyertél!", ConsoleColor.DarkGreen);
                     KPOSzinek();
                     _gameUI.PrintLN($" Az állás:\nSzámítógép: {compScore}\nJátékos:{++playerScore}");
-                    Hang.Good();
+                    _gameUI.Sound(SoundTipes.Good);
                 }
                 else
                 {
                     _gameUI.Clear();
-                    Hang.Error();
+                    _gameUI.Sound(SoundTipes.Error);
                     _gameUI.PrintLN($"Játékos:{playerChoice} vs. Gép:{compChoice}");
                     _gameUI.PrintLN("Csak az alábbi lehetőségek közül lehet választani: (k/p/o)");
                 }
@@ -138,14 +138,14 @@ namespace szamkitjat
         {
             if (compScore == 5)
             {
-                Hang.Lose();
+                _gameUI.Sound(SoundTipes.Lose);
                 _gameUI.PrintLN("\nVesztettél!", ConsoleColor.Red);
                     KPOSzinek();
                 _gameUI.PrintLN($" \nA Számítógép: {compScore}:{playerScore} -ra/-re nyert!\n");
             }
             if (playerScore == 5)
             {
-                Hang.Win();
+                _gameUI.Sound(SoundTipes.Win);
                 _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.DarkGreen);
                 KPOSzinek();
                 _gameUI.PrintLN($" \nA Játékos: {compScore}:{playerScore} -ra/-re nyert!\n");

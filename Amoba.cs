@@ -102,7 +102,7 @@ namespace szamkitjat
 
         public void Start()
         {
-            Hang.Good();
+            _gameUI.Sound(SoundTipes.Good);
             _gameUI.Clear(ConsoleColor.DarkGray, ConsoleColor.Gray);
             _gameUI.PrintLN("A játék célja, hogy 3 X-et helyezzünk egy sorba, oszlopba, keresztbe", ConsoleColor.DarkGray, ConsoleColor.Gray);
             _gameUI.PrintLN("A Játékos az X-el, a Gép a O-rel van.", ConsoleColor.DarkGray, ConsoleColor.Gray);
@@ -144,7 +144,7 @@ namespace szamkitjat
                         placeValid = true;
                     }
 
-                    Hang.Step();
+                    _gameUI.Sound(SoundTipes.Step);
                     _gameUI.Clear();
                     if (placeValid == false)
                     {
@@ -154,14 +154,14 @@ namespace szamkitjat
                     }
                     else if (number >= 9||number<0)
                     {
-                        Hang.Error();
+                        _gameUI.Sound(SoundTipes.Error);
                         _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         _gameUI.PrintLN($"A beírt szám nem megfelelő", ConsoleColor.Red);
                         tablazat();
                     }
                     else if (number == elsoJatekos || number == gepJatekos)
                     {
-                        Hang.Error();
+                        _gameUI.Sound(SoundTipes.Error);
                         _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
                         _gameUI.PrintLN($"A beírt szám helye foglalt", ConsoleColor.Red);
                         tablazat();
@@ -202,18 +202,18 @@ namespace szamkitjat
                 tablazat();
                 _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.DarkGreen);
                 _gameUI.PrintLN("Jatékos nyert\n", ConsoleColor.DarkGreen);
-                Hang.Win();
+                _gameUI.Sound(SoundTipes.Win);
             }
             if (nyertes() == 2)
             {
                 _gameUI.PrintLN("\nVeszítettél! \nA Számítógép nyert!", ConsoleColor.Red);
-                Hang.Lose();
+                _gameUI.Sound(SoundTipes.Lose);
             }
             if (nyertes() != 1 && nyertes() != 2)
             {
                 tablazat();
                 _gameUI.PrintLN("Döntetlen", ConsoleColor.Yellow);
-                Hang.Tie();
+                _gameUI.Sound(SoundTipes.Tie);
             }
 
             System.Threading.Thread.Sleep(1000);

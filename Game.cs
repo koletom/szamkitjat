@@ -4,29 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using szamkitjatiterfaces;
+using szamkitjatUIs;
 
 namespace szamkitjat
 {
     public class Game : IGameController
     {
-        private IGame[] _games;
-        public Game(IGame[] games)
+        private List<IGame> _games = new List<IGame>();
+        
+        IGameUI _gameUI;
+        public Game(IGameUI gameUI)
         {
-            _games = games;
+            _gameUI = gameUI;
         }
+         
         public void Kezdes()
         {
             //int wins = 0;
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Clear();
-            Console.Clear();
-            Hang.Music();
-            Console.WriteLine("Üdv a Játékok Univerzumában\n");
-            Hang.Music();
-            if (_games is null || _games.Length == 0)
+            _gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
+            _gameUI.Sound(SoundTipes.Music);
+            _gameUI.PrintLN("Üdv a Játékok Univerzumában\n");
+            _gameUI.Sound(SoundTipes.Music);
+            if (_games is null || _games.Count == 0)
             {
-                Console.WriteLine("Nincs érték");
+                _gameUI.PrintLN("Nincs érték");
                 return;
             }
 
@@ -35,40 +36,34 @@ namespace szamkitjat
             {
                 sbyte jatekmod = -1;
 
-                Console.BackgroundColor = ConsoleColor.Cyan;
-                Console.ForegroundColor = ConsoleColor.DarkBlue;
-                Console.Clear();
+                _gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
 
-                //Console.WriteLine($"\nMegnyert játékmenetek száma: {wins}\n");
-
-                Console.WriteLine("Az alábbi {0} játékmód közül lehet válsztani\n", _games.Length);
-
-                for (int i = 0; i < _games.Length; i++)
+                _gameUI.PrintLN($"Az alábbi {_games.Count} játékmód közül lehet válsztani\n");
+                
+                for (int i = 0; i < _games.Count; i++)
                 {
-                    Console.WriteLine("{0} -> {1}", i, _games[i].Name);
+                    _gameUI.PrintLN($"{i} -> {_games[i].Name}");
                 }
 
-                Console.WriteLine("\nX -> Kilépés a játék univerzumból\n");
-                Console.WriteLine("Válassz játékmódot / Add meg a játékmód számát (0-{0})", _games.Length - 1);
+                _gameUI.PrintLN("\nX -> Kilépés a játék univerzumból\n");
+                _gameUI.PrintLN($"Válassz játékmódot / Add meg a játékmód számát (0-{_games.Count - 1})");
 
-                //Console.BackgroundColor = ConsoleColor.Black;
-                //Console.ForegroundColor = ConsoleColor.White;
-                valasztas = Console.ReadKey(true).KeyChar;
+                valasztas = _gameUI.ReadKeyTrue;
 
                 if (sbyte.TryParse(((char)valasztas).ToString(), out jatekmod))
                 {
-                    if (jatekmod >= 0 && jatekmod < _games.Length)
+                    if (jatekmod >= 0 && jatekmod < _games.Count)
                     {
                         PlayGame(_games[jatekmod]);
                     }
                 }
-                Console.Clear();
+                _gameUI.Clear();
             } while (char.ToUpper(valasztas) != 'X');
         }
 
         public void Ending()
         {
-            Console.WriteLine("Viszlát");            
+            _gameUI.PrintLN("Viszlát");            
         }
 
         void PlayGame(IGame selectedGame)
@@ -80,13 +75,23 @@ namespace szamkitjat
                 selectedGame.Play();
                 selectedGame.End();
 
-                Console.WriteLine("Akarsz újra {0} játékkal játszani? (i/n)", selectedGame.Name);
+                _gameUI.PrintLN($"Akarsz újra {selectedGame.Name} játékkal játszani? (i/n)");
                 
-                c = Console.ReadKey(true).KeyChar;
+                c = _gameUI.ReadKeyTrue;
 
             } while ( char.ToUpper(c) == 'I');
 
-            Hang.Music();
+            _gameUI.Sound(SoundTipes.Music);
+        }
+
+        public IGameController Add(IGame game)
+        {
+            if (_games==null)
+            {
+                throw new NullReferenceException();
+            }
+            _games.Add (game);
+            return this;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using szamkitjat;
+using szamkitjatUIs;
 using szamkitjatUIs.UI;
 using szamkitjatiterfaces;
 
@@ -13,20 +14,19 @@ namespace szamkitjat
     {
         static void Main(string[] args)
         {
-            IGameUI ui = new UI(); 
-            IGame[] games = new IGame[4];
+            IGameUI ui = new UI(new Hang()); 
 
-            games[0] = new Amoba(ui);
-            games[1] = new Kitalalos(ui);
-            games[2] = new HuszonegyKartya(ui);
-            games[3] = new KoPapirOllo(ui);
+            var gamecontroll = new Game(ui);
 
-            var n = new Game(games);
+            gamecontroll.Add(new Amoba(ui))
+            .Add(new Kitalalos(ui))
+            .Add(new HuszonegyKartya(ui))
+            .Add(new KoPapirOllo(ui));
 
-            n.Kezdes();
-            Hang.Music();
-            n.Ending();
-            Hang.Music();
+            gamecontroll.Kezdes();
+            ui.Sound(SoundTipes.Music);
+            gamecontroll.Ending();
+            ui.Sound(SoundTipes.Music);
 
         }
     }

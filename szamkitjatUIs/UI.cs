@@ -13,11 +13,15 @@ namespace szamkitjatUIs.UI
     {
         ConsoleColor _defaultForeground = ConsoleColor.White;
         ConsoleColor _defaultBackground = ConsoleColor.Black;
-        ISound _sound;
+        Hang _speaker ;
 
-        public UI(ISound sound)
+        public UI(ISound speaker)
         {
-            _sound = sound;
+            _speaker = speaker as Hang;
+            if (_speaker == null)
+            {
+                throw new NullReferenceException();
+            }
         }
         public void Clear()
         {
@@ -129,31 +133,60 @@ namespace szamkitjatUIs.UI
             
         }
         //TODO: Ennek a metódusnak egy a stringLengthben megadott max hosszúságú stringet kellene beolvasnia
-        public string ReadString(int stringLength) => Console.ReadLine();
+        public string ReadString(int stringLength) 
+        {
+            if (stringLength == 1)
+            {
+                Console.ReadLine();
+            }
+            return null;
+        }
 
-        //TODO: Ennek a metódusnak a validStrings tömbben megadott stringeket lenne szabad csak elfogadnia 
-        public string ReadString(string[] validStrings) => Console.ReadLine();
 
+        //TODO: Ennek a metódusnak a validStrings tömbben megadott stringeket lenne szabad csak elfogadnia
+        string[] validString = { "yes", "no" };
+        public string ReadString(string[] validStrings) 
+        {
+            validStrings = validString;
+            if (validStrings[0] == "yes")
+            {
+                Console.ReadLine();
+            }
+            else if (validStrings[0] == "no")
+            {
+                Console.ReadLine();
+            }
+
+            return null;
+        }
 
         public void Sound(SoundTipes sound)
         {
             switch (sound)
             {
                 case SoundTipes.Lose:
+                    _speaker.Lose();
                     break;
                 case SoundTipes.Bad:
+                    _speaker.Bad();
                     break;
                 case SoundTipes.Win:
+                    _speaker.Win();
                     break;
                 case SoundTipes.Good:
+                    _speaker.Good();
                     break;
                 case SoundTipes.Tie:
+                    _speaker.Tie();
                     break;
                 case SoundTipes.Step:
+                    _speaker.Step();
                     break;
                 case SoundTipes.Error:
+                    _speaker.Error();
                     break;
                 case SoundTipes.Music:
+                    _speaker.Music();
                     break;
             }
             
