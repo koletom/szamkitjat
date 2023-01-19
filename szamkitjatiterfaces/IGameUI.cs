@@ -29,5 +29,6 @@ namespace szamkitjatiterfaces
 
         string ReadString(int stringLength);
         string ReadString(string[] validStrings);
+        void Sound(SoundTipes sound);
     }
 }

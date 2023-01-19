@@ -128,7 +128,10 @@ namespace szamkitjatUIs.UI
             return null;
             
         }
+        //TODO: Ennek a metódusnak egy a stringLengthben megadott max hosszúságú stringet kellene beolvasnia
         public string ReadString(int stringLength) => Console.ReadLine();
+
+        //TODO: Ennek a metódusnak a validStrings tömbben megadott stringeket lenne szabad csak elfogadnia 
         public string ReadString(string[] validStrings) => Console.ReadLine();
 
 

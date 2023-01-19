@@ -24,7 +24,7 @@ namespace szamkitjat
         #endregion propertiregion
         public void Start()
         {
-            Hang.Good();
+            _gameUI.Sound(SoundTipes.Good);
             _gameUI.Clear();
             _gameUI.PrintLN("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
             _gameUI.PrintLN("\nA játék 5 pontig megy!");
@@ -47,7 +47,7 @@ namespace szamkitjat
                 bool papir;
                 bool ollo;
                 valaszt = _gameUI.ReadKeyTrue;
-                Hang.Step();
+                _gameUI.Sound(SoundTipes.Step);
                 System.Threading.Thread.Sleep(500);
                 ko = (valaszt == 'k' ^ valaszt == 'K');
                 papir = (valaszt == 'p' ^ valaszt == 'P');
