@@ -7,6 +7,7 @@ using szamkitjatiterfaces;
 
 namespace UnitTest
 {
+    //TODO: ennek az osztálynak üresnek kellett volna maradni de legalábbis Console -al nem kellene semmit csinálnia
     public class FakeUI : IGameUI
     {
         public string ReadLine => Console.ReadLine();
