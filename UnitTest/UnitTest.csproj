@@ -51,13 +51,17 @@
   <ItemGroup>
     <Compile Include="FakeHang.cs" />
     <Compile Include="FakeUI.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="GameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\szamkitjat.csproj">
+      <Project>{94da9ee4-46c1-47ea-a579-7e901ad3c467}</Project>
+      <Name>szamkitjat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\szamkitjatiterfaces\szamkitjatiterfaces.csproj">
       <Project>{af098854-f732-4cd4-83ea-b9b7d05b3e67}</Project>
       <Name>szamkitjatiterfaces</Name>
