@@ -12,7 +12,7 @@ namespace szamkitjat
         IGameUI _gameUI;
         public KoPapirOllo(IGameUI gameUI)
         {
-            _gameUI = gameUI;
+            _gameUI = gameUI ?? throw new NullReferenceException();
         }
         public void KPOSzinek()
         {

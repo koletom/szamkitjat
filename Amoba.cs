@@ -12,7 +12,7 @@ namespace szamkitjat
         IGameUI _gameUI;
         public Amoba (IGameUI gameUI)
         {
-            _gameUI = gameUI;
+            _gameUI = gameUI ?? throw new NullReferenceException();
         }
         #region propertiregion
         int gamercount { get; set; }

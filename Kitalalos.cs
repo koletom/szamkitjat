@@ -13,7 +13,7 @@ namespace szamkitjat
         IGameUI _gameUI;
         public Kitalalos(IGameUI gameUI)
         {
-            _gameUI = gameUI;
+            _gameUI = gameUI ?? throw new NullReferenceException();
         }
         #region propertiregion
         int gamercount { get; set; }

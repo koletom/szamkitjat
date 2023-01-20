@@ -49,9 +49,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmobaTests.cs" />
     <Compile Include="FakeHang.cs" />
     <Compile Include="FakeUI.cs" />
     <Compile Include="GameTests.cs" />
+    <Compile Include="HuszonegyKartyaTests.cs" />
+    <Compile Include="KitalatosTests.cs" />
+    <Compile Include="KoPapirOlloTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
