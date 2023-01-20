@@ -15,8 +15,7 @@ namespace szamkitjat
         IGameUI _gameUI;
         public Game(IGameUI gameUI)
         {
-            _gameUI = gameUI;
-
+            _gameUI = gameUI ?? throw new NullReferenceException();
         }
          
         public void Kezdes()
