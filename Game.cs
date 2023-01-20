@@ -16,6 +16,7 @@ namespace szamkitjat
         public Game(IGameUI gameUI)
         {
             _gameUI = gameUI;
+
         }
          
         public void Kezdes()
