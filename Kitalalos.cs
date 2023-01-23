@@ -33,20 +33,20 @@ namespace szamkitjat
             _gameUI.PrintLN("1 - Te gondolsz egy számra", ConsoleColor.DarkRed, ConsoleColor.Yellow);
             _gameUI.PrintLN("2 - A számítógép gondol egy számra", ConsoleColor.DarkRed, ConsoleColor.Yellow);
             _gameUI.PrintLN("3 - Vissza a Főmenübe", ConsoleColor.DarkRed, ConsoleColor.Yellow);
-
+            cc = 0;
             switch (_gameUI.ReadKeyTrue)
             {
                 case '1':
                     gamer = 1;
-                    Play();
+                    //Play();
                     break;
                 case '2':
                     gamer = 2;
-                    Play();
+                    //Play();
                     break;
                 case '3':
                     cc = 25;
-                    End();
+                    //End();
                     break;
                 default:
                     Start();
@@ -128,7 +128,7 @@ namespace szamkitjat
                             min = 0;
                             max = 100;
                             cc = 20;
-                            End();
+                            //End();
                             break;
                     }
                     ++i;
@@ -136,7 +136,7 @@ namespace szamkitjat
                 if (i <= 5)
                 {
                     cc = 5;
-                    End();
+                    //End();
                 }
             }
             if (gamer == 2) //Gep
@@ -205,7 +205,7 @@ namespace szamkitjat
                         c = 1;
                         y = 0;
                         ok = 0;
-                        End();
+                        //End();
                     }
                     else
                     {
@@ -215,7 +215,7 @@ namespace szamkitjat
                         c = 1;
                         y = 0;
                         ok = 0;
-                        End();
+                        //End();
                     }
                 }
             }

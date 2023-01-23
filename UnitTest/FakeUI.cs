@@ -13,6 +13,7 @@ namespace UnitTest
     {
         List<string> _testSteps = new List<string>();
         public List<string> TestSteps => _testSteps;
+
         public string ReadLine => "";
 
         public char ReadKeyTrue => ' ';
@@ -79,7 +80,10 @@ namespace UnitTest
 
         public void ReadKey()
         {
-            
+            return string 
+            //var result = keyCollection[this.keyIndex];
+            //keyIndex++;
+            //return new ConsoleKeyInfo((char)result, result, false, false, false);
         }
 
         public bool? ReadKey(char trueChar = 'y', char falseChar = 'n')

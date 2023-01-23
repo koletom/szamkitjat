@@ -188,7 +188,7 @@ namespace szamkitjat
             }
 
             KezdoKezek();
-            Play();
+            Play();                   //Play() -t át kell alakítani
 
             players.KezMutat();
             oszto.KezMutat();
@@ -334,7 +334,7 @@ namespace szamkitjat
                     _gameUI.ReadKey();
                     _gameUI.PrintLN("");
                     tt = 0;
-                    End();
+                    //End();
                 }
                 else
                 {
@@ -489,7 +489,7 @@ namespace szamkitjat
                         _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                         _gameUI.ReadKey();
                         tt = 1;
-                        End();
+                        //End();
                     }
                     break;
                 case Vegeredmeny.SURRENDER:
@@ -543,7 +543,7 @@ namespace szamkitjat
                         _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                         _gameUI.ReadKey();
                         tt = 1;
-                        End();
+                        //End();
                     }
                     break;
                 case Vegeredmeny.DONTETLEN:

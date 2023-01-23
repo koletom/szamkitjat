@@ -15,6 +15,13 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void GameCreateTest()
+        {
+            var game = new Game(new FakeUI());
+            Assert.IsNotNull(game);
+        }
+
+        [TestMethod]
         public void EndingMethodTest()
         {
             var ui = new FakeUI();
@@ -25,5 +32,6 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[0].StartsWith("PrintLN"),"AZ UI nem printLN indít");
             Assert.IsTrue(ui.TestSteps[0].Contains("Viszlát"),"Visszlát hibás");
         }
+        
     }
 }

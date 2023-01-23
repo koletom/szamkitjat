@@ -19,5 +19,37 @@ namespace UnitTest
             var kitalalos = new Kitalalos(new FakeUI());
             Assert.IsNotNull(kitalalos);
         }
+        [TestMethod]
+        public void KitalalosMethodTest()
+        {
+            var ui = new FakeUI();
+            var gameCtrl = new Game(ui);
+
+            Assert.IsTrue(ui.TestSteps.Count == 1, "Nincs UI output vagy túl sok az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("PrintLN"), "AZ UI nem printLN indít");
+            Assert.IsTrue(ui.TestSteps[0].Contains("A beírt karakter nincs a lehetőségek között!"), "Karakter hibás");
+            Assert.IsTrue(ui.TestSteps[0].Contains("A beírt adat nem egy szám!"), "Karakter hibás");
+        }
+        public void KitalalosStartTest()
+        {
+
+        }
+        public void KitalalosPlayTest()
+        {
+
+        }
+        public void KitalalosGameModeOneTest()
+        {
+
+        }
+        public void KitalalosGameModeTwoTest()
+        {
+
+        }
+        public void KitalalosResultTest()
+        {
+
+        }
+
     }
 }
