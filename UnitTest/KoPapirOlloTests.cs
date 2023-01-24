@@ -23,6 +23,7 @@ namespace UnitTest
         public void KoPapirOlloMethodTest()
         {
             var ui = new FakeUI();
+            //TODO:Nem a Game osztályodat kellene itt tesztelni
             var gameCtrl = new Game(ui);
 
             Assert.IsTrue(ui.TestSteps.Count == 1, "Nincs UI output vagy túl sok az output");
