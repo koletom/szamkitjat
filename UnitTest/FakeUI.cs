@@ -14,9 +14,32 @@ namespace UnitTest
         List<string> _testSteps = new List<string>();
         public List<string> TestSteps => _testSteps;
 
-        public string ReadLine => "";
+        object _readResult = null;
+        public object ReadResult
+        {
+            get => _readResult;
+            set { _readResult = value; }
+        }
 
-        public char ReadKeyTrue => ' ';
+        public string ReadLine
+        {
+            get
+            {
+                MethodBase m = MethodBase.GetCurrentMethod();
+                TestSteps.Add($"{m.Name}");
+                return ReadResult as string ?? "";
+            }
+        }
+
+        public char ReadKeyTrue 
+        {
+            get
+            {
+                MethodBase m = MethodBase.GetCurrentMethod();
+                TestSteps.Add($"{m.Name}");
+                return (char)(ReadResult ?? ' ');
+            }
+        }
 
         public void Clear()
         {
@@ -27,7 +50,7 @@ namespace UnitTest
         public void Clear(ConsoleColor foreground, ConsoleColor background)
         {
             MethodBase m = MethodBase.GetCurrentMethod();
-            TestSteps.Add($"{m.Name}:|bg:{background}");
+            TestSteps.Add($"{m.Name}:fg:{foreground}|bg:{background}");
         }
 
         public void Print(string szoveg, ConsoleColor foreground, ConsoleColor background)
@@ -80,35 +103,40 @@ namespace UnitTest
 
         public void ReadKey()
         {
-            return string 
-            //var result = keyCollection[this.keyIndex];
-            //keyIndex++;
-            //return new ConsoleKeyInfo((char)result, result, false, false, false);
+            MethodBase m = MethodBase.GetCurrentMethod();
+            TestSteps.Add($"{m.Name}");
         }
 
         public bool? ReadKey(char trueChar = 'y', char falseChar = 'n')
         {
-            return null;
+            return ReadResult as bool?;
         }
 
         public uint? ReadNumber()
         {
-            return null;
+            MethodBase m = MethodBase.GetCurrentMethod();
+            TestSteps.Add($"{m.Name}");
+            return ReadResult as uint?;
         }
 
         public string ReadString(int stringLength)
         {
-            return null;
+            MethodBase m = MethodBase.GetCurrentMethod();
+            TestSteps.Add($"{m.Name}");
+            return ReadResult as string;
         }
 
         public string ReadString(string[] validStrings)
         {
-            return null;
+            MethodBase m = MethodBase.GetCurrentMethod();
+            TestSteps.Add($"{m.Name}:{string.Join(";", validStrings)}");
+            return ReadResult as string;
         }
 
         public void Sound(SoundTipes sound)
         {
-            
+            MethodBase m = MethodBase.GetCurrentMethod();
+            TestSteps.Add($"{m.Name}:{sound}");
         }
     }
 }
