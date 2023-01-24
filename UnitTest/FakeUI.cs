@@ -20,6 +20,11 @@ namespace UnitTest
             get => _readResult;
             set { _readResult = value; }
         }
+        //public object ReadKeyResult
+        //{
+        //    get => _readResult;
+        //    set { _readResult = 1; }
+        //}
 
         public string ReadLine
         {

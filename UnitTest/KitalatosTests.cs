@@ -9,7 +9,7 @@ namespace UnitTest
     {
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException), "Constructor null paraméter exception test ok.")]
-        public void KitalalosContructorNullReferenceTest()
+        public void KitalalosConstructorNullReferenceTest()
         {
             _ = new Kitalalos(null);
         }
@@ -31,8 +31,23 @@ namespace UnitTest
         //    Assert.IsTrue(ui.TestSteps[0].Contains("A beírt karakter nincs a lehetőségek között!"), "Karakter hibás");
         //    Assert.IsTrue(ui.TestSteps[0].Contains("A beírt adat nem egy szám!"), "Karakter hibás");
         //}
+        [TestMethod]
         public void KitalalosStartTest()
         {
+            var ui = new FakeUI();
+            var kitalalos = new Kitalalos(ui);
+
+            kitalalos.Start();
+
+            Assert.IsTrue(ui.TestSteps.Count == 7, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Good"), "Nem a Good zene kerül lejátszásra induláskor");
+            Assert.IsTrue(ui.TestSteps[1].StartsWith("Clear"), "Nem történik képernyő törlés zene lejátszása után");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkRed|bg:Yellow"), "Törléskor nem megfelelő a szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[2].Contains("Válassz játékmódot"), "Nem lett kiírva a játékmód választás");
+            Assert.IsTrue(ui.TestSteps[3].Contains("1"), "Nem lett kiírva az 1. játékmód");
+            Assert.IsTrue(ui.TestSteps[4].Contains("2"), "Nem lett kiírva a 2. játékmód");
+            Assert.IsTrue(ui.TestSteps[5].Contains("3"), "Nem lett kiírva a visszalépés lehetősége");
 
         }
         public void KitalalosPlayTest()
@@ -47,9 +62,32 @@ namespace UnitTest
         {
 
         }
+        [TestMethod]
         public void KitalalosResultTest()
         {
+            var ui = new FakeUI();
+            var kitalalos = new Kitalalos(ui);
 
+            kitalalos.End();
+
+            Assert.IsTrue(ui.TestSteps.Count == 0, "Túl sok vagy kevés az output");
+            
+            Assert.IsTrue(ui.TestSteps[0].Contains("Nyertél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkGreen"), "Nem megfelelő a szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Win"), "Nem a Win zene kerül lejátszásra induláskor");
+
+            Assert.IsTrue(ui.TestSteps[5].Contains("Nyertél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[5].Contains("fg:DarkGreen"), "Nem megfelelő a szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[6].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[6].Contains("Win"), "Nem a Win zene kerül lejátszásra induláskor");
+
+            Assert.IsTrue(ui.TestSteps[10].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[10].Contains("Lose"), "Nem a Lose zene kerül lejátszásra induláskor");
+
+            Assert.IsTrue(ui.TestSteps[14].Contains("Vesztettél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[15].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[15].Contains("Lose"), "Nem a Lose zene kerül lejátszásra induláskor");
         }
 
     }

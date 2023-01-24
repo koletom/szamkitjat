@@ -9,7 +9,7 @@ namespace UnitTest
     {
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException), "Constructor null paraméter exception test ok.")]
-        public void HuszonegyKartyaContructorNullReferenceTest()
+        public void HuszonegyKartyaConstructorNullReferenceTest()
         {
             _ = new HuszonegyKartya(null);
         }
@@ -31,9 +31,16 @@ namespace UnitTest
         //    Assert.IsTrue(ui.TestSteps[0].Contains("Érvénytelten tét"), "A megadott tét nem megfelelő");
         //    Assert.IsTrue(ui.TestSteps[0].Contains("Nincs elegendő Coin."), "Coin/vége hibás");
         //}
+        
+        //[TestMethod]
         public void HuszonegyKartyaStartTest()
         {
+            var ui = new FakeUI();
+            var huszonegykartya = new HuszonegyKartya(ui);
 
+            huszonegykartya.Start();
+
+            Assert.IsTrue(ui.TestSteps.Count == 30, "Túl sok vagy kevés az output");
         }
         public void HuszonegyKartyaDeckTest()
         {

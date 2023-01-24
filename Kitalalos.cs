@@ -230,7 +230,8 @@ namespace szamkitjat
                 gamer = 0; 
                 cc = 0;
                 _gameUI.ReadKey();
-                Start();
+                _gameUI.PrintLN("");
+                //Start();
             }
             else if (cc == 10) {
                 _gameUI.PrintLN("Eltaláltad!\nNyertél!", ConsoleColor.DarkGreen);
@@ -239,7 +240,8 @@ namespace szamkitjat
                 gamer = 0;
                 cc = 0;
                 _gameUI.ReadKey();
-                Start();
+                _gameUI.PrintLN("");
+                //Start();
             }
             else if (cc == 15)
             {
@@ -249,7 +251,8 @@ namespace szamkitjat
                 gamer = 0;
                 cc = 0;
                 _gameUI.ReadKey();
-                Start();
+                _gameUI.PrintLN("");
+                //Start();
             }
             else if (cc == 20)
             {
@@ -259,7 +262,8 @@ namespace szamkitjat
                 gamer = 0;
                 cc = 0;
                 _gameUI.ReadKey();
-                Start();
+                _gameUI.PrintLN("");
+                //Start();
             }
             else if (cc == 25)
             {
