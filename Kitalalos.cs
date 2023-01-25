@@ -222,6 +222,10 @@ namespace szamkitjat
         }
         public void End()
         {
+            EndResult(cc);
+        }
+        public void EndResult(int cc)
+        {
             if (cc == 5)
             {
                 _gameUI.PrintLN("Nyertél! A számítógép nem tudta kitalálni a számot.", ConsoleColor.DarkGreen);

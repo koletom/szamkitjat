@@ -29,7 +29,7 @@ namespace szamkitjat
             _gameUI.PrintLN("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
             _gameUI.PrintLN("\nA játék 5 pontig megy!");
         }
-        
+
         int compScore = 0;
         int playerScore = 0;
         public void Play()
@@ -52,9 +52,9 @@ namespace szamkitjat
                 ko = (valaszt == 'k' ^ valaszt == 'K');
                 papir = (valaszt == 'p' ^ valaszt == 'P');
                 ollo = (valaszt == 'o' ^ valaszt == 'O');
-                if (ko == true)  { valaszt = 'k'; }
-                else if (papir==true) { valaszt = 'p'; }
-                else if (ollo==true) { valaszt = 'o'; }
+                if (ko == true) { valaszt = 'k'; }
+                else if (papir == true) { valaszt = 'p'; }
+                else if (ollo == true) { valaszt = 'o'; }
                 switch (valaszt)
                 {
                     case 'k':
@@ -131,18 +131,29 @@ namespace szamkitjat
             System.Threading.Thread.Sleep(500);
         }
 
-       
+
         //TODO:Az End-be csak az eredményeket írjuk ki 
 
         public void End()
+        {
+            EndResultComputer(compScore);
+            EndResultPlayer(playerScore);
+
+            compScore = 0;
+            playerScore = 0;
+        }
+        public void EndResultComputer(int compScore)
         {
             if (compScore == 5)
             {
                 _gameUI.Sound(SoundTipes.Lose);
                 _gameUI.PrintLN("\nVesztettél!", ConsoleColor.Red);
-                    KPOSzinek();
+                KPOSzinek();
                 _gameUI.PrintLN($" \nA Számítógép: {compScore}:{playerScore} -ra/-re nyert!\n");
             }
+        }
+        public void EndResultPlayer(int playerScore)
+        {
             if (playerScore == 5)
             {
                 _gameUI.Sound(SoundTipes.Win);
@@ -150,9 +161,8 @@ namespace szamkitjat
                 KPOSzinek();
                 _gameUI.PrintLN($" \nA Játékos: {compScore}:{playerScore} -ra/-re nyert!\n");
             }
-            compScore = 0;
-            playerScore = 0;
-        }       
-            
+
+        }
+
     }
 }

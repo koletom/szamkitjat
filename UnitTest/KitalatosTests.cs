@@ -63,31 +63,61 @@ namespace UnitTest
 
         }
         [TestMethod]
-        public void KitalalosResultTest()
+        public void KitalalosResultGameOneWinTest()
         {
             var ui = new FakeUI();
             var kitalalos = new Kitalalos(ui);
 
-            kitalalos.End();
+            kitalalos.EndResult(5);
 
-            Assert.IsTrue(ui.TestSteps.Count == 0, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
             
             Assert.IsTrue(ui.TestSteps[0].Contains("Nyertél!"), "Nem jó végeredmény lett kiírva");
             Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkGreen"), "Nem megfelelő a szinek beállítása");
             Assert.IsTrue(ui.TestSteps[1].StartsWith("Sound"), "Nem a zene lejátszásával indul");
             Assert.IsTrue(ui.TestSteps[1].Contains("Win"), "Nem a Win zene kerül lejátszásra induláskor");
+        }
+        [TestMethod]
+        public void KitalalosResultGameTwoWinTest()
+        {
+            var ui = new FakeUI();
+            var kitalalos = new Kitalalos(ui);
 
-            Assert.IsTrue(ui.TestSteps[5].Contains("Nyertél!"), "Nem jó végeredmény lett kiírva");
-            Assert.IsTrue(ui.TestSteps[5].Contains("fg:DarkGreen"), "Nem megfelelő a szinek beállítása");
-            Assert.IsTrue(ui.TestSteps[6].StartsWith("Sound"), "Nem a zene lejátszásával indul");
-            Assert.IsTrue(ui.TestSteps[6].Contains("Win"), "Nem a Win zene kerül lejátszásra induláskor");
+            kitalalos.EndResult(10);
 
-            Assert.IsTrue(ui.TestSteps[10].StartsWith("Sound"), "Nem a zene lejátszásával indul");
-            Assert.IsTrue(ui.TestSteps[10].Contains("Lose"), "Nem a Lose zene kerül lejátszásra induláskor");
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
+            
+            Assert.IsTrue(ui.TestSteps[0].Contains("Nyertél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkGreen"), "Nem megfelelő a szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Win"), "Nem a Win zene kerül lejátszásra induláskor");
+        }
+        [TestMethod]
+        public void KitalalosResultGameTwoLoseTest()
+        {
+            var ui = new FakeUI();
+            var kitalalos = new Kitalalos(ui);
 
-            Assert.IsTrue(ui.TestSteps[14].Contains("Vesztettél!"), "Nem jó végeredmény lett kiírva");
-            Assert.IsTrue(ui.TestSteps[15].StartsWith("Sound"), "Nem a zene lejátszásával indul");
-            Assert.IsTrue(ui.TestSteps[15].Contains("Lose"), "Nem a Lose zene kerül lejátszásra induláskor");
+            kitalalos.EndResult(15);
+
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Lose"), "Nem a Lose zene kerül lejátszásra induláskor");
+        }
+        [TestMethod]
+        public void KitalalosResultGameOneLoseTest()
+        {
+            var ui = new FakeUI();
+            var kitalalos = new Kitalalos(ui);
+
+            kitalalos.EndResult(20);
+
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
+
+            Assert.IsTrue(ui.TestSteps[0].Contains("Vesztettél"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[1].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Lose"), "Nem a Lose zene kerül lejátszásra induláskor");
         }
 
     }

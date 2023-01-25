@@ -32,6 +32,17 @@ namespace UnitTest
         //    Assert.IsTrue(ui.TestSteps[0].Contains("Nincs elegendő Coin."), "Coin/vége hibás");
         //}
         [TestMethod]
+        public void KoPapirOlloKPOSzinekTest()
+        {
+            var ui = new FakeUI();
+            var kopapirollo = new KoPapirOllo(ui);
+
+            kopapirollo.KPOSzinek();
+
+            Assert.IsTrue(ui.TestSteps.Count == 1, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkBlue|bg:Cyan"), "Táblázat nem megfelelő a szinek beállítása");
+        }
+        [TestMethod]
         public void KoPapirOlloStartTest()
         {
             var ui = new FakeUI();
@@ -64,25 +75,35 @@ namespace UnitTest
 
         }
         [TestMethod]
-        public void KoPapirOlloEndResultTest()
+        public void KoPapirOlloEndResultPlayerLoseTest()
         {
             var ui = new FakeUI();
             var kopapirollo = new KoPapirOllo(ui);
 
-            kopapirollo.End();
+            kopapirollo.EndResultComputer(5);
 
-            Assert.IsTrue(ui.TestSteps.Count == 6, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
             Assert.IsTrue(ui.TestSteps[0].StartsWith("Sound"), "Nem a zene lejátszásával indul");
             Assert.IsTrue(ui.TestSteps[0].Contains("Lose"), "Nem a Lose zene kerül lejátszásra induláskor");
             Assert.IsTrue(ui.TestSteps[1].Contains("Vesztettél!"), "Nem jó végeredmény lett kiírva");
             Assert.IsTrue(ui.TestSteps[1].Contains("fg:Red"), "Nem megfelelő a szinek lettek beállítva");
-            Assert.IsTrue(ui.TestSteps[2].Contains("A Számítógép:"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[3].Contains("A Számítógép:"), "Nem jó végeredmény lett kiírva");
 
-            Assert.IsTrue(ui.TestSteps[3].StartsWith("Sound"), "Nem a zene lejátszásával indul");
-            Assert.IsTrue(ui.TestSteps[3].Contains("Win"), "Nem a Win zene kerül lejátszásra induláskor");
-            Assert.IsTrue(ui.TestSteps[4].Contains("Gratulálunk! Nyertél!"), "Nem jó végeredmény lett kiírva");
-            Assert.IsTrue(ui.TestSteps[4].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
-            Assert.IsTrue(ui.TestSteps[5].Contains("A Játékos:"), "Nem jó végeredmény lett kiírva");
+        }
+        [TestMethod]
+        public void KoPapirOlloEndResultPlayerWinTest()
+        {
+            var ui = new FakeUI();
+            var kopapirollo = new KoPapirOllo(ui);
+
+            kopapirollo.EndResultPlayer(5);
+
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Sound"), "Nem a zene lejátszásával indul");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Win"), "Nem a Win zene kerül lejátszásra induláskor");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Gratulálunk! Nyertél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
+            Assert.IsTrue(ui.TestSteps[3].Contains("A Játékos:"), "Nem jó végeredmény lett kiírva");
         }
     }
 }

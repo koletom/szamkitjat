@@ -133,7 +133,22 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[14].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
             Assert.IsTrue(ui.TestSteps[14].Contains("Win"), "Nem a Tie zene kerül lejátszásra");
         }
+        [TestMethod]
+        public void AmobaEndJatekosVesztettTest()
+        {
+            var ui = new FakeUI();
+            var amoba = new Amoba(ui);
+            var privAmoba = new PrivateObject(amoba);
+            privAmoba.SetField("tabla", new int[9] { 1, 1, 0, 2, 2, 2, 0, 1, 0 });
 
+            amoba.End();
+            
+            Assert.IsTrue(ui.TestSteps.Count == 2, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Veszítettél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:Red"), "Nem megfelelő a szinek lettek beállítva");
+            Assert.IsTrue(ui.TestSteps[1].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Lose"), "Nem a Lose zene kerül lejátszásra");
+        }
         [TestMethod]
         //TODO: Itt egy olyan állapotot kellene tesztelni, ahol még nincs eredmény, mert még lehet a táblára tenni
         public void AmobaEndNemJatekosNemComputerNyerNemDontetenTest()
@@ -164,6 +179,19 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[13].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
             Assert.IsTrue(ui.TestSteps[14].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
             Assert.IsTrue(ui.TestSteps[14].Contains("Win"), "Nem a Win zene kerül lejátszásra");
+        }
+        [TestMethod]
+        public void AmobaEndResultJatekosVeszitTest()
+        {
+            var ui = new FakeUI();
+            var amoba = new Amoba(ui);
+
+            amoba.EndResult(2);
+            Assert.IsTrue(ui.TestSteps.Count == 2, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Veszítettél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:Red"), "Nem megfelelő a szinek lettek beállítva");
+            Assert.IsTrue(ui.TestSteps[1].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Lose"), "Nem a Lose zene kerül lejátszásra");
         }
     }
 }

@@ -213,12 +213,17 @@ namespace szamkitjat
             {
                 _gameUI.PrintLN("\nVeszítettél! \nA Számítógép nyert!", ConsoleColor.Red);
                 _gameUI.Sound(SoundTipes.Lose);
-            } else            
+            } else
+            if (nyertes == 0)
             {
                 tablazat();
                 _gameUI.PrintLN("Döntetlen!", ConsoleColor.Yellow);
                 _gameUI.Sound(SoundTipes.Tie);
             } 
+            else
+            {
+                _gameUI.PrintLN("A játék még nem fejeződött be!", ConsoleColor.Yellow);
+            }
 
             System.Threading.Thread.Sleep(1000);
         }
