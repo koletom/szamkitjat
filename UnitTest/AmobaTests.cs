@@ -99,7 +99,7 @@ namespace UnitTest
 
         }
         [TestMethod]
-        public void AmobaResultTest() 
+        public void AmobaEndTest() 
         {
             var ui = new FakeUI();
             var amoba = new Amoba(ui);
@@ -107,20 +107,26 @@ namespace UnitTest
             amoba.End();
 
             Assert.IsTrue(ui.TestSteps.Count == 14, "Túl sok vagy kevés az output");
-            Assert.IsTrue(ui.TestSteps[0].Contains("Gratulálunk! Nyertél!"), "Nem jó végeredmény lett kiírva");
-            Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
-            Assert.IsTrue(ui.TestSteps[1].Contains("Jatékos nyert"), "Nem jó végeredmény lett kiírva");
-            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
-            Assert.IsTrue(ui.TestSteps[2].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
-            Assert.IsTrue(ui.TestSteps[2].Contains("Win"), "Nem a Win zene kerül lejátszásra");
-            Assert.IsTrue(ui.TestSteps[3].Contains("Veszítettél!"), "Nem jó végeredmény lett kiírva");
-            Assert.IsTrue(ui.TestSteps[3].Contains("fg:Red"), "Nem megfelelő a szinek lettek beállítva");
-            Assert.IsTrue(ui.TestSteps[4].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
-            Assert.IsTrue(ui.TestSteps[4].Contains("Lose"), "Nem a Lose zene kerül lejátszásra");
-            Assert.IsTrue(ui.TestSteps[5].Contains("Döntetlen!"), "Nem jó végeredmény lett kiírva");
-            Assert.IsTrue(ui.TestSteps[5].Contains("fg:Yellow"), "Nem megfelelő a szinek lettek beállítva");
-            Assert.IsTrue(ui.TestSteps[6].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
-            Assert.IsTrue(ui.TestSteps[6].Contains("Tie"), "Nem a Tie zene kerül lejátszásra");
+            Assert.IsTrue(ui.TestSteps[12].Contains("Döntetlen!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[12].Contains("fg:Yellow"), "Nem megfelelő a szinek lettek beállítva");
+            Assert.IsTrue(ui.TestSteps[13].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
+            Assert.IsTrue(ui.TestSteps[13].Contains("Tie"), "Nem a Tie zene kerül lejátszásra");
+        }
+
+        [TestMethod]
+        public void AmobaEndResultJatekosNyerTest()
+        {
+            var ui = new FakeUI();
+            var amoba = new Amoba(ui);
+
+            amoba.EndResult(1);
+            Assert.IsTrue(ui.TestSteps.Count == 15, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[12].Contains("Gratulálunk! Nyertél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[12].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
+            Assert.IsTrue(ui.TestSteps[13].Contains("Jatékos nyert"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[13].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
+            Assert.IsTrue(ui.TestSteps[14].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
+            Assert.IsTrue(ui.TestSteps[14].Contains("Win"), "Nem a Win zene kerül lejátszásra");
         }
     }
 }

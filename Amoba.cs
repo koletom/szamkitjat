@@ -7,7 +7,7 @@ using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
-    public class Amoba : IGame
+    public class Amoba : IAmobaGame
     {
         IGameUI _gameUI;
         public Amoba (IGameUI gameUI)
@@ -197,27 +197,30 @@ namespace szamkitjat
 
         public void End()
         {
-            if (nyertes() == 1)
+           EndResult(nyertes());
+        }
+
+        public void EndResult(int nyertes)
+        {
+            if (nyertes == 1)
             {
                 tablazat();
                 _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.DarkGreen);
                 _gameUI.PrintLN("Jatékos nyert\n", ConsoleColor.DarkGreen);
                 _gameUI.Sound(SoundTipes.Win);
-            }
-            if (nyertes() == 2)
+            } else
+            if (nyertes == 2)
             {
                 _gameUI.PrintLN("\nVeszítettél! \nA Számítógép nyert!", ConsoleColor.Red);
                 _gameUI.Sound(SoundTipes.Lose);
-            }
-            if (nyertes() != 1 && nyertes() != 2)
+            } else            
             {
                 tablazat();
-                _gameUI.PrintLN("Döntetlen", ConsoleColor.Yellow);
+                _gameUI.PrintLN("Döntetlen!", ConsoleColor.Yellow);
                 _gameUI.Sound(SoundTipes.Tie);
-            }
+            } 
 
             System.Threading.Thread.Sleep(1000);
-
         }
     }
 }
