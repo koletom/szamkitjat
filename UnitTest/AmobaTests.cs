@@ -96,8 +96,9 @@ namespace UnitTest
         }
         public void AmobaValidNumberTest() 
         {
-
+        
         }
+
         [TestMethod]
         public void AmobaEndTest() 
         {
@@ -112,6 +113,42 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[13].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
             Assert.IsTrue(ui.TestSteps[13].Contains("Tie"), "Nem a Tie zene kerül lejátszásra");
         }
+
+        [TestMethod]
+        public void AmobaEndJatekosNyerTest()
+        {
+            var ui = new FakeUI();
+            var amoba = new Amoba(ui);
+            var privAmoba = new PrivateObject(amoba);
+            privAmoba.SetField("tabla", new int[9] { 1, 1, 1, 2, 0, 2, 0, 0, 0 });
+
+            amoba.End();
+
+            Assert.IsTrue(ui.TestSteps.Count == 15, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[12].Contains("Gratulálunk! Nyertél!"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[12].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
+            Assert.IsTrue(ui.TestSteps[13].Contains("Jatékos nyert"), "Nem jó végeredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[13].Contains("fg:DarkGreen"), "Nem megfelelő a szinek lettek beállítva");
+
+            Assert.IsTrue(ui.TestSteps[14].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
+            Assert.IsTrue(ui.TestSteps[14].Contains("Win"), "Nem a Tie zene kerül lejátszásra");
+        }
+
+        [TestMethod]
+        //TODO: Itt egy olyan állapotot kellene tesztelni, ahol még nincs eredmény, mert még lehet a táblára tenni
+        public void AmobaEndNemJatekosNemComputerNyerNemDontetenTest()
+        {
+            var ui = new FakeUI();
+            var amoba = new Amoba(ui);
+            var privAmoba = new PrivateObject(amoba);
+            privAmoba.SetField("tabla", new int[9] { 1, 0, 1, 2, 0, 2, 0, 0, 0 });
+
+            amoba.End();
+
+            Assert.IsTrue(ui.TestSteps.Count == 14, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[12].Contains("A játék még nem fejeződött be!"), "Nem jó végeredmény lett kiírva");            
+        }
+
 
         [TestMethod]
         public void AmobaEndResultJatekosNyerTest()

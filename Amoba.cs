@@ -18,9 +18,9 @@ namespace szamkitjat
         int gamercount { get; set; }
         public string Name => "Amoba";
         #endregion propertiregion
-        static int[] tabla = new int[9];
+        int[] tabla = new int[9];
       
-        private static bool megszakit()
+        private bool megszakit()
         {
             bool tele = true;
             for (int i = 0; i < tabla.Length; i++)
@@ -33,7 +33,7 @@ namespace szamkitjat
             return tele;
         }
 
-        private static int nyertes()
+        private int nyertes()
         {
             //1.sor
             if (tabla[0] == tabla[1] && tabla[1] == tabla[2])
