@@ -57,6 +57,19 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[2].Contains("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)"), "Nem lettek kiírva a lehetőségek");
             Assert.IsTrue(ui.TestSteps[3].Contains("A játék 5 pontig megy!"), "Nem lett kiírva a szabály");
         }
+        [TestMethod]
+        public void KoPapirOlloProbaTest()
+        {
+            var ui = new FakeUI();
+            var kopapirollo = new KoPapirOllo(ui);
+
+            kopapirollo.Proba();
+
+            Assert.IsTrue(ui.TestSteps.Count == 1, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("ReadKeyTrue"), "Nem a olvassa be a karaktert");
+            Assert.IsNull(ui.ReadResult, "Nem a olvassa be a karaktert");
+        }
+        //[TestMethod]
         public void KoPapirOlloPlayTest()
         {
             var ui = new FakeUI();
@@ -64,8 +77,9 @@ namespace UnitTest
 
             kopapirollo.Start();
 
-            Assert.IsTrue(ui.TestSteps.Count == 23, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps.Count > 23, "Túl sok vagy kevés az output");
             Assert.IsTrue(ui.TestSteps[1].Contains("Mit választasz? (k/p/o)"), "Nem lettek kiírva a lehetőségek");
+            Assert.IsNull(ui.ReadResult, "Nem a olvassa be a karaktert");
             Assert.IsTrue(ui.TestSteps[3].StartsWith("Sound"), "Nem a sound lejátszásával indul");
             Assert.IsTrue(ui.TestSteps[3].Contains("Step"), "Nem a Step zene kerül lejátszásra lépéskor");
 

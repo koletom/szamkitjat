@@ -41,14 +41,53 @@ namespace UnitTest
             huszonegykartya.Start();
 
             Assert.IsTrue(ui.TestSteps.Count == 7, "Túl sok vagy kevés az output");
-        }
-        public void HuszonegyKartyaDeckTest()
-        {
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Good"), "Nem a Good zene kerül lejátszásra");
+            Assert.IsTrue(ui.TestSteps[1].StartsWith("Clear"), "Nem történik képernyő törlés zene lejátszása után");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:White|bg:Black"), "Törléskor nem megfelelő a szinek beállítása");
 
+            Assert.IsTrue(ui.TestSteps[3].Contains("darab játékos játsza"), "Nem lett kiírva a játékosok száma és a paki tipusa");
+            Assert.IsTrue(ui.TestSteps[4].Contains("Kezdődjön a játék!"), "Nem lett kiírva a kezdés jelzése");
         }
-        public void HuszonegyKartyaChoiceTest()
+        public void HuszonegyKartyaDeckMagyarTest()
         {
+            var ui = new FakeUI();
+            var huszonegykartya = new HuszonegyKartya(ui);
 
+            huszonegykartya.Start();
+
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Clear"), "Nem történik képernyő törlés");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Választott pakli:"), "Nem lett kiírva a pakli");
+            Assert.IsTrue(ui.TestSteps[2].Contains("A lapok értéke:"), "Nem lett kiírva a lapok értéke");
+            Assert.IsTrue(ui.TestSteps[3].Contains("A játékszabályok:"), "Nem lett kiírva a játékszabályok");
+            Assert.IsTrue(ui.TestSteps[4].Contains("Ha valakinek több van mint 21 vesztett"), "Nem lett kiírva a játékszabályok");
+        }
+        public void HuszonegyKartyaDeckFranciaTest()
+        {
+            var ui = new FakeUI();
+            var huszonegykartya = new HuszonegyKartya(ui);
+
+            huszonegykartya.Start();
+
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Clear"), "Nem történik képernyő törlés");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Választott pakli:"), "Nem lett kiírva a pakli");
+            Assert.IsTrue(ui.TestSteps[2].Contains("A lapok értéke:"), "Nem lett kiírva a lapok értéke");
+            Assert.IsTrue(ui.TestSteps[3].Contains("A játékszabályok:"), "Nem lett kiírva a játékszabályok");
+            Assert.IsTrue(ui.TestSteps[4].Contains("Ha valakinek több van mint 21 vesztett"), "Nem lett kiírva a játékszabályok");
+        }
+        [TestMethod]
+        public void HuszonegyKartyaKorKezdesTest()
+        {
+            var ui = new FakeUI();
+            var huszonegykartya = new HuszonegyKartya(ui);
+
+            huszonegykartya.KorKezdes();
+
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Clear"), "Nem történik képernyő törlés");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:White|bg:Black"), "Törléskor nem megfelelő a szinek beállítása");
         }
         public void HuszonegyKartyaPlayTest()
         {
@@ -84,7 +123,7 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps.Count == 1, "Túl sok vagy kevés az output");
             Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
         }
-        //[TestMethod]
+        [TestMethod]
         public void HuszonegyKartyaResultBustTest()
         {
             var ui = new FakeUI();
@@ -101,6 +140,8 @@ namespace UnitTest
             var huszonegykartya = new HuszonegyKartya(ui);
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.SURRENDER);
+
+
         }
         public void HuszonegyKartyaResultWinTest()
         {

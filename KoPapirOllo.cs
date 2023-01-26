@@ -29,7 +29,11 @@ namespace szamkitjat
             _gameUI.PrintLN("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
             _gameUI.PrintLN("\nA játék 5 pontig megy!");
         }
-
+        public void Proba()
+        {
+            char probachar;
+            probachar = _gameUI.ReadKeyTrue;
+        }
         int compScore = 0;
         int playerScore = 0;
         public void Play()

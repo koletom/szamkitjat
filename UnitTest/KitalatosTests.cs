@@ -48,19 +48,34 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[3].Contains("1"), "Nem lett kiírva az 1. játékmód");
             Assert.IsTrue(ui.TestSteps[4].Contains("2"), "Nem lett kiírva a 2. játékmód");
             Assert.IsTrue(ui.TestSteps[5].Contains("3"), "Nem lett kiírva a visszalépés lehetősége");
+            //Assert.IsNull(ui.ReadResult, "Nem a olvassa be a karaktert");
 
         }
         public void KitalalosPlayTest()
         {
-
+            
         }
         public void KitalalosGameModeOneTest()
         {
+            var ui = new FakeUI();
+            var kitalalos = new Kitalalos(ui);
 
+            kitalalos.Play();
+
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Clear"), "Nem történik képernyő törlése");
+            Assert.IsTrue(ui.TestSteps[1].Contains("A gép gondolt egy számra 0-100-ig"), "Nem lett kiírva a számok intervalluma");
         }
         public void KitalalosGameModeTwoTest()
         {
+            var ui = new FakeUI();
+            var kitalalos = new Kitalalos(ui);
 
+            kitalalos.Play();
+
+            Assert.IsTrue(ui.TestSteps.Count == 2, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].StartsWith("Clear"), "Nem történik képernyő törlése");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Gondolj egy számra! (1 - 100)"), "Nem lett kiírva a számok intervalluma");
         }
         [TestMethod]
         public void KitalalosResultGameOneWinTest()

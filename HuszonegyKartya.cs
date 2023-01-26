@@ -101,7 +101,6 @@ namespace szamkitjat
             _gameUI.PrintLN("Nyomj egy gombot a kezdéshez.");
             _gameUI.ReadKey();
             KorKezdes();
-
         }
 
         
@@ -204,7 +203,7 @@ namespace szamkitjat
                 }
             }
         }
-
+        
         public void Ellenorzes()
         {
             if (players.KezErtek() > 21)
@@ -562,7 +561,7 @@ namespace szamkitjat
             }
 
         }
-
+        
         public static bool Blackjack(List<CardTipus> kez)
         {
             if (kez.Count == 2)
