@@ -77,18 +77,18 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[3].Contains("A játékszabályok:"), "Nem lett kiírva a játékszabályok");
             Assert.IsTrue(ui.TestSteps[4].Contains("Ha valakinek több van mint 21 vesztett"), "Nem lett kiírva a játékszabályok");
         }
-        [TestMethod]
-        public void HuszonegyKartyaKorKezdesTest()
-        {
-            var ui = new FakeUI();
-            var huszonegykartya = new HuszonegyKartya(ui);
+        //[TestMethod]
+        //public void HuszonegyKartyaKorKezdesTest()
+        //{
+        //    var ui = new FakeUI();
+        //    var huszonegykartya = new HuszonegyKartya(ui);
 
-            huszonegykartya.KorKezdes();
+        //    huszonegykartya.KorKezdes();
 
-            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
-            Assert.IsTrue(ui.TestSteps[0].StartsWith("Clear"), "Nem történik képernyő törlés");
-            Assert.IsTrue(ui.TestSteps[0].Contains("fg:White|bg:Black"), "Törléskor nem megfelelő a szinek beállítása");
-        }
+        //    Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+        //    Assert.IsTrue(ui.TestSteps[0].StartsWith("Clear"), "Nem történik képernyő törlés");
+        //    Assert.IsTrue(ui.TestSteps[0].Contains("fg:White|bg:Black"), "Törléskor nem megfelelő a szinek beállítása");
+        //}
         public void HuszonegyKartyaPlayTest()
         {
 

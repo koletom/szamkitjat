@@ -100,7 +100,7 @@ namespace szamkitjat
             _gameUI.PrintLN("\nKezdődjön a játék!");
             _gameUI.PrintLN("Nyomj egy gombot a kezdéshez.");
             _gameUI.ReadKey();
-            KorKezdes();
+            //KorKezdes();
         }
 
         
@@ -172,37 +172,37 @@ namespace szamkitjat
             players.KezMutat();
             oszto.KezMutat();
         }
-        public void KorKezdes()
-        {
-            _gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
+        //public void KorKezdes()                   //KorKezdes() -t át kell alakítani
+        //{
+        //    //_gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
 
-            if (!Tetek())
-            {
-                _gameUI.PrintLN("Érvénytelten tét", ConsoleColor.Red);
-                HSzinek();
-                _gameUI.PrintLN("Nyomj egy gombot az újra próbáláshoz.");
-                _gameUI.ReadKey();
-                KorKezdes();
-                return;
-            }
+        //    //if (!Tetek())
+        //    //{
+        //    //    _gameUI.PrintLN("Érvénytelten tét", ConsoleColor.Red);
+        //    //    HSzinek();
+        //    //    _gameUI.PrintLN("Nyomj egy gombot az újra próbáláshoz.");
+        //    //    _gameUI.ReadKey();
+        //    //    KorKezdes();
+        //    //    return;
+        //    //}
 
-            KezdoKezek();
-            Play();                   //Play() -t át kell alakítani
+        //    //KezdoKezek();
+        //    Play();                   //Play() -t át kell alakítani
 
-            players.KezMutat();
-            oszto.KezMutat();
-            if (tt != 1)
-            {
-                if (players.DeckTipeP == 1)
-                {
-                    Ellenorzes();
-                }
-                else if (players.DeckTipeP == 2)
-                {
-                    EllenorzesM();
-                }
-            }
-        }
+        //    //players.KezMutat();
+        //    //oszto.KezMutat();
+        //    //if (tt != 1)
+        //    //{
+        //    //    if (players.DeckTipeP == 1)
+        //    //    {
+        //    //        Ellenorzes();
+        //    //    }
+        //    //    else if (players.DeckTipeP == 2)
+        //    //    {
+        //    //        EllenorzesM();
+        //    //    }
+        //    //}
+        //}
         
         public void Ellenorzes()
         {
@@ -245,19 +245,19 @@ namespace szamkitjat
                 KorVege(Vegeredmeny.DONTETLEN);
             }
         }
-        public void EllenorzesM()
+        public void EllenorzesM()                               // Van egy kisebb hiba ha a players.KezMutat() = 22
         {
             if (oszto.OsztoKezErtek() == 22)
             {
                 KorVege(Vegeredmeny.VESZTETT);
             }
 
-            if (BlackjackM2(players.HandM))
+            else if (BlackjackM2(players.HandM))
             {
                 KorVege(Vegeredmeny.WIN);
             }
 
-            if (players.KezErtek() > 21)
+            else if (players.KezErtek() > 21)
             {
                 KorVege(Vegeredmeny.BUST);
                 return;
@@ -299,136 +299,151 @@ namespace szamkitjat
         }
         public void Play()
         {
-            List<int>[] cards = new List<int>[gamercount];
-
-            //for (int i = 0; i < gamercount; i++)
-            //{
-            //    Generate(i, cards);
-            //    var m = string.Join(",", cards[i]); //TODO: Ezt akár berakhatod a Generate metódusba, annak visszatérési értékeként, és akkor az egész generate hívást  
-            //                                        //betehed a következő Console...-os sorba
-            
-
-            //Console.WriteLine($"{i}. játékos lapjai:{m}");
-            //Console.WriteLine("{0}. játékos lapjai:{1}",i,Generate(i, cards));
-            //int hit = 0;
-
-            //bool newcardyes;
-            //bool newcardno;
-
-            string rk;
             do
-            {
-                _gameUI.Clear();
+                {
+                _gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
+
+                if (!Tetek())
+                {
+                    _gameUI.PrintLN("Érvénytelten tét", ConsoleColor.Red);
+                    HSzinek();
+                    _gameUI.PrintLN("Nyomj egy gombot az újra próbáláshoz.");
+                    _gameUI.ReadKey();
+
+                    tt = 1;
+                }
+
+                List<int>[] cards = new List<int>[gamercount];
+
+                KezdoKezek();
+
+                string rk;
+                do
+                {
+                    _gameUI.Clear();
+                    players.KezMutat();
+                    oszto.KezMutat();
+                    _gameUI.PrintLN($"A játékos húz-e új lapot?");
+                    _gameUI.PrintLN("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
+                    if (tt == 1)
+                    {
+                        rk = "STOP";
+                    
+                        tt = 0;
+                        //End();
+                    }
+                    else
+                    {
+                        rk = _gameUI.ReadLine;
+                    }
+                    //newcardyes=(rk == 'i' ^ rk == 'I');
+                    //newcardno = (rk == 'n' ^ rk == 'N');
+                    switch (rk.ToUpper())
+                        {
+                        case "HIT":
+                            if (players.DeckTipeP == 1)
+                            {
+                                players.Hand.Add(cardDeck.LapHuzas());
+                            }
+                            else if (players.DeckTipeP == 2)
+                            {
+                                players.HandM.Add(cardDeckMagyar.LapHuzas());
+                            }
+                            break;
+                        case "STOP":
+                            break;
+                        case "SURRENDER":
+                            if (players.DeckTipeP == 1)
+                            {
+                                players.Hand.Clear();
+                            }
+                            else if (players.DeckTipeP == 2)
+                            {
+                                players.HandM.Clear();
+                            }
+                            KorVege(Vegeredmeny.SURRENDER);
+                            break;
+                        case "DOUBLE":
+                            if (players.Coin <= players.Tet)
+                            {
+                                players.AddTet(players.Coin);
+                            }
+                            else
+                            {
+                                players.AddTet(players.Tet);
+                            }
+                            if (players.DeckTipeP == 1)
+                            {
+                                players.Hand.Add(cardDeck.LapHuzas());
+                            }
+                            else if (players.DeckTipeP == 2)
+                            {
+                                players.HandM.Add(cardDeckMagyar.LapHuzas());
+                            }
+                            break;
+                        default:
+                            _gameUI.PrintLN("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
+                            _gameUI.PrintLN("Nyomj egy gombot az új próbához.");
+                            _gameUI.ReadKey();
+                            break;
+                    }
+                
+
+                    if (players.KezErtek() > 21)
+                    {
+                        if (players.DeckTipeP == 1)
+                        {
+                            foreach (CardTipus card in players.Hand)
+                            {
+                                if (card.Ertek == 11)
+                                {
+                                    card.Ertek = 1;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (players.DeckTipeP == 2)
+                        {
+                            foreach (CardTipusMagyar card in players.HandM)
+                            {
+                                if (card.Ertek == 11)
+                                {
+                                    card.Ertek = 11;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                
+
+                    //m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
+                    //Generate(i, cards);
+
+                    //Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
+
+                    //hit++; //TODO: Ezt rakd át a while feltételbe
+
+                } while (!rk.ToUpper().Equals("STOP") && !rk.ToUpper().Equals("SURRENDER") 
+                    && !rk.ToUpper().Equals("DOUBLE") && players.KezErtek() <= 21); /*while (hit < 3 || newcardyes == true );*/
+                //}
+            
                 players.KezMutat();
                 oszto.KezMutat();
-                _gameUI.PrintLN($"A játékos húz-e új lapot?");
-                _gameUI.PrintLN("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
-                if (tt == 1)
+                if (tt != 1)
                 {
-                    rk = "STOP";
-                    _gameUI.Clear(ConsoleColor.Black, ConsoleColor.White);
-                    _gameUI.PrintLN("Nincs elegendő Coin.");
-                    _gameUI.PrintLN("A játéknak vége!"); 
-                    _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                    _gameUI.ReadKey();
-                    _gameUI.PrintLN("");
-                    tt = 0;
-                    //End();
-                }
-                else
-                {
-                    rk = _gameUI.ReadLine;
-                }
-                //newcardyes=(rk == 'i' ^ rk == 'I');
-                //newcardno = (rk == 'n' ^ rk == 'N');
-                switch (rk.ToUpper())
+                    if (players.Tet != 0)
                     {
-                    case "HIT":
                         if (players.DeckTipeP == 1)
                         {
-                            players.Hand.Add(cardDeck.LapHuzas());
+                            Ellenorzes();
                         }
                         else if (players.DeckTipeP == 2)
                         {
-                            players.HandM.Add(cardDeckMagyar.LapHuzas());
-                        }
-                        break;
-                    case "STOP":
-                        break;
-                    case "SURRENDER":
-                        if (players.DeckTipeP == 1)
-                        {
-                            players.Hand.Clear();
-                        }
-                        else if (players.DeckTipeP == 2)
-                        {
-                            players.HandM.Clear();
-                        }
-                        KorVege(Vegeredmeny.SURRENDER);
-                        break;
-                    case "DOUBLE":
-                        if (players.Coin <= players.Tet)
-                        {
-                            players.AddTet(players.Coin);
-                        }
-                        else
-                        {
-                            players.AddTet(players.Tet);
-                        }
-                        if (players.DeckTipeP == 1)
-                        {
-                            players.Hand.Add(cardDeck.LapHuzas());
-                        }
-                        else if (players.DeckTipeP == 2)
-                        {
-                            players.HandM.Add(cardDeckMagyar.LapHuzas());
-                        }
-                        break;
-                    default:
-                        _gameUI.PrintLN("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
-                        _gameUI.PrintLN("Nyomj egy gombot az új próbához.");
-                        _gameUI.ReadKey();
-                        break;
-                }
-                
-
-                if (players.KezErtek() > 21)
-                {
-                    if (players.DeckTipeP == 1)
-                    {
-                        foreach (CardTipus card in players.Hand)
-                        {
-                            if (card.Ertek == 11)
-                            {
-                                card.Ertek = 1;
-                                break;
-                            }
-                        }
-                    }
-                    else if (players.DeckTipeP == 2)
-                    {
-                        foreach (CardTipusMagyar card in players.HandM)
-                        {
-                            if (card.Ertek == 11)
-                            {
-                                card.Ertek = 11;
-                                break;
-                            }
+                            EllenorzesM();
                         }
                     }
                 }
-                
-
-                //m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
-                //Generate(i, cards);
-
-                //Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
-
-                //hit++; //TODO: Ezt rakd át a while feltételbe
-
-            } while (!rk.ToUpper().Equals("STOP") && !rk.ToUpper().Equals("SURREDER") 
-                && !rk.ToUpper().Equals("DOUBLE") && players.KezErtek() <= 21); /*while (hit < 3 || newcardyes == true );*/
-                //}
+            } while (players.Coin > 4);
         }
 
         public static int MinimumKezdoTet { get; } = 5;
@@ -479,7 +494,7 @@ namespace szamkitjat
                     _gameUI.ReadKey();
                     if (players.Coin > 4)
                     {
-                        KorKezdes();
+                        //KorKezdes();
                     }
                     else if (players.Coin <= 4)
                     {
@@ -496,10 +511,10 @@ namespace szamkitjat
                     _gameUI.PrintLN("A Játékos "+ (players.Tet / 2) + " Coint visszakap.",ConsoleColor.DarkGreen);
                     HSzinek();
                     players.Coin = players.Coin+players.Tet / 2;
-                    players.TetNullaz();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
-                    KorKezdes();
+                    players.TetNullaz();
+                    //KorKezdes();
                     break;
                 case Vegeredmeny.WIN:
                     _gameUI.PrintLN("A Játékos 2 Ászt húzott. Játékos nyert. Nyeremény:" + players.TetNyer(true) + " Coin.", ConsoleColor.DarkGreen);
@@ -507,7 +522,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     players.TetNullaz();
-                    KorKezdes();
+                    //KorKezdes();
                     break;
                 case Vegeredmeny.BLACKJACK:
                     _gameUI.PrintLN("Blackjack. Játékos nyert. Nyeremény:" + players.TetNyer(true) +" Coin.", ConsoleColor.DarkGreen);
@@ -515,7 +530,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     players.TetNullaz();
-                    KorKezdes();
+                    //KorKezdes();
                     break;
                 case Vegeredmeny.NYERT:
                     _gameUI.PrintLN("Játékos nyert. Nyeremény:" + players.TetNyer(false) + " Coin.", ConsoleColor.DarkGreen);
@@ -523,7 +538,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     players.TetNullaz();
-                    KorKezdes();
+                    //KorKezdes();
                     break;
                 case Vegeredmeny.VESZTETT:
                     players.TetNullaz();
@@ -531,11 +546,8 @@ namespace szamkitjat
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
-                    if (players.Coin > 4)
-                    {
-                        KorKezdes();
-                    }
-                    else if (players.Coin <= 4)
+
+                    if (players.Coin <= 4)
                     {
                         _gameUI.PrintLN("");
                         _gameUI.PrintLN("Nincsen a kezdőtéthez elegendő Coin.");
@@ -553,7 +565,7 @@ namespace szamkitjat
                     players.TetNullaz();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
-                    KorKezdes();
+                    //KorKezdes();
                     break;
                 default:
                     _gameUI.PrintLN("Hiba történt!");
@@ -610,9 +622,15 @@ namespace szamkitjat
         /// </summary>
         public void End()
         {
+            _gameUI.Clear(ConsoleColor.Black, ConsoleColor.White);
+            _gameUI.PrintLN("Nincs elegendő Coin.");
+            _gameUI.PrintLN("A játéknak vége!");
+            _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
+            _gameUI.ReadKey();
+            _gameUI.PrintLN("");
             if (players.Coin > 4)
             {
-                KorKezdes();
+                //KorKezdes();
             }
             else
             {
