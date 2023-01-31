@@ -132,8 +132,12 @@ namespace UnitTest
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.BUST); 
             
             Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("A játékos túl sok lapot húzott"), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:Red"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
 
         }
+        [TestMethod]
         public void HuszonegyKartyaResultSurrenderTest()
         {
             var ui = new FakeUI();
@@ -141,42 +145,93 @@ namespace UnitTest
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.SURRENDER);
 
-
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("A Játékos feladta."), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:Red"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Coint visszakap"), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkGreen"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[2].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
         }
+        [TestMethod]
         public void HuszonegyKartyaResultWinTest()
         {
             var ui = new FakeUI();
             var huszonegykartya = new HuszonegyKartya(ui);
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.WIN);
+
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("A Játékos 2 Ászt húzott."), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkGreen"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
+
         }
+        [TestMethod]
         public void HuszonegyKartyaResultBlackjackTest()
         {
             var ui = new FakeUI();
             var huszonegykartya = new HuszonegyKartya(ui);
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.BLACKJACK);
+
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Blackjack. Játékos nyert."), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkGreen"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
         }
+        [TestMethod]
         public void HuszonegyKartyaResultNyertTest()
         {
             var ui = new FakeUI();
             var huszonegykartya = new HuszonegyKartya(ui);
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.NYERT);
+
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Játékos nyert. Nyeremény:"), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkGreen"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
         }
+        [TestMethod]
         public void HuszonegyKartyaResultVesztettTest()
         {
             var ui = new FakeUI();
             var huszonegykartya = new HuszonegyKartya(ui);
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.VESZTETT);
+
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Osztó nyert"), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:Red"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
         }
+        [TestMethod]
         public void HuszonegyKartyaResultDontetlenTest()
         {
             var ui = new FakeUI();
             var huszonegykartya = new HuszonegyKartya(ui);
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.DONTETLEN);
+
+            Assert.IsTrue(ui.TestSteps.Count == 5, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("Döntetlen"), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:Yellow"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Coint visszakap."), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[1].Contains("fg:DarkGreen"), "Nem megfelelő piros betű szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[2].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
+        }
+        [TestMethod]
+        public void HuszonegyKartyaEndTest()
+        {
+            var ui = new FakeUI();
+            var huszonegykartya = new HuszonegyKartya(ui);
+
+            huszonegykartya.End();
+
+            Assert.IsTrue(ui.TestSteps.Count == 6, "Túl sok vagy kevés az output");
+            Assert.IsTrue(ui.TestSteps[0].Contains("fg:Black|bg:White"), "Nem megfelelő a szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[1].Contains("Nincs elegendő Coin."), "Rossz eredmény lett kiírva");
+            Assert.IsTrue(ui.TestSteps[2].Contains("A játéknak vége!"), "Rossz eredmény lett kiírva");
         }
     }
 }

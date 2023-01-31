@@ -492,16 +492,16 @@ namespace szamkitjat
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
-                    if (players.Coin > 4)
+                    //if (players.Coin > 4)
+                    //{
+                    //    //KorKezdes();
+                    //}
+                    if (players.Coin <= 4)
                     {
-                        //KorKezdes();
-                    }
-                    else if (players.Coin <= 4)
-                    {
-                        _gameUI.PrintLN("");
-                        _gameUI.PrintLN("Nincsen a kezdőtéthez elegendő Coin.");
-                        _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                        _gameUI.ReadKey();
+                        //_gameUI.PrintLN("");
+                        //_gameUI.PrintLN("Nincsen a kezdőtéthez elegendő Coin.");
+                        //_gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
+                        //_gameUI.ReadKey();
                         tt = 1;
                         //End();
                     }
@@ -549,10 +549,10 @@ namespace szamkitjat
 
                     if (players.Coin <= 4)
                     {
-                        _gameUI.PrintLN("");
-                        _gameUI.PrintLN("Nincsen a kezdőtéthez elegendő Coin.");
-                        _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
-                        _gameUI.ReadKey();
+                        //_gameUI.PrintLN("");
+                        //_gameUI.PrintLN("Nincsen a kezdőtéthez elegendő Coin.");
+                        //_gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
+                        //_gameUI.ReadKey();
                         tt = 1;
                         //End();
                     }
