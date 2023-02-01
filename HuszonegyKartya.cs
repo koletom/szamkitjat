@@ -245,16 +245,18 @@ namespace szamkitjat
                 KorVege(Vegeredmeny.DONTETLEN);
             }
         }
-        public void EllenorzesM()                               // Van egy kisebb hiba ha a players.KezMutat() = 22
+        public void EllenorzesM()
         {
             if (oszto.OsztoKezErtek() == 22)
             {
                 KorVege(Vegeredmeny.VESZTETT);
+                return;
             }
 
-            else if (BlackjackM2(players.HandM))
+            else if (players.KezErtek() == 22)
             {
                 KorVege(Vegeredmeny.WIN);
+                return;
             }
 
             else if (players.KezErtek() > 21)
@@ -604,17 +606,17 @@ namespace szamkitjat
             }
             return false;
         }
-        public static bool BlackjackM2(List<CardTipusMagyar> kez)
-        {
-            if (kez.Count == 2)
-            {
-                if (kez[0].SzamM == CardSzamMagyar.Asz && kez[1].SzamM == CardSzamMagyar.Asz)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //public static bool BlackjackM2(List<CardTipusMagyar> kez)
+        //{
+        //    if (kez.Count == 2)
+        //    {
+        //        if (kez[0].SzamM == CardSzamMagyar.Asz && kez[1].SzamM == CardSzamMagyar.Asz)
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
         /// <summary>
         /// Ebben a metódusban kellene kiíratni a nyerteseket mást nem. Az eredmény kiírása után a readkey nem árt azért, hogy el is lehessen olvasni az eredményt

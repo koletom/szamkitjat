@@ -20,6 +20,12 @@ namespace UnitTest
             get => _readResult;
             set { _readResult = value; }
         }
+        uint? _readNumberResult = null;
+        public uint? ReadNumberResult
+        {
+            get => _readNumberResult;
+            set { _readNumberResult = value; }
+        }
         //public object ReadKeyResult
         //{
         //    get => _readResult;
@@ -121,7 +127,7 @@ namespace UnitTest
         {
             MethodBase m = MethodBase.GetCurrentMethod();
             TestSteps.Add($"{m.Name}");
-            return ReadResult as uint?;
+            return ReadNumberResult as uint?;
         }
 
         public string ReadString(int stringLength)

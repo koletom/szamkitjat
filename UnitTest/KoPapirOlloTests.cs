@@ -69,20 +69,26 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[0].Contains("ReadKeyTrue"), "Nem a olvassa be a karaktert");
             Assert.IsNull(ui.ReadResult, "Nem a olvassa be a karaktert");
         }
-        //[TestMethod]
+        [TestMethod]
         public void KoPapirOlloPlayTest()
         {
             var ui = new FakeUI();
             var kopapirollo = new KoPapirOllo(ui);
+            ui.ReadResult = 'k';
 
-            kopapirollo.Start();
+            kopapirollo.Play();
 
-            Assert.IsTrue(ui.TestSteps.Count > 23, "Túl sok vagy kevés az output");
+            //Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
             Assert.IsTrue(ui.TestSteps[1].Contains("Mit választasz? (k/p/o)"), "Nem lettek kiírva a lehetőségek");
-            Assert.IsNull(ui.ReadResult, "Nem a olvassa be a karaktert");
             Assert.IsTrue(ui.TestSteps[3].StartsWith("Sound"), "Nem a sound lejátszásával indul");
             Assert.IsTrue(ui.TestSteps[3].Contains("Step"), "Nem a Step zene kerül lejátszásra lépéskor");
 
+            Assert.IsTrue(ui.TestSteps[4].StartsWith("Clear"), "Nem történik képernyő törlése");
+            Assert.IsTrue(ui.TestSteps[5].Contains("Játékos:"), "Nem lettek kiírva a lehetőségek");
+
+            Assert.IsTrue(ui.TestSteps[7].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
+            Assert.IsTrue(ui.TestSteps[8].Contains("Az állás:"), "Nem lettek kiírva a lehetőségek");
+            Assert.IsTrue(ui.TestSteps[9].StartsWith("Sound"), "Nem a sound lejátszásával ér véget");
         }
         public void KoPapirOlloResultTest()
         {
