@@ -60,7 +60,7 @@ namespace UnitTest
         {
             var ui = new FakeUI();
             var amoba = new Amoba(ui);
-
+            ui.ReadNumberResult = 1;
             amoba.Play();
 
             Assert.IsTrue(ui.TestSteps.Count == 13, "Túl sok vagy kevés az output");

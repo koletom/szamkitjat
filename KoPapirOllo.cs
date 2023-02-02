@@ -1,29 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
     public class KoPapirOllo : IGame
     {
-        private IGameUI _gameUI;
-
+        IGameUI _gameUI;
         public KoPapirOllo(IGameUI gameUI)
         {
             _gameUI = gameUI ?? throw new NullReferenceException();
         }
-
         public void KPOSzinek()
         {
             _gameUI.PrintLN("", ConsoleColor.DarkBlue, ConsoleColor.Cyan);
         }
-
         #region propertiregion
-
-        private int gamercount { get; set; }
+        int gamercount { get; set; }
         public string Name => "KPO";
-
         #endregion propertiregion
-
         public void Start()
         {
             _gameUI.Sound(SoundTipes.Good);
@@ -31,10 +29,13 @@ namespace szamkitjat
             _gameUI.PrintLN("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)");
             _gameUI.PrintLN("\nA játék 5 pontig megy!");
         }
-
-        private int compScore = 0;
-        private int playerScore = 0;
-
+        public void Proba()
+        {
+            char probachar;
+            probachar = _gameUI.ReadKeyTrue;
+        }
+        int compScore = 0;
+        int playerScore = 0;
         public void Play()
         {
             Random kpo = new Random();
@@ -63,11 +64,9 @@ namespace szamkitjat
                     case 'k':
                         playerChoice = "kő";
                         break;
-
                     case 'p':
                         playerChoice = "papír";
                         break;
-
                     case 'o':
                         playerChoice = "olló";
                         break;
@@ -77,11 +76,9 @@ namespace szamkitjat
                     case 0:
                         compChoice = "kő";
                         break;
-
                     case 1:
                         compChoice = "papír";
                         break;
-
                     case 2:
                         compChoice = "olló";
                         break;
@@ -138,7 +135,8 @@ namespace szamkitjat
             System.Threading.Thread.Sleep(500);
         }
 
-        //TODO:Az End-be csak az eredményeket írjuk ki
+
+        //TODO:Az End-be csak az eredményeket írjuk ki 
 
         public void End()
         {
@@ -148,7 +146,6 @@ namespace szamkitjat
             compScore = 0;
             playerScore = 0;
         }
-
         public void EndResultComputer(int compScore)
         {
             if (compScore == 5)
@@ -159,7 +156,6 @@ namespace szamkitjat
                 _gameUI.PrintLN($" \nA Számítógép: {compScore}:{playerScore} -ra/-re nyert!\n");
             }
         }
-
         public void EndResultPlayer(int playerScore)
         {
             if (playerScore == 5)
@@ -169,6 +165,8 @@ namespace szamkitjat
                 KPOSzinek();
                 _gameUI.PrintLN($" \nA Játékos: {compScore}:{playerScore} -ra/-re nyert!\n");
             }
+
         }
+
     }
 }
