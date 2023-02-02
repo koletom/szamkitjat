@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace szamkitjatiterfaces
+﻿namespace szamkitjatiterfaces
 {
-    public interface IAmobaGame:IGame
+    public interface IAmobaGame : IGame
     {
         void EndResult(int nyertes);
     }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using szamkitjatiterfaces;
 
 namespace szamkitjat
@@ -10,21 +6,27 @@ namespace szamkitjat
     //TODO: Bővült az interface!!!
     public class Kitalalos : IGame
     {
-        IGameUI _gameUI;
+        private IGameUI _gameUI;
+
         public Kitalalos(IGameUI gameUI)
         {
             _gameUI = gameUI ?? throw new NullReferenceException();
         }
+
         #region propertiregion
-        int gamercount { get; set; }
+
+        private int gamercount { get; set; }
         public string Name => "Kitalalos";
+
         #endregion propertiregion
-        int gamer = 0;
+
+        private int gamer = 0;
 
         //Csak a játék módot kérje be, le kell ellenőrizni, hogy jó-e a readkeybe beolvasott karakter.
         //Ne innen legyen meghívva a play, a vissza a főmenübe esetén se legyen a g.Kezdés meghívva
 
-        int cc = 0;
+        private int cc = 0;
+
         public void Start()
         {
             _gameUI.Sound(SoundTipes.Good);
@@ -40,19 +42,23 @@ namespace szamkitjat
                     gamer = 1;
                     //Play();
                     break;
+
                 case '2':
                     gamer = 2;
                     //Play();
                     break;
+
                 case '3':
                     cc = 25;
                     //End();
                     break;
+
                 default:
                     Start();
                     break;
             }
         }
+
         public void Play()
         {
             _gameUI.Sound(SoundTipes.Good);
@@ -69,7 +75,7 @@ namespace szamkitjat
                 int i = 0;
                 int x = 50;
                 int min = 0;
-                int max = 100; 
+                int max = 100;
                 int error = 0;
                 do
                 {
@@ -77,14 +83,14 @@ namespace szamkitjat
                     bool lower;
                     bool higher;
                     bool equal;
-                    
+
                     _gameUI.Clear();
                     if (error == -1)
                     {
                         _gameUI.PrintLN("A beírt karakter nincs a lehetőségek között!");
                         error = 0;
                     }
-                    _gameUI.PrintLN($"A számítógép {i+1}. tippje.");
+                    _gameUI.PrintLN($"A számítógép {i + 1}. tippje.");
                     _gameUI.PrintLN($"A számítógép szerint a szám {x}");
                     _gameUI.PrintLN("Szerinted? kisebb, nagyobb, egyenlő (k/n/e)");
                     size = _gameUI.ReadKeyTrue;
@@ -92,7 +98,7 @@ namespace szamkitjat
                     lower = (size == 'k' ^ size == 'K');
                     higher = (size == 'n' ^ size == 'N');
                     equal = (size == 'e' ^ size == 'E');
-                    
+
                     if (lower == true) { size = 'k'; }
                     else if (higher == true) { size = 'n'; }
                     else if (equal == true) { size = 'e'; }
@@ -113,6 +119,7 @@ namespace szamkitjat
                                 x -= (max - min) / 2;
                             }
                             break;
+
                         case 'n':
                             if (i == 3)
                                 x = p.Next(x + 1, max);
@@ -122,6 +129,7 @@ namespace szamkitjat
                                 x += (max - min) / 2;
                             }
                             break;
+
                         case 'e':
                             i = 5;
                             x = 50;
@@ -132,7 +140,7 @@ namespace szamkitjat
                             break;
                     }
                     ++i;
-                } while (cc!=20 && i < 5);
+                } while (cc != 20 && i < 5);
                 if (i <= 5)
                 {
                     cc = 5;
@@ -143,11 +151,11 @@ namespace szamkitjat
             {
                 _gameUI.Clear();
                 _gameUI.PrintLN("\nA gép gondolt egy számra 0-100-ig \n5 tipped lehet!");
-                    Random r = new Random();
-                    int number = r.Next(100);
-                    int c = 1;
-                    int y = 0;
-                    int ok = 0;
+                Random r = new Random();
+                int number = r.Next(100);
+                int c = 1;
+                int y = 0;
+                int ok = 0;
                 do
                 {
                     _gameUI.PrintLN($"\n{c}. tipped: ");
@@ -179,7 +187,7 @@ namespace szamkitjat
                         _gameUI.PrintLN($"A beírt adat nem egy szám!");
                         --c;
                     }
-                    else if (y < number )
+                    else if (y < number)
                     {
                         _gameUI.PrintLN("A szám ennél nagyobb!");
                     }
@@ -193,14 +201,14 @@ namespace szamkitjat
                         cc = 10;
                         ok = 100;
                     }
-                    
+
                     ++c;
                 } while (c <= 5);
                 if (c > 5)
                 {
                     if (ok == 100)
                     {
-                        cc = 10; 
+                        cc = 10;
                         number = 0;
                         c = 1;
                         y = 0;
@@ -220,10 +228,12 @@ namespace szamkitjat
                 }
             }
         }
+
         public void End()
         {
             EndResult(cc);
         }
+
         public void EndResult(int cc)
         {
             if (cc == 5)
@@ -231,13 +241,14 @@ namespace szamkitjat
                 _gameUI.PrintLN("Nyertél! A számítógép nem tudta kitalálni a számot.", ConsoleColor.DarkGreen);
                 _gameUI.Sound(SoundTipes.Win);
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");
-                gamer = 0; 
+                gamer = 0;
                 cc = 0;
                 _gameUI.ReadKey();
                 _gameUI.PrintLN("");
                 //Start();
             }
-            else if (cc == 10) {
+            else if (cc == 10)
+            {
                 _gameUI.PrintLN("Eltaláltad!\nNyertél!", ConsoleColor.DarkGreen);
                 _gameUI.Sound(SoundTipes.Win);
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");

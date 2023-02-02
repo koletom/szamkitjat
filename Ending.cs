@@ -6,9 +6,8 @@
 
 //namespace szamkitjat
 //{
-//    class Ending 
-//    { 
-        
+//    class Ending
+//    {
 //        public void End()
 //        {
 //            Console.WriteLine("\nAkarsz még játszani? i/n");
@@ -16,7 +15,7 @@
 //            {
 //                case 'i': Game.Kezdes();
 //                    break;
-//                case 'n': 
+//                case 'n':
 //                    break;
 //                default: End();
 //                    break;

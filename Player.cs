@@ -8,7 +8,6 @@
 //{
 //    class Player : Jatekok
 //    {
-
 //        public void Jatekos()
 //        {
 //                Console.WriteLine("Gondolj egy számra! (1 - 100)");

@@ -6,7 +6,7 @@
 
 //namespace szamkitjat
 //{
-//    class Osszeg 
+//    class Osszeg
 //    {
 //        public void Ossz()
 //        {

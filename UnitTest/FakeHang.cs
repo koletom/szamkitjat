@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using szamkitjatiterfaces;
+﻿using szamkitjatiterfaces;
 
 namespace UnitTest
 {
@@ -12,42 +7,34 @@ namespace UnitTest
     {
         public void Bad()
         {
-            
         }
 
         public void Error()
         {
-            
         }
 
         public void Good()
         {
-            
         }
 
         public void Lose()
         {
-            
         }
 
         public void Music()
         {
-            
         }
 
         public void Step()
         {
-            
         }
 
         public void Tie()
         {
-            
         }
 
         public void Win()
         {
-            
         }
     }
 }

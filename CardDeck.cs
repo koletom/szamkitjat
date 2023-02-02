@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace szamkitjat
 {
@@ -84,19 +81,19 @@ namespace szamkitjat
             }
 
             CardTipus card = cards[0];
-            
+
             cards.Remove(card);
 
             return card;
         }
-        
+
         public void Elokeszit()
         {
             cards = UjPakli();
             Keveres();
         }
-
     }
+
     public class CardDeckMagyar
     {
         private List<CardTipusMagyar> cards;
@@ -186,6 +183,5 @@ namespace szamkitjat
             cards = UjPakli();
             Keveres();
         }
-
     }
 }

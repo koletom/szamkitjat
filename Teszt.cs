@@ -27,13 +27,11 @@
 //            End end = new End();
 //            end.kerdes();
 
-
 //            Console.WriteLine("Válassz játékmódot");
 //            Console.WriteLine("1 - Te gondolsz egy számra");
 //            Console.WriteLine("2 - A számítógép gondol egy számra");
 //            Console.WriteLine("3 - Kő, Papír, Olló");
 //            Console.WriteLine("4 - 21 kártyajáték");
-
 
 //        }
 //    }
@@ -54,8 +52,6 @@
 
 //    public class Jatek
 //    {
-        
-
 //        public void jatekok()
 //        {
 //        }
@@ -64,7 +60,6 @@
 //        {
 //            public Kitalalos()
 //            {
-               
 //            }
 
 //            public void kitalalosjatek()

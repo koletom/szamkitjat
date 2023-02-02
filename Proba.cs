@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//namespace SzamKitJat
+﻿//namespace SzamKitJat
 //{
 //    public class Proba
 //    {
 //        static void Main(string[] args)
 //        {
-
 //            Jatek jatekok = new Jatek();
 //            jatekok.metod1();
 //            Jatek.Kitalalos obj2 = new Jatek.Kitalalos();
@@ -33,7 +26,6 @@ using System.Threading.Tasks;
 //                //case '3': goto KPO;
 //                //case '4': goto Huszonegy;
 //            }
-
 
 //        }
 //    }
@@ -72,7 +64,7 @@ using System.Threading.Tasks;
 
 //            switch (Console.ReadKey(true).KeyChar)
 //            {
-//                case '1': 
+//                case '1':
 //                    int Player;
 //                    return;
 //                case '2':
@@ -81,7 +73,7 @@ using System.Threading.Tasks;
 //            }
 //                    Console.WriteLine("Kezdődjön a játék");
 //        }
-       
+
 //    }
 //    class Player : Kitalalos
 //    {
@@ -289,7 +281,6 @@ using System.Threading.Tasks;
 
 //                Console.WriteLine("Új lap húzása? i/n");
 
-
 //                if (gepkez == 21 || jatekoskez > 21)
 //                {
 //                    Console.WriteLine("\nVeszítettél!");
@@ -304,7 +295,6 @@ using System.Threading.Tasks;
 //                }
 //                else
 //                {
-
 //                }
 
 //                ++huszonegy;
@@ -316,7 +306,6 @@ using System.Threading.Tasks;
 //    {
 //        public void huszonegyossz()
 //        {
-
 //        }
 //    }
 //}

@@ -13,12 +13,14 @@ namespace UnitTest
         {
             _ = new HuszonegyKartya(null);
         }
+
         [TestMethod]
         public void HuszonegyKartyaCreateTest()
         {
             var huszonegykartya = new HuszonegyKartya(new FakeUI());
             Assert.IsNotNull(huszonegykartya);
         }
+
         //[TestMethod]
         //public void HuszonegyKartyaMethodTest()
         //{
@@ -42,18 +44,19 @@ namespace UnitTest
 
             Assert.IsTrue(ui.TestSteps.Count == 7, "Túl sok vagy kevés az output");
         }
+
         public void HuszonegyKartyaDeckTest()
         {
-
         }
+
         public void HuszonegyKartyaChoiceTest()
         {
-
         }
+
         public void HuszonegyKartyaPlayTest()
         {
-
         }
+
         [TestMethod]
         public void HuszonegyKartyaTetekTest()
         {
@@ -73,6 +76,7 @@ namespace UnitTest
 
             Assert.IsTrue(ui.TestSteps[8].Contains("A beírt adat nem egy szám!"), "Karakter hiba");
         }
+
         [TestMethod]
         public void HuszonegyKartyaHSzinekTest()
         {
@@ -80,21 +84,22 @@ namespace UnitTest
             var huszonegykartya = new HuszonegyKartya(ui);
 
             huszonegykartya.HSzinek();
-            
+
             Assert.IsTrue(ui.TestSteps.Count == 1, "Túl sok vagy kevés az output");
             Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkBlue|bg:Cyan"), "Nem megfelelő a szinek beállítása");
         }
+
         //[TestMethod]
         public void HuszonegyKartyaResultBustTest()
         {
             var ui = new FakeUI();
             var huszonegykartya = new HuszonegyKartya(ui);
 
-            huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.BUST); 
-            
-            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
+            huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.BUST);
 
+            Assert.IsTrue(ui.TestSteps.Count == 4, "Túl sok vagy kevés az output");
         }
+
         public void HuszonegyKartyaResultSurrenderTest()
         {
             var ui = new FakeUI();
@@ -102,6 +107,7 @@ namespace UnitTest
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.SURRENDER);
         }
+
         public void HuszonegyKartyaResultWinTest()
         {
             var ui = new FakeUI();
@@ -109,6 +115,7 @@ namespace UnitTest
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.WIN);
         }
+
         public void HuszonegyKartyaResultBlackjackTest()
         {
             var ui = new FakeUI();
@@ -116,6 +123,7 @@ namespace UnitTest
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.BLACKJACK);
         }
+
         public void HuszonegyKartyaResultNyertTest()
         {
             var ui = new FakeUI();
@@ -123,6 +131,7 @@ namespace UnitTest
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.NYERT);
         }
+
         public void HuszonegyKartyaResultVesztettTest()
         {
             var ui = new FakeUI();
@@ -130,6 +139,7 @@ namespace UnitTest
 
             huszonegykartya.KorVege(HuszonegyKartya.Vegeredmeny.VESZTETT);
         }
+
         public void HuszonegyKartyaResultDontetlenTest()
         {
             var ui = new FakeUI();

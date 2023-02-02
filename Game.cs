@@ -1,23 +1,26 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using szamkitjatiterfaces;
-using szamkitjatUIs;
 
 namespace szamkitjat
 {
     public class Game : IGameController
     {
         private List<IGame> _games = new List<IGame>();
-        
-        IGameUI _gameUI;
-        public Game(IGameUI gameUI)
+
+        private IGameUI _gameUI;
+        private IServiceProvider _services;
+        public Game(IServiceProvider services)
         {
-            _gameUI = gameUI ?? throw new NullReferenceException();
+            _services = services ?? throw new ArgumentNullException();
+            _gameUI = _services.GetService<IGameUI>() ?? throw new ArgumentNullException();
+            _services.GetServices<IGame>().ToList().ForEach(g => { Add(g); });
         }
-         
+
         public void Kezdes()
         {
             //int wins = 0;
@@ -31,7 +34,7 @@ namespace szamkitjat
                 return;
             }
 
-            char valasztas;            
+            char valasztas;
             do
             {
                 sbyte jatekmod = -1;
@@ -39,7 +42,7 @@ namespace szamkitjat
                 _gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
 
                 _gameUI.PrintLN($"Az alábbi {_games.Count} játékmód közül lehet válsztani\n");
-                
+
                 for (int i = 0; i < _games.Count; i++)
                 {
                     _gameUI.PrintLN($"{i} -> {_games[i].Name}");
@@ -63,10 +66,10 @@ namespace szamkitjat
 
         public void Ending()
         {
-            _gameUI.PrintLN("Viszlát");            
+            _gameUI.PrintLN("Viszlát");
         }
 
-        void PlayGame(IGame selectedGame)
+        private void PlayGame(IGame selectedGame)
         {
             char c;
             do
@@ -76,21 +79,20 @@ namespace szamkitjat
                 selectedGame.End();
 
                 _gameUI.PrintLN($"Akarsz újra {selectedGame.Name} játékkal játszani? (i/n)");
-                
-                c = _gameUI.ReadKeyTrue;
 
-            } while ( char.ToUpper(c) == 'I');
+                c = _gameUI.ReadKeyTrue;
+            } while (char.ToUpper(c) == 'I');
 
             _gameUI.Sound(SoundTipes.Music);
         }
 
         public IGameController Add(IGame game)
         {
-            if (_games==null)
+            if (_games == null)
             {
                 throw new NullReferenceException();
             }
-            _games.Add (game);
+            _games.Add(game);
             return this;
         }
     }

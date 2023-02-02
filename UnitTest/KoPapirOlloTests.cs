@@ -13,12 +13,14 @@ namespace UnitTest
         {
             _ = new KoPapirOllo(null);
         }
+
         [TestMethod]
         public void KitalalosCreateTest()
         {
             var kopapirollo = new KoPapirOllo(new FakeUI());
             Assert.IsNotNull(kopapirollo);
         }
+
         //[TestMethod]
         //public void KoPapirOlloMethodTest()
         //{
@@ -42,6 +44,7 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps.Count == 1, "Túl sok vagy kevés az output");
             Assert.IsTrue(ui.TestSteps[0].Contains("fg:DarkBlue|bg:Cyan"), "Táblázat nem megfelelő a szinek beállítása");
         }
+
         [TestMethod]
         public void KoPapirOlloStartTest()
         {
@@ -57,6 +60,7 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[2].Contains("Válassz a három lehetőség közül! kő, papír, olló (k/p/o)"), "Nem lettek kiírva a lehetőségek");
             Assert.IsTrue(ui.TestSteps[3].Contains("A játék 5 pontig megy!"), "Nem lett kiírva a szabály");
         }
+
         public void KoPapirOlloPlayTest()
         {
             var ui = new FakeUI();
@@ -68,12 +72,12 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[1].Contains("Mit választasz? (k/p/o)"), "Nem lettek kiírva a lehetőségek");
             Assert.IsTrue(ui.TestSteps[3].StartsWith("Sound"), "Nem a sound lejátszásával indul");
             Assert.IsTrue(ui.TestSteps[3].Contains("Step"), "Nem a Step zene kerül lejátszásra lépéskor");
-
         }
+
         public void KoPapirOlloResultTest()
         {
-
         }
+
         [TestMethod]
         public void KoPapirOlloEndResultPlayerLoseTest()
         {
@@ -88,8 +92,8 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[1].Contains("Vesztettél!"), "Nem jó végeredmény lett kiírva");
             Assert.IsTrue(ui.TestSteps[1].Contains("fg:Red"), "Nem megfelelő a szinek lettek beállítva");
             Assert.IsTrue(ui.TestSteps[3].Contains("A Számítógép:"), "Nem jó végeredmény lett kiírva");
-
         }
+
         [TestMethod]
         public void KoPapirOlloEndResultPlayerWinTest()
         {

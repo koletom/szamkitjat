@@ -1,25 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using szamkitjatiterfaces;
 
 namespace szamkitjat
 {
     public class Amoba : IAmobaGame
     {
-        IGameUI _gameUI;
-        public Amoba (IGameUI gameUI)
+        private IGameUI _gameUI;
+
+        public Amoba(IGameUI gameUI)
         {
             _gameUI = gameUI ?? throw new NullReferenceException();
         }
+
         #region propertiregion
-        int gamercount { get; set; }
+
+        private int gamercount { get; set; }
         public string Name => "Amoba";
+
         #endregion propertiregion
-        int[] tabla = new int[9];
-      
+
+        private int[] tabla = new int[9];
+
         private bool megszakit()
         {
             bool tele = true;
@@ -28,7 +29,7 @@ namespace szamkitjat
                 if (tabla[i] == 0)
                 {
                     tele = false;
-                }   
+                }
             }
             return tele;
         }
@@ -77,6 +78,7 @@ namespace szamkitjat
             }
             return 0;
         }
+
         private void tablazat()
         {
             for (int i = 0; i < 9; i++)
@@ -152,7 +154,7 @@ namespace szamkitjat
                         _gameUI.PrintLN($"A beírt karakter nem egy szám", ConsoleColor.Blue);
                         tablazat();
                     }
-                    else if (number >= 9||number<0)
+                    else if (number >= 9 || number < 0)
                     {
                         _gameUI.Sound(SoundTipes.Error);
                         _gameUI.PrintLN($"A beírt szám:{number}", ConsoleColor.Blue);
@@ -177,7 +179,7 @@ namespace szamkitjat
 
                 if (megszakit())
                     break;
-                if (nyertes() != 0) 
+                if (nyertes() != 0)
                     break;
 
                 while (gepJatekos == -1 || tabla[gepJatekos] != 0)
@@ -197,7 +199,7 @@ namespace szamkitjat
 
         public void End()
         {
-           EndResult(nyertes());
+            EndResult(nyertes());
         }
 
         public void EndResult(int nyertes)
@@ -208,18 +210,20 @@ namespace szamkitjat
                 _gameUI.PrintLN("\nGratulálunk! Nyertél!", ConsoleColor.DarkGreen);
                 _gameUI.PrintLN("Jatékos nyert\n", ConsoleColor.DarkGreen);
                 _gameUI.Sound(SoundTipes.Win);
-            } else
+            }
+            else
             if (nyertes == 2)
             {
                 _gameUI.PrintLN("\nVeszítettél! \nA Számítógép nyert!", ConsoleColor.Red);
                 _gameUI.Sound(SoundTipes.Lose);
-            } else
+            }
+            else
             if (nyertes == 0)
             {
                 tablazat();
                 _gameUI.PrintLN("Döntetlen!", ConsoleColor.Yellow);
                 _gameUI.Sound(SoundTipes.Tie);
-            } 
+            }
             else
             {
                 _gameUI.PrintLN("A játék még nem fejeződött be!", ConsoleColor.Yellow);

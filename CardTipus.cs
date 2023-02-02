@@ -13,7 +13,7 @@ namespace szamkitjat
             Console.ForegroundColor = ConsoleColor.DarkBlue;
         }
     }
-    
+
     public enum CardSzam
     {
         Asz,
@@ -50,6 +50,7 @@ namespace szamkitjat
         Tiz,
         Asz
     }
+
     public enum CardSzinMagyar
     {
         Piros,
@@ -133,11 +134,13 @@ namespace szamkitjat
             Szinek.AlapSzin();
         }
     }
+
     public class CardTipusMagyar
     {
         public CardSzamMagyar SzamM { get; }
         public CardSzinMagyar SzinM { get; }
         public int Ertek { get; set; }
+
         public CardTipusMagyar(CardSzamMagyar szamM, CardSzinMagyar szinM)
         {
             SzamM = szamM;
@@ -160,33 +163,40 @@ namespace szamkitjat
 
             switch (SzamM)
             {
-                
                 case CardSzamMagyar.Also:
                     Ertek = 2;
                     break;
+
                 case CardSzamMagyar.Felso:
                     Ertek = 3;
                     break;
+
                 case CardSzamMagyar.Kiraly:
                     Ertek = 4;
                     break;
+
                 case CardSzamMagyar.Het:
                     Ertek = 7;
                     break;
+
                 case CardSzamMagyar.Nyolc:
                     Ertek = 8;
                     break;
+
                 case CardSzamMagyar.Kilenc:
                     Ertek = 9;
                     break;
+
                 case CardSzamMagyar.Tiz:
                     Ertek = 10;
                     break;
+
                 case CardSzamMagyar.Asz:
                     Ertek = 11;
                     break;
             }
         }
+
         public void CardFeltetelMagyar()
         {
             if (SzinM == CardSzinMagyar.Piros)
@@ -206,8 +216,8 @@ namespace szamkitjat
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
             }
-                Console.WriteLine($"{SzinM} {SzamM}");
-            
+            Console.WriteLine($"{SzinM} {SzamM}");
+
             Szinek.AlapSzin();
         }
     }

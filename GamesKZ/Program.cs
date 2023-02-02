@@ -1,34 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using szamkitjat;
+using szamkitjatiterfaces;
 using szamkitjatUIs;
 using szamkitjatUIs.UI;
-using szamkitjatiterfaces;
 
-namespace szamkitjat
+namespace GameKZ
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            IGameUI ui = new UI(new Hang()); 
+            var builder = Host.CreateDefaultBuilder(args)
+                .ConfigureServices(services =>
+                {
+                    services.AddSingleton<ISound, Hang>();
+                    services.AddSingleton<IGameUI, UI>();
 
-            var gamecontroll = new Game(ui);
+                    services.AddSingleton<IGame, Amoba>();
+                    services.AddSingleton<IGame, Kitalalos>();
+                    services.AddSingleton<IGame, HuszonegyKartya>();
+                    services.AddSingleton<IGame, KoPapirOllo>();
+                    
+                    services.AddSingleton<IGameController, Game>(x => new Game(services.BuildServiceProvider()));
 
-            gamecontroll.Add(new Amoba(ui))
-            .Add(new Kitalalos(ui))
-            .Add(new HuszonegyKartya(ui))
-            .Add(new KoPapirOllo(ui));
+                }).Build();
+
+            var gamecontroll = builder.Services.GetRequiredService<IGameController>();
+            IGameUI ui = (builder.Services.GetRequiredService<IGameUI>());
 
             gamecontroll.Kezdes();
             ui.Sound(SoundTipes.Music);
             gamecontroll.Ending();
             ui.Sound(SoundTipes.Music);
-
         }
+
     }
 }
-

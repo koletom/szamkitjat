@@ -13,6 +13,7 @@ namespace UnitTest
         {
             _ = new Amoba(null);
         }
+
         [TestMethod]
         public void AmobaCreateTest()
         {
@@ -32,13 +33,13 @@ namespace UnitTest
         //    Assert.IsTrue(ui.TestSteps[0].Contains("A beírt szám nem megfelelő"), "Karakter hibás");
         //    Assert.IsTrue(ui.TestSteps[0].Contains("A beírt szám helye foglalt"), "A szám már korábban meg lett adva");
         //}
-        
+
         [TestMethod]
         public void AmobaStartTest()
         {
             var ui = new FakeUI();
             var amoba = new Amoba(ui);
-            
+
             amoba.Start();
 
             Assert.IsTrue(ui.TestSteps.Count == 8, "Túl sok vagy kevés az output");
@@ -52,9 +53,8 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[6].Contains("fg:DarkGray|bg:Gray"), "Táblázat nem megfelelő a szinek beállítása");
             Assert.IsTrue(ui.TestSteps[7].Contains("6"), "Táblázat nem megfelelő sora lett kiírva");
             Assert.IsTrue(ui.TestSteps[7].Contains("fg:DarkGray|bg:Gray"), "Táblázat nem megfelelő a szinek beállítása");
-
-
         }
+
         //[TestMethod]
         public void AmobaPlayTest()
         {
@@ -94,13 +94,13 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[12].Contains("A gép által választott szám"), "Nem lett kiírva a gép/random szám jelzése");
             Assert.IsTrue(ui.TestSteps[12].Contains("fg:Blue"), "Nem megfelelő a szin beállítása");
         }
-        public void AmobaValidNumberTest() 
+
+        public void AmobaValidNumberTest()
         {
-        
         }
 
         [TestMethod]
-        public void AmobaEndTest() 
+        public void AmobaEndTest()
         {
             var ui = new FakeUI();
             var amoba = new Amoba(ui);
@@ -133,6 +133,7 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[14].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
             Assert.IsTrue(ui.TestSteps[14].Contains("Win"), "Nem a Tie zene kerül lejátszásra");
         }
+
         [TestMethod]
         public void AmobaEndJatekosVesztettTest()
         {
@@ -142,15 +143,15 @@ namespace UnitTest
             privAmoba.SetField("tabla", new int[9] { 1, 1, 0, 2, 2, 2, 0, 1, 0 });
 
             amoba.End();
-            
+
             Assert.IsTrue(ui.TestSteps.Count == 2, "Túl sok vagy kevés az output");
             Assert.IsTrue(ui.TestSteps[0].Contains("Veszítettél!"), "Nem jó végeredmény lett kiírva");
             Assert.IsTrue(ui.TestSteps[0].Contains("fg:Red"), "Nem megfelelő a szinek lettek beállítva");
             Assert.IsTrue(ui.TestSteps[1].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
             Assert.IsTrue(ui.TestSteps[1].Contains("Lose"), "Nem a Lose zene kerül lejátszásra");
         }
+
         [TestMethod]
-        //TODO: Itt egy olyan állapotot kellene tesztelni, ahol még nincs eredmény, mert még lehet a táblára tenni
         public void AmobaEndNemJatekosNemComputerNyerNemDontetenTest()
         {
             var ui = new FakeUI();
@@ -161,9 +162,8 @@ namespace UnitTest
             amoba.End();
 
             Assert.IsTrue(ui.TestSteps.Count == 14, "Túl sok vagy kevés az output");
-            Assert.IsTrue(ui.TestSteps[12].Contains("A játék még nem fejeződött be!"), "Nem jó végeredmény lett kiírva");            
+            Assert.IsTrue(ui.TestSteps[12].Contains("A játék még nem fejeződött be!"), "Nem jó végeredmény lett kiírva");
         }
-
 
         [TestMethod]
         public void AmobaEndResultJatekosNyerTest()
@@ -180,6 +180,7 @@ namespace UnitTest
             Assert.IsTrue(ui.TestSteps[14].StartsWith("Sound"), "Nem a zene lejátszásával végződik");
             Assert.IsTrue(ui.TestSteps[14].Contains("Win"), "Nem a Win zene kerül lejátszásra");
         }
+
         [TestMethod]
         public void AmobaEndResultJatekosVeszitTest()
         {

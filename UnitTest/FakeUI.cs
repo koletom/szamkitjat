@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using szamkitjatiterfaces;
 
 namespace UnitTest
@@ -11,15 +8,17 @@ namespace UnitTest
     //TODO: ennek az osztálynak üresnek kellett volna maradni de legalábbis Console -al nem kellene semmit csinálnia
     public class FakeUI : IGameUI
     {
-        List<string> _testSteps = new List<string>();
+        private List<string> _testSteps = new List<string>();
         public List<string> TestSteps => _testSteps;
 
-        object _readResult = null;
+        private object _readResult = null;
+
         public object ReadResult
         {
             get => _readResult;
             set { _readResult = value; }
         }
+
         //public object ReadKeyResult
         //{
         //    get => _readResult;
@@ -36,7 +35,7 @@ namespace UnitTest
             }
         }
 
-        public char ReadKeyTrue 
+        public char ReadKeyTrue
         {
             get
             {

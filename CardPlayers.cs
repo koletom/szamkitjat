@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace szamkitjat
 {
@@ -45,7 +42,7 @@ namespace szamkitjat
                 nyeremeny = Tet * 2;
             }
 
-            Coin = Coin+nyeremeny;
+            Coin = Coin + nyeremeny;
             TetNullaz();
             return nyeremeny;
         }
@@ -62,12 +59,12 @@ namespace szamkitjat
                 return ertek;
             }
             else if (DeckTipeP == 2)
+            {
+                foreach (CardTipusMagyar card in HandM)
                 {
-                    foreach (CardTipusMagyar card in HandM)
-                    {
-                        ertek += card.Ertek;
-                    }
-                    return ertek;
+                    ertek += card.Ertek;
+                }
+                return ertek;
             }
             return ertek;
         }
@@ -104,6 +101,7 @@ namespace szamkitjat
             }
         }
     }
+
     public class Oszto
     {
         public int DeckTipeO { get; set; } = 0;
@@ -154,5 +152,4 @@ namespace szamkitjat
             }
         }
     }
-
 }

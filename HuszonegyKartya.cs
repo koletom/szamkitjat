@@ -8,14 +8,18 @@ namespace szamkitjat
     //TODO: https://hu.wikipedia.org/wiki/Huszonegy e szerint működjön
     public class HuszonegyKartya : IGame
     {
-        IGameUI _gameUI;
+        private IGameUI _gameUI;
+
         public HuszonegyKartya(IGameUI gameUI)
         {
             _gameUI = gameUI ?? throw new NullReferenceException();
         }
+
         #region propertiregion
-        int gamercount { get; set; }
+
+        private int gamercount { get; set; }
         public string Name => "Huszonegy";
+
         #endregion propertiregion
 
         public void Start()
@@ -49,11 +53,10 @@ namespace szamkitjat
                     isValid = true;
                     p = (int)number;
                 }
-                
+
                 //input = _gameUI.ReadLine;
                 //if (!int.TryParse(input, out p))
                 //{
-
                 //    _gameUI.PrintLN("Játékosok száma 1-5 -ig szám lehet");
                 //}
             } while (p < 1 || p > 5);
@@ -77,6 +80,7 @@ namespace szamkitjat
                         players.DeckTipeP = 2;
                         oszto.DeckTipeO = 2;
                         break;
+
                     case "FRANCIA":
                         _gameUI.Clear();
                         _gameUI.PrintLN($"Választott pakli: {pakli}");
@@ -86,6 +90,7 @@ namespace szamkitjat
                         players.DeckTipeP = 1;
                         oszto.DeckTipeO = 1;
                         break;
+
                     default:
                         _gameUI.PrintLN($"Választott pakli: '{pakli}' nincs a lehetséges válaszok között.");
                         _gameUI.PrintLN("Lehetséges válaszok:");
@@ -101,10 +106,7 @@ namespace szamkitjat
             _gameUI.PrintLN("Nyomj egy gombot a kezdéshez.");
             _gameUI.ReadKey();
             KorKezdes();
-
         }
-
-        
 
         private CardDeck cardDeck = new CardDeck();
         private CardDeckMagyar cardDeckMagyar = new CardDeckMagyar();
@@ -122,6 +124,7 @@ namespace szamkitjat
             BUST,
             //NINCSENTET
         }
+
         //int card
         //{
         //    get
@@ -129,10 +132,9 @@ namespace szamkitjat
         //        Random num = new Random();
         //        return num.Next(1, 10);
         //    }
-        //} 
+        //}
 
-
-        void Generate(int gamernum, List<int>[] gamercards)
+        private void Generate(int gamernum, List<int>[] gamercards)
         {
             //gamercards[gamernum].Add(card);
             //if (gamercards[gamernum].Count < 2)
@@ -160,7 +162,6 @@ namespace szamkitjat
                 {
                     oszto.OsztoCards[1].Ertek = 1;
                 }
-
             }
             else if (players.DeckTipeP == 2)
             {
@@ -173,6 +174,7 @@ namespace szamkitjat
             players.KezMutat();
             oszto.KezMutat();
         }
+
         public void KorKezdes()
         {
             _gameUI.Clear(ConsoleColor.DarkBlue, ConsoleColor.Cyan);
@@ -246,6 +248,7 @@ namespace szamkitjat
                 KorVege(Vegeredmeny.DONTETLEN);
             }
         }
+
         public void EllenorzesM()
         {
             if (oszto.OsztoKezErtek() == 22)
@@ -298,6 +301,7 @@ namespace szamkitjat
                 KorVege(Vegeredmeny.VESZTETT);
             }
         }
+
         public void Play()
         {
             List<int>[] cards = new List<int>[gamercount];
@@ -305,9 +309,8 @@ namespace szamkitjat
             //for (int i = 0; i < gamercount; i++)
             //{
             //    Generate(i, cards);
-            //    var m = string.Join(",", cards[i]); //TODO: Ezt akár berakhatod a Generate metódusba, annak visszatérési értékeként, és akkor az egész generate hívást  
+            //    var m = string.Join(",", cards[i]); //TODO: Ezt akár berakhatod a Generate metódusba, annak visszatérési értékeként, és akkor az egész generate hívást
             //                                        //betehed a következő Console...-os sorba
-            
 
             //Console.WriteLine($"{i}. játékos lapjai:{m}");
             //Console.WriteLine("{0}. játékos lapjai:{1}",i,Generate(i, cards));
@@ -329,7 +332,7 @@ namespace szamkitjat
                     rk = "STOP";
                     _gameUI.Clear(ConsoleColor.Black, ConsoleColor.White);
                     _gameUI.PrintLN("Nincs elegendő Coin.");
-                    _gameUI.PrintLN("A játéknak vége!"); 
+                    _gameUI.PrintLN("A játéknak vége!");
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     _gameUI.PrintLN("");
@@ -343,7 +346,7 @@ namespace szamkitjat
                 //newcardyes=(rk == 'i' ^ rk == 'I');
                 //newcardno = (rk == 'n' ^ rk == 'N');
                 switch (rk.ToUpper())
-                    {
+                {
                     case "HIT":
                         if (players.DeckTipeP == 1)
                         {
@@ -354,8 +357,10 @@ namespace szamkitjat
                             players.HandM.Add(cardDeckMagyar.LapHuzas());
                         }
                         break;
+
                     case "STOP":
                         break;
+
                     case "SURRENDER":
                         if (players.DeckTipeP == 1)
                         {
@@ -367,6 +372,7 @@ namespace szamkitjat
                         }
                         KorVege(Vegeredmeny.SURRENDER);
                         break;
+
                     case "DOUBLE":
                         if (players.Coin <= players.Tet)
                         {
@@ -385,13 +391,13 @@ namespace szamkitjat
                             players.HandM.Add(cardDeckMagyar.LapHuzas());
                         }
                         break;
+
                     default:
                         _gameUI.PrintLN("Válaztási lehetőségek:(Hit, Stop, Surrender, Double)");
                         _gameUI.PrintLN("Nyomj egy gombot az új próbához.");
                         _gameUI.ReadKey();
                         break;
                 }
-                
 
                 if (players.KezErtek() > 21)
                 {
@@ -418,7 +424,6 @@ namespace szamkitjat
                         }
                     }
                 }
-                
 
                 //m = m + card; //TODO: Ez nem jó, nem a játék kártya Listjébe kerül az új lap itt is a Generate-et kellene használni
                 //Generate(i, cards);
@@ -426,13 +431,13 @@ namespace szamkitjat
                 //Console.WriteLine($"{i}. játékos lapjai:{m}"); //TODO: mivel az m stringet nem jól állítod elő ezért nem jó lesz a kiírás
 
                 //hit++; //TODO: Ezt rakd át a while feltételbe
-
-            } while (!rk.ToUpper().Equals("STOP") && !rk.ToUpper().Equals("SURREDER") 
+            } while (!rk.ToUpper().Equals("STOP") && !rk.ToUpper().Equals("SURREDER")
                 && !rk.ToUpper().Equals("DOUBLE") && players.KezErtek() <= 21); /*while (hit < 3 || newcardyes == true );*/
-                //}
+            //}
         }
 
         public static int MinimumKezdoTet { get; } = 5;
+
         public bool Tetek()
         {
             _gameUI.Print("Jelnlegi Coin-ok száma:");
@@ -454,7 +459,7 @@ namespace szamkitjat
                 return false;
             }
             int tet = (int)number;
-            
+
             if (/*Int32.TryParse(s, out int tet) && */tet >= MinimumKezdoTet && players.Coin >= tet)
             {
                 players.AddTet(tet);
@@ -462,11 +467,14 @@ namespace szamkitjat
             }
             return false;
         }
+
         public void HSzinek()
         {
             _gameUI.PrintLN("", ConsoleColor.DarkBlue, ConsoleColor.Cyan);
         }
-        int tt = 0;
+
+        private int tt = 0;
+
         public void KorVege(Vegeredmeny vegeredmeny)
         {
             Thread.Sleep(1000);
@@ -492,16 +500,18 @@ namespace szamkitjat
                         //End();
                     }
                     break;
+
                 case Vegeredmeny.SURRENDER:
                     _gameUI.PrintLN("A Játékos feladta.", ConsoleColor.Red);
-                    _gameUI.PrintLN("A Játékos "+ (players.Tet / 2) + " Coint visszakap.",ConsoleColor.DarkGreen);
+                    _gameUI.PrintLN("A Játékos " + (players.Tet / 2) + " Coint visszakap.", ConsoleColor.DarkGreen);
                     HSzinek();
-                    players.Coin = players.Coin+players.Tet / 2;
+                    players.Coin = players.Coin + players.Tet / 2;
                     players.TetNullaz();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     KorKezdes();
                     break;
+
                 case Vegeredmeny.WIN:
                     _gameUI.PrintLN("A Játékos 2 Ászt húzott. Játékos nyert. Nyeremény:" + players.TetNyer(true) + " Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
@@ -510,14 +520,16 @@ namespace szamkitjat
                     players.TetNullaz();
                     KorKezdes();
                     break;
+
                 case Vegeredmeny.BLACKJACK:
-                    _gameUI.PrintLN("Blackjack. Játékos nyert. Nyeremény:" + players.TetNyer(true) +" Coin.", ConsoleColor.DarkGreen);
+                    _gameUI.PrintLN("Blackjack. Játékos nyert. Nyeremény:" + players.TetNyer(true) + " Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     players.TetNullaz();
                     KorKezdes();
                     break;
+
                 case Vegeredmeny.NYERT:
                     _gameUI.PrintLN("Játékos nyert. Nyeremény:" + players.TetNyer(false) + " Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
@@ -526,6 +538,7 @@ namespace szamkitjat
                     players.TetNullaz();
                     KorKezdes();
                     break;
+
                 case Vegeredmeny.VESZTETT:
                     players.TetNullaz();
                     _gameUI.PrintLN("Osztó nyert", ConsoleColor.Red);
@@ -546,6 +559,7 @@ namespace szamkitjat
                         //End();
                     }
                     break;
+
                 case Vegeredmeny.DONTETLEN:
                     _gameUI.PrintLN("Döntetlen", ConsoleColor.Yellow);
                     _gameUI.PrintLN("A Játékos " + (players.Tet) + " Coint visszakap.", ConsoleColor.DarkGreen);
@@ -556,11 +570,11 @@ namespace szamkitjat
                     _gameUI.ReadKey();
                     KorKezdes();
                     break;
+
                 default:
                     _gameUI.PrintLN("Hiba történt!");
                     break;
             }
-
         }
 
         public static bool Blackjack(List<CardTipus> kez)
@@ -578,6 +592,7 @@ namespace szamkitjat
             }
             return false;
         }
+
         public static bool BlackjackM(List<CardTipusMagyar> kez)
         {
             if (kez.Count == 2)
@@ -593,6 +608,7 @@ namespace szamkitjat
             }
             return false;
         }
+
         public static bool BlackjackM2(List<CardTipusMagyar> kez)
         {
             if (kez.Count == 2)
@@ -620,7 +636,7 @@ namespace szamkitjat
             }
 
             //if (card == 21) //TODO: Ilyen soha nem lesz, itt azt kellene leellenőrizni, hogy cards tömb valamelyik lista elemeinek az összege 21 és ha talál akkor annak az indexét,
-            //                //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a 
+            //                //v. indexeit kiíratni mint nyertes. Ha nincs 21 akkor azt is le kell ellenőrizni, hogy van e olyan lista elem összeg ami kissebb 21nél de a legnagyobb a
             //                //többi játékos lista elem összegeinél. A teljes ellenőrzést nem itt kellene lefuttatni, hanem az End metódusban
             //{
             //    Console.WriteLine($"{gamercount}. játékos nyert.");
