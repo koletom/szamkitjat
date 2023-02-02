@@ -54,8 +54,11 @@ namespace UnitTest
         {
             var ui = new FakeUI();
             var kitalalos = new Kitalalos(ui);
+            
+            //TODO:A tesztet meg lehet írni anélkül is, hogy a gamer-t publikusra állítod.
             kitalalos.gamer = 1;
             ui.ReadResult = 'n';
+            
             kitalalos.Play();
 
             Assert.IsTrue(ui.TestSteps.Count == 36, "Túl sok vagy kevés az output");
