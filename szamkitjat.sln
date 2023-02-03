@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesKZ", "GamesKZ\GamesKZ.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{6D1447D1-3F4D-4D00-944A-79A8381325F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szamkitjatservices", "szamkitjatservices\szamkitjatservices.csproj", "{691DBFB1-E4EA-4B8E-9F68-6AD2BFC17491}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6D1447D1-3F4D-4D00-944A-79A8381325F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D1447D1-3F4D-4D00-944A-79A8381325F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D1447D1-3F4D-4D00-944A-79A8381325F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691DBFB1-E4EA-4B8E-9F68-6AD2BFC17491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691DBFB1-E4EA-4B8E-9F68-6AD2BFC17491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691DBFB1-E4EA-4B8E-9F68-6AD2BFC17491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691DBFB1-E4EA-4B8E-9F68-6AD2BFC17491}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

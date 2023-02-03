@@ -25,7 +25,7 @@ namespace UnitTest
         public void KezdesMethodTest()
         {
             var ui = new FakeUI();
-            var gameCtrl = new Game(ui);
+            var gameCtrl = new Game((IServiceProvider)ui);
 
             gameCtrl.Kezdes();
             Assert.IsTrue(ui.TestSteps.Count > 4, "Nincs UI output vagy túl sok az output");
@@ -42,7 +42,7 @@ namespace UnitTest
         public void EndingMethodTest()
         {
             var ui = new FakeUI();
-            var gameCtrl = new Game(ui);
+            var gameCtrl = new Game((IServiceProvider)ui);
 
             gameCtrl.Ending();
             Assert.IsTrue(ui.TestSteps.Count == 1, "Nincs UI output vagy túl sok az output");

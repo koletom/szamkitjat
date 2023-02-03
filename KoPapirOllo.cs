@@ -9,7 +9,7 @@ namespace szamkitjat
 {
     public class KoPapirOllo : IGame
     {
-        IGameUI _gameUI;
+        private IGameUI _gameUI;
         public KoPapirOllo(IGameUI gameUI)
         {
             _gameUI = gameUI ?? throw new NullReferenceException();
@@ -19,7 +19,7 @@ namespace szamkitjat
             _gameUI.PrintLN("", ConsoleColor.DarkBlue, ConsoleColor.Cyan);
         }
         #region propertiregion
-        int gamercount { get; set; }
+        private int gamercount { get; set; }
         public string Name => "KPO";
         #endregion propertiregion
         public void Start()
@@ -34,8 +34,8 @@ namespace szamkitjat
             char probachar;
             probachar = _gameUI.ReadKeyTrue;
         }
-        int compScore = 0;
-        int playerScore = 0;
+        private int compScore = 0;
+        private int playerScore = 0;
         public void Play()
         {
             Random kpo = new Random();

@@ -10,13 +10,13 @@ namespace szamkitjat
     //TODO: Bővült az interface!!!
     public class Kitalalos : IGame
     {
-        IGameUI _gameUI;
+        private IGameUI _gameUI;
         public Kitalalos(IGameUI gameUI)
         {
             _gameUI = gameUI ?? throw new NullReferenceException();
         }
         #region propertiregion
-        int gamercount { get; set; }
+        private int gamercount { get; set; }
         public string Name => "Kitalalos";
         #endregion propertiregion
         int gamer = 0;
@@ -24,7 +24,7 @@ namespace szamkitjat
         //Csak a játék módot kérje be, le kell ellenőrizni, hogy jó-e a readkeybe beolvasott karakter.
         //Ne innen legyen meghívva a play, a vissza a főmenübe esetén se legyen a g.Kezdés meghívva
 
-        int cc = 0;
+        private int cc = 0;
         public void Start()
         {
             _gameUI.Sound(SoundTipes.Good);
@@ -237,7 +237,8 @@ namespace szamkitjat
                 _gameUI.PrintLN("");
                 //Start();
             }
-            else if (cc == 10) {
+            else if (cc == 10)
+            {
                 _gameUI.PrintLN("Eltaláltad!\nNyertél!", ConsoleColor.DarkGreen);
                 _gameUI.Sound(SoundTipes.Win);
                 _gameUI.PrintLN("Nyomj egy gombot a Kitalalos menübe való visszatéréshez");

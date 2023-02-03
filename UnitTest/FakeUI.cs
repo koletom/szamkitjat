@@ -11,10 +11,10 @@ namespace UnitTest
     //TODO: ennek az osztálynak üresnek kellett volna maradni de legalábbis Console -al nem kellene semmit csinálnia
     public class FakeUI : IGameUI
     {
-        List<string> _testSteps = new List<string>();
+        private List<string> _testSteps = new List<string>();
         public List<string> TestSteps => _testSteps;
 
-        object _readResult = null;
+        private object _readResult = null;
         public object ReadResult
         {
             get => _readResult;

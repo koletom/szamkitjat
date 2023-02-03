@@ -8,13 +8,13 @@ namespace szamkitjat
     //TODO: https://hu.wikipedia.org/wiki/Huszonegy e szerint működjön
     public class HuszonegyKartya : IGame
     {
-        IGameUI _gameUI;
+        private IGameUI _gameUI;
         public HuszonegyKartya(IGameUI gameUI)
         {
             _gameUI = gameUI ?? throw new NullReferenceException();
         }
         #region propertiregion
-        int gamercount { get; set; }
+        private int gamercount { get; set; }
         public string Name => "Huszonegy";
         #endregion propertiregion
 
@@ -35,6 +35,7 @@ namespace szamkitjat
                 int? number;
                 _gameUI.PrintLN("Adja meg a játékosok számát (max 5)");
                 number = (int?)_gameUI.ReadNumber();
+                _gameUI.Sound(SoundTipes.Step);
                 if (number is null)
                 {
                     _gameUI.PrintLN("A beírt szöveg men egy szám!");
@@ -65,6 +66,7 @@ namespace szamkitjat
                 _gameUI.Clear();
                 _gameUI.PrintLN("Válassz kártya paklit.\nMagyar, Francia");
                 pakli = _gameUI.ReadLine;
+                _gameUI.Sound(SoundTipes.Step);
 
                 switch (pakli.ToUpper())
                 {
@@ -100,6 +102,7 @@ namespace szamkitjat
             _gameUI.PrintLN("\nKezdődjön a játék!");
             _gameUI.PrintLN("Nyomj egy gombot a kezdéshez.");
             _gameUI.ReadKey();
+            _gameUI.Sound(SoundTipes.Good);
             //KorKezdes();
         }
 
@@ -131,7 +134,7 @@ namespace szamkitjat
         //} 
 
 
-        void Generate(int gamernum, List<int>[] gamercards)
+        private void Generate(int gamernum, List<int>[] gamercards)
         {
             //gamercards[gamernum].Add(card);
             //if (gamercards[gamernum].Count < 2)
@@ -307,6 +310,7 @@ namespace szamkitjat
 
                 if (!Tetek())
                 {
+                    _gameUI.Sound(SoundTipes.Bad);
                     _gameUI.PrintLN("Érvénytelten tét", ConsoleColor.Red);
                     HSzinek();
                     _gameUI.PrintLN("Nyomj egy gombot az újra próbáláshoz.");
@@ -482,7 +486,7 @@ namespace szamkitjat
         {
             _gameUI.PrintLN("", ConsoleColor.DarkBlue, ConsoleColor.Cyan);
         }
-        int tt = 0;
+        private int tt = 0;
         public void KorVege(Vegeredmeny vegeredmeny)
         {
             Thread.Sleep(1000);
@@ -492,6 +496,7 @@ namespace szamkitjat
                     players.TetNullaz();
                     _gameUI.PrintLN("A Játékos vesztett! \nA játékos túl sok lapot húzott", ConsoleColor.Red);
                     HSzinek();
+                    _gameUI.Sound(SoundTipes.Bad);
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     //if (players.Coin > 4)
@@ -512,6 +517,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("A Játékos feladta.", ConsoleColor.Red);
                     _gameUI.PrintLN("A Játékos "+ (players.Tet / 2) + " Coint visszakap.",ConsoleColor.DarkGreen);
                     HSzinek();
+                    _gameUI.Sound(SoundTipes.Bad);
                     players.Coin = players.Coin+players.Tet / 2;
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
@@ -521,6 +527,7 @@ namespace szamkitjat
                 case Vegeredmeny.WIN:
                     _gameUI.PrintLN("A Játékos 2 Ászt húzott. Játékos nyert. Nyeremény:" + players.TetNyer(true) + " Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
+                    _gameUI.Sound(SoundTipes.Good);
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     players.TetNullaz();
@@ -529,6 +536,7 @@ namespace szamkitjat
                 case Vegeredmeny.BLACKJACK:
                     _gameUI.PrintLN("Blackjack. Játékos nyert. Nyeremény:" + players.TetNyer(true) +" Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
+                    _gameUI.Sound(SoundTipes.Win);
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     players.TetNullaz();
@@ -537,6 +545,7 @@ namespace szamkitjat
                 case Vegeredmeny.NYERT:
                     _gameUI.PrintLN("Játékos nyert. Nyeremény:" + players.TetNyer(false) + " Coin.", ConsoleColor.DarkGreen);
                     HSzinek();
+                    _gameUI.Sound(SoundTipes.Win);
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
                     players.TetNullaz();
@@ -546,6 +555,7 @@ namespace szamkitjat
                     players.TetNullaz();
                     _gameUI.PrintLN("Osztó nyert", ConsoleColor.Red);
                     HSzinek();
+                    _gameUI.Sound(SoundTipes.Bad);
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
                     _gameUI.ReadKey();
 
@@ -563,6 +573,7 @@ namespace szamkitjat
                     _gameUI.PrintLN("Döntetlen", ConsoleColor.Yellow);
                     _gameUI.PrintLN("A Játékos " + (players.Tet) + " Coint visszakap.", ConsoleColor.DarkGreen);
                     HSzinek();
+                    _gameUI.Sound(SoundTipes.Tie);
                     players.TetVisszakap();
                     players.TetNullaz();
                     _gameUI.PrintLN("Nyomj egy gombot a folytatáshoz.");
@@ -624,6 +635,7 @@ namespace szamkitjat
         /// </summary>
         public void End()
         {
+            _gameUI.Sound(SoundTipes.Lose);
             _gameUI.Clear(ConsoleColor.Black, ConsoleColor.White);
             _gameUI.PrintLN("Nincs elegendő Coin.");
             _gameUI.PrintLN("A játéknak vége!");
