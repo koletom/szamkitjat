@@ -192,7 +192,6 @@
   <ItemGroup>
     <Compile Include="AmobaTests.cs" />
     <Compile Include="FakeGame.cs" />
-    <Compile Include="FakeHang.cs" />
     <Compile Include="FakeUI.cs" />
     <Compile Include="GameTests.cs" />
     <Compile Include="HuszonegyKartyaTests.cs" />
