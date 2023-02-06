@@ -11,28 +11,24 @@ using Telerik.JustMock.Trial;
 
 namespace UnitTest
 {
-    public interface INameConfig
-    {
-        string Name { get; set; }
-    }
 
     [TestClass]
     public class GameTests
     {
-        private ServiceProvider serviceProvider;
+        private IServiceProvider serviceProvider;
 
         public GameTests()
         {
             var testServices = new ServiceCollection();
+            testServices.AddSingleton<IServiceProvider>(x => serviceProvider);
             testServices.AddSingleton(typeof(ISound), Mock.Create<ISound>());
             testServices.AddSingleton(typeof(IGameUI), new FakeUI());
-            
+
             testServices.AddSingleton(typeof(IGame), GetMockGame("Amoba"));
             testServices.AddSingleton(typeof(IGame), GetMockGame("Huszonegy Kártya"));
             testServices.AddSingleton(typeof(IGame), GetMockGame("Kitalálós"));
             testServices.AddSingleton(typeof(IGame), GetMockGame("Kő, Papír, Olló"));
-
-            testServices.AddSingleton<IGameController, Game>(x => new Game(serviceProvider));
+            testServices.AddSingleton<IGameController, Game>();
 
             serviceProvider = testServices.BuildServiceProvider();
         }
@@ -41,7 +37,7 @@ namespace UnitTest
         {
             var result = Mock.Create<IGame>();
             result.Arrange(m => m.Name).Returns(gameName);
-            
+
             return result;
         }
 

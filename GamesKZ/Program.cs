@@ -14,13 +14,14 @@ namespace GameKZ
             IServiceProvider serviceProvider = null;
             var services = new ServiceCollection();
 
-            services.AddSingleton<ISound, Hang>()
+            services.AddSingleton<IServiceProvider>(x=>serviceProvider)
+                    .AddSingleton<ISound, Hang>()
                     .AddSingleton<IGameUI, UI>()
                     .AddSingleton<IGame, Amoba>()
                     .AddSingleton<IGame, Kitalalos>()
                     .AddSingleton<IGame, HuszonegyKartya>()
                     .AddSingleton<IGame, KoPapirOllo>()
-                    .AddSingleton<IGameController, Game>(x => new Game(serviceProvider));
+                    .AddSingleton<IGameController, Game>();
 
             serviceProvider = services.BuildServiceProvider();
 
