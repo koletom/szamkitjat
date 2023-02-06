@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
-using System.Linq;
-using System.Threading;
 using szamkitjat;
 using szamkitjatiterfaces;
 using szamkitjatUIs;
@@ -14,29 +11,26 @@ namespace GameKZ
     {
         private static void Main(string[] args)
         {
-            var builder = Host.CreateDefaultBuilder(args)
-                .ConfigureServices(services =>
-                {
-                    services.AddSingleton<ISound, Hang>();
-                    services.AddSingleton<IGameUI, UI>();
+            IServiceProvider serviceProvider = null;
+            var services = new ServiceCollection();
 
-                    services.AddSingleton<IGame, Amoba>();
-                    services.AddSingleton<IGame, Kitalalos>();
-                    services.AddSingleton<IGame, HuszonegyKartya>();
-                    services.AddSingleton<IGame, KoPapirOllo>();
-                    
-                    services.AddSingleton<IGameController, Game>(x => new Game(services.BuildServiceProvider()));
+            services.AddSingleton<ISound, Hang>()
+                    .AddSingleton<IGameUI, UI>()
+                    .AddSingleton<IGame, Amoba>()
+                    .AddSingleton<IGame, Kitalalos>()
+                    .AddSingleton<IGame, HuszonegyKartya>()
+                    .AddSingleton<IGame, KoPapirOllo>()
+                    .AddSingleton<IGameController, Game>(x => new Game(serviceProvider));
 
-                }).Build();
+            serviceProvider = services.BuildServiceProvider();
 
-            var gamecontroll = builder.Services.GetRequiredService<IGameController>();
-            IGameUI ui = (builder.Services.GetRequiredService<IGameUI>());
+            var gamecontroll = serviceProvider.GetRequiredService<IGameController>();
+            IGameUI ui = serviceProvider.GetRequiredService<IGameUI>();
 
             gamecontroll.Kezdes();
             ui.Sound(SoundTipes.Music);
             gamecontroll.Ending();
             ui.Sound(SoundTipes.Music);
         }
-
     }
 }
