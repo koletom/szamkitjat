@@ -11,22 +11,16 @@ namespace UnitTest
     public class GameTests
     {
         IHost testHost;
+        ServiceProvider serviceProvider;
         public GameTests()
         {
-            testHost = Host.CreateDefaultBuilder(null)
-                            .ConfigureServices(services =>
-                            {
-                                var hang = new FakeHang();
-                                var ui = new FakeUI();
+            var testServices = new ServiceCollection();
+            testServices.AddSingleton(typeof(ISound), new FakeHang());
+            testServices.AddSingleton(typeof(IGameUI), new FakeUI());
+            testServices.AddSingleton<IGame,FakeGame>();
+            testServices.AddSingleton<IGameController, Game>(x => new Game(serviceProvider));
 
-                                services.AddSingleton<ISound, FakeHang>(x => hang);
-                                services.AddSingleton<IGameUI, FakeUI>(x => ui);
-
-                                services.AddSingleton<IGame, FakeGame>();
-
-                                services.AddSingleton<IGameController, Game>(x => new Game(services.BuildServiceProvider()));
-
-                            }).Build();
+            serviceProvider = testServices.BuildServiceProvider();            
         }
 
         [TestMethod]
@@ -39,15 +33,17 @@ namespace UnitTest
         [TestMethod]
         public void GameCreateTest()
         {
-            var game = new Game(testHost.Services);
+            var game = new Game(serviceProvider);
             Assert.IsNotNull(game);
         }
 
         [TestMethod]
         public void KezdesMethodTest()
-        {
-            var gameCtrl = testHost.Services.GetRequiredService<IGameController>();
-            var ui = (FakeUI)testHost.Services.GetRequiredService<IGameUI>();
+        {            
+            var gameCtrl = serviceProvider.GetRequiredService<IGameController>();
+            var ui = (FakeUI)serviceProvider.GetRequiredService<IGameUI>();
+
+
             ui.ReadResult = 'X';
 
             gameCtrl.Kezdes();
@@ -64,8 +60,8 @@ namespace UnitTest
         [TestMethod]
         public void EndingMethodTest()
         {
-            var gameCtrl = testHost.Services.GetService<IGameController>();
-            var ui = (FakeUI)testHost.Services.GetService<IGameUI>();
+            var gameCtrl = serviceProvider.GetRequiredService<IGameController>();
+            var ui = (FakeUI)serviceProvider.GetRequiredService<IGameUI>();
 
             gameCtrl.Ending();
             Assert.IsTrue(ui.TestSteps.Count == 1, "Nincs UI output vagy túl sok az output");
