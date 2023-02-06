@@ -1,14 +1,36 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using szamkitjat;
+using szamkitjatiterfaces;
 
 namespace UnitTest
 {
     [TestClass]
     public class GameTests
     {
+        IHost testHost;
+        public GameTests()
+        {
+            testHost = Host.CreateDefaultBuilder(null)
+                            .ConfigureServices(services =>
+                            {
+                                var hang = new FakeHang();
+                                var ui = new FakeUI();
+
+                                services.AddSingleton<ISound, FakeHang>(x => hang);
+                                services.AddSingleton<IGameUI, FakeUI>(x => ui);
+
+                                services.AddSingleton<IGame, FakeGame>();
+
+                                services.AddSingleton<IGameController, Game>(x => new Game(services.BuildServiceProvider()));
+
+                            }).Build();
+        }
+
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException), "Constructor null paraméter exception test ok.")]
+        [ExpectedException(typeof(ArgumentNullException), "Constructor null paraméter exception test ok.")]
         public void GameContructorNullReferenceTest()
         {
             _ = new Game(null);
@@ -17,15 +39,16 @@ namespace UnitTest
         [TestMethod]
         public void GameCreateTest()
         {
-            var game = new Game(new FakeUI());
+            var game = new Game(testHost.Services);
             Assert.IsNotNull(game);
         }
 
         [TestMethod]
         public void KezdesMethodTest()
         {
-            var ui = new FakeUI();
-            var gameCtrl = new Game((IServiceProvider)ui);
+            var gameCtrl = testHost.Services.GetRequiredService<IGameController>();
+            var ui = (FakeUI)testHost.Services.GetRequiredService<IGameUI>();
+            ui.ReadResult = 'X';
 
             gameCtrl.Kezdes();
             Assert.IsTrue(ui.TestSteps.Count > 4, "Nincs UI output vagy túl sok az output");
@@ -41,8 +64,8 @@ namespace UnitTest
         [TestMethod]
         public void EndingMethodTest()
         {
-            var ui = new FakeUI();
-            var gameCtrl = new Game((IServiceProvider)ui);
+            var gameCtrl = testHost.Services.GetService<IGameController>();
+            var ui = (FakeUI)testHost.Services.GetService<IGameUI>();
 
             gameCtrl.Ending();
             Assert.IsTrue(ui.TestSteps.Count == 1, "Nincs UI output vagy túl sok az output");
