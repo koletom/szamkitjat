@@ -1,26 +1,48 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using szamkitjat;
 using szamkitjatiterfaces;
+using Telerik.JustMock;
+using Telerik.JustMock.AutoMock;
+using Telerik.JustMock.AutoMock.Ninject;
+using Telerik.JustMock.Helpers;
+using Telerik.JustMock.Trial;
 
 namespace UnitTest
 {
+    public interface INameConfig
+    {
+        string Name { get; set; }
+    }
+
     [TestClass]
     public class GameTests
     {
-        IHost testHost;
-        ServiceProvider serviceProvider;
+        private ServiceProvider serviceProvider;
+
         public GameTests()
         {
             var testServices = new ServiceCollection();
-            testServices.AddSingleton(typeof(ISound), new FakeHang());
+            testServices.AddSingleton(typeof(ISound), Mock.Create<ISound>());
             testServices.AddSingleton(typeof(IGameUI), new FakeUI());
-            testServices.AddSingleton<IGame,FakeGame>();
+            
+            testServices.AddSingleton(typeof(IGame), GetMockGame("Amoba"));
+            testServices.AddSingleton(typeof(IGame), GetMockGame("Huszonegy Kártya"));
+            testServices.AddSingleton(typeof(IGame), GetMockGame("Kitalálós"));
+            testServices.AddSingleton(typeof(IGame), GetMockGame("Kő, Papír, Olló"));
+
             testServices.AddSingleton<IGameController, Game>(x => new Game(serviceProvider));
 
-            serviceProvider = testServices.BuildServiceProvider();            
+            serviceProvider = testServices.BuildServiceProvider();
+        }
+
+        IGame GetMockGame(string gameName)
+        {
+            var result = Mock.Create<IGame>();
+            result.Arrange(m => m.Name).Returns(gameName);
+            
+            return result;
         }
 
         [TestMethod]
@@ -39,10 +61,9 @@ namespace UnitTest
 
         [TestMethod]
         public void KezdesMethodTest()
-        {            
+        {
             var gameCtrl = serviceProvider.GetRequiredService<IGameController>();
             var ui = (FakeUI)serviceProvider.GetRequiredService<IGameUI>();
-
 
             ui.ReadResult = 'X';
 
