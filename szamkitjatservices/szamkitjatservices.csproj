@@ -44,6 +44,13 @@
     <Compile Include="AmobaService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicTacToeService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\szamkitjatiterfaces\szamkitjatiterfaces.csproj">
+      <Project>{AF098854-F732-4CD4-83EA-B9B7D05B3E67}</Project>
+      <Name>szamkitjatiterfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
