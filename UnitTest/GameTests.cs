@@ -21,6 +21,8 @@ namespace UnitTest
         {
             var testServices = new ServiceCollection();
             testServices.AddSingleton<IServiceProvider>(x => serviceProvider);
+            testServices.AddSingleton<ServiceCollection>(x => testServices);
+
             testServices.AddSingleton(typeof(ISound), Mock.Create<ISound>());
             testServices.AddSingleton(typeof(IGameUI), new FakeUI());
 
@@ -31,6 +33,7 @@ namespace UnitTest
             testServices.AddSingleton<IGameController, Game>();
 
             serviceProvider = testServices.BuildServiceProvider();
+            
         }
 
         IGame GetMockGame(string gameName)
@@ -51,6 +54,7 @@ namespace UnitTest
         [TestMethod]
         public void GameCreateTest()
         {
+            var services = serviceProvider.GetRequiredService<ServiceCollection>();
             var game = new Game(serviceProvider);
             Assert.IsNotNull(game);
         }
