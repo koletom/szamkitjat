@@ -54,7 +54,6 @@ namespace UnitTest
         [TestMethod]
         public void GameCreateTest()
         {
-            var services = serviceProvider.GetRequiredService<ServiceCollection>();
             var game = new Game(serviceProvider);
             Assert.IsNotNull(game);
         }
