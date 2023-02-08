@@ -23,5 +23,7 @@ namespace szamkitjatiterfaces.Services
         byte WinnerCheck { get; }
 
         bool AddBet(byte gamer, byte row, byte col);
+
+        bool AddComputerBet(byte gamerOrder);
     }
 }
