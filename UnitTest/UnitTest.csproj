@@ -194,6 +194,7 @@
     <Compile Include="FakeGame.cs" />
     <Compile Include="FakeUI.cs" />
     <Compile Include="GameTests.cs" />
+    <Compile Include="GomokuServiceTests.cs" />
     <Compile Include="HuszonegyKartyaTests.cs" />
     <Compile Include="KitalatosTests.cs" />
     <Compile Include="KoPapirOlloTests.cs" />

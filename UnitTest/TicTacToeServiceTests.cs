@@ -95,5 +95,64 @@ namespace UnitTest
             Assert.IsTrue(result == 2, "Winnercheck nem adja vissza ha 2. játékos nyer");
         }
 
+        [TestMethod]
+        public void GameType()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.GameType;
+            Assert.IsTrue(result == szamkitjatiterfaces.Services.AmobaType.TicTacToe, "Nem a megfelelő GameType indult el.");
+        }
+
+        [TestMethod]
+        public void TableRow()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.TableRow;
+            Assert.IsTrue(result == 3, "Nem 3 soros lett a táblázat");
+        }
+
+        [TestMethod]
+        public void TableColumn()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.TableColumn;
+            Assert.IsTrue(result == 3, "Nem 3 oszlopos lett a táblázat");
+        }
+
+        [TestMethod]
+        public void GameName()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.GameName;
+            Assert.IsTrue(result.Contains("3x3"), "Nem megfelelő név lett kiírva");
+        }
+
+        [TestMethod]
+        public void GameDescription()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.GameDescription;
+            Assert.IsTrue(result.Contains("a cél"), "Nem lett kiírva a szabályok");
+        }
+
+        [TestMethod]
+        public void Table()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.Table;
+            Assert.IsNotNull(result, "Nem sikerült a táblázat létrehozása");
+        }
     }
 }
