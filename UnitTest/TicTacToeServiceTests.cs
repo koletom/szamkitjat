@@ -151,8 +151,42 @@ namespace UnitTest
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
-            var result = service.Table;
-            Assert.IsNotNull(result, "Nem sikerült a táblázat létrehozása");
+            for (byte row = 0; row < service.Table.GetLength(0); row++)
+            {
+                for (byte col = 0; col < service.Table.GetLength(1); col++)
+                {
+                    if (col == 2 && row == 2)
+                    {
+                        service.Table[row, col] = (byte)3;
+                    }
+                }
+            }
+
+            var result = service.Table[2, 2];
+
+            Assert.IsTrue(result == 3, "Nem sikerült a táblázat létrehozása");
+        }
+
+        [TestMethod]
+        public void AddBet()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.AddBet(2, 2, 2);
+
+            Assert.IsTrue(result, "");
+        }
+
+        [TestMethod]
+        public void AddComputerBet()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.AddBet(2, 2, 2);
+
+            Assert.IsTrue(result, "");
         }
     }
 }

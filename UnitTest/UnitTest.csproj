@@ -197,6 +197,7 @@
     <Compile Include="GomokuServiceTests.cs" />
     <Compile Include="HuszonegyKartyaTests.cs" />
     <Compile Include="KitalatosTests.cs" />
+    <Compile Include="KoPapirOlloServiceTests.cs" />
     <Compile Include="KoPapirOlloTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicTacToeServiceTests.cs" />
