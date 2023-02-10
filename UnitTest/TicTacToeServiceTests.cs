@@ -122,6 +122,7 @@ namespace UnitTest
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
             var result = service.TableColumn;
+          
             Assert.IsTrue(result == 3, "Nem 3 oszlopos lett a táblázat");
         }
 
@@ -132,6 +133,7 @@ namespace UnitTest
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
             var result = service.GameName;
+            //TODO:Itt azt is ellenőrizni kellene, hogy a result null
             Assert.IsTrue(result.Contains("3x3"), "Nem megfelelő név lett kiírva");
         }
 
@@ -142,6 +144,7 @@ namespace UnitTest
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
             var result = service.GameDescription;
+            //TODO:Itt azt is ellenőrizni kellene, hogy a result null
             Assert.IsTrue(result.Contains("a cél"), "Nem lett kiírva a szabályok");
         }
 
