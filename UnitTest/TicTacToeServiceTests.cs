@@ -106,7 +106,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TableRow()
+        public void TableRowTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
@@ -116,7 +116,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TableColumn()
+        public void TableColumnTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
@@ -126,7 +126,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void GameName()
+        public void GameNameTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
@@ -136,7 +136,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void GameDescription()
+        public void GameDescriptionTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
@@ -146,11 +146,14 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void Table()
+        public void TableSizeTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
-
+            
+            //TODO:Ezt a tesztet egy kicsit gondold át és próbáld ciklusok nélkül megoldani
+            //ráadásul ez v. elszáll exception v. akkor is igaz lesz ha a sorok és oszlopok száma 
+            //több mint az elvárt.
             for (byte row = 0; row < service.Table.GetLength(0); row++)
             {
                 for (byte col = 0; col < service.Table.GetLength(1); col++)
@@ -168,7 +171,25 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void AddBet()
+        public void AddBetResultTrueTest()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.AddBet(2, 2, 2);
+
+            Assert.IsTrue(result, "");
+        }
+
+
+        [TestMethod]
+        public void AddBetResultFalseTest()
+        {
+            //TODO:Hiányzik
+        }
+
+        [TestMethod]
+        public void AddComputerBetResultTrueTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
@@ -179,14 +200,9 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void AddComputerBet()
+        public void AddComputerBetResultFalseTest()
         {
-            var service = new TicTacToeService();
-            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
-
-            var result = service.AddBet(2, 2, 2);
-
-            Assert.IsTrue(result, "");
+           //TODO:Hiányzik
         }
     }
 }
