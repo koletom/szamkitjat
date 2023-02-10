@@ -133,8 +133,8 @@ namespace UnitTest
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
             var result = service.GameName;
-            //TODO:Itt azt is ellenőrizni kellene, hogy a result null
             Assert.IsTrue(result.Contains("3x3"), "Nem megfelelő név lett kiírva");
+            Assert.IsNotNull(result, "a result null");
         }
 
         [TestMethod]
@@ -144,8 +144,8 @@ namespace UnitTest
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
             var result = service.GameDescription;
-            //TODO:Itt azt is ellenőrizni kellene, hogy a result null
             Assert.IsTrue(result.Contains("a cél"), "Nem lett kiírva a szabályok");
+            Assert.IsNotNull(result, "a result null");
         }
 
         [TestMethod]
@@ -153,24 +153,15 @@ namespace UnitTest
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
-            
+
             //TODO:Ezt a tesztet egy kicsit gondold át és próbáld ciklusok nélkül megoldani
             //ráadásul ez v. elszáll exception v. akkor is igaz lesz ha a sorok és oszlopok száma 
             //több mint az elvárt.
-            for (byte row = 0; row < service.Table.GetLength(0); row++)
-            {
-                for (byte col = 0; col < service.Table.GetLength(1); col++)
-                {
-                    if (col == 2 && row == 2)
-                    {
-                        service.Table[row, col] = (byte)3;
-                    }
-                }
-            }
 
-            var result = service.Table[2, 2];
+            var result_row = (byte)service.Table.GetLength(0);
+            var result_col = (byte)service.Table.GetLength(1);
 
-            Assert.IsTrue(result == 3, "Nem sikerült a táblázat létrehozása");
+            Assert.IsTrue(result_row == 3 || result_col == 3, "Nem sikerült a táblázat létrehozása");
         }
 
         [TestMethod]
@@ -181,14 +172,19 @@ namespace UnitTest
 
             var result = service.AddBet(2, 2, 2);
 
-            Assert.IsTrue(result, "");
+            Assert.IsTrue(result, "Az AddBet nem true értéket ad vissza");
         }
 
 
         [TestMethod]
         public void AddBetResultFalseTest()
         {
-            //TODO:Hiányzik
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.AddBet(2, 4, 2);
+
+            Assert.IsFalse(result, "Az AddBet nem false értéket ad vissza");
         }
 
         [TestMethod]
@@ -199,13 +195,18 @@ namespace UnitTest
 
             var result = service.AddBet(2, 2, 2);
 
-            Assert.IsTrue(result, "");
+            Assert.IsTrue(result, " Az AddComputerBet nem true értéket ad vissza");
         }
 
         [TestMethod]
         public void AddComputerBetResultFalseTest()
         {
-           //TODO:Hiányzik
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            var result = service.AddBet(2, 4, 2);
+
+            Assert.IsFalse(result, "Az AddComputerBet nem false értéket ad vissza");
         }
     }
 }
