@@ -133,6 +133,7 @@ namespace UnitTest
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
             var result = service.GameName;
+            //TODO:Nem jó! Result null esetén elszáll a teszt
             Assert.IsTrue(result.Contains("3x3"), "Nem megfelelő név lett kiírva");
             Assert.IsNotNull(result, "a result null");
         }
@@ -144,6 +145,7 @@ namespace UnitTest
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
             var result = service.GameDescription;
+            //TODO:Nem jó! Result null esetén elszáll a teszt
             Assert.IsTrue(result.Contains("a cél"), "Nem lett kiírva a szabályok");
             Assert.IsNotNull(result, "a result null");
         }
@@ -153,14 +155,11 @@ namespace UnitTest
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
-
-            //TODO:Ezt a tesztet egy kicsit gondold át és próbáld ciklusok nélkül megoldani
-            //ráadásul ez v. elszáll exception v. akkor is igaz lesz ha a sorok és oszlopok száma 
-            //több mint az elvárt.
-
+            
             var result_row = (byte)service.Table.GetLength(0);
             var result_col = (byte)service.Table.GetLength(1);
 
+            //TODO: Ez nem jó, a teszt elfogadásához elég ha csak sor vagy csak az oszlop 3. 
             Assert.IsTrue(result_row == 3 || result_col == 3, "Nem sikerült a táblázat létrehozása");
         }
 
@@ -176,6 +175,7 @@ namespace UnitTest
         }
 
 
+        //TODO:Lehetne olyan teszt is ahol olyan helyre tesz ahová már előzőleg tettek
         [TestMethod]
         public void AddBetResultFalseTest()
         {
@@ -187,6 +187,7 @@ namespace UnitTest
             Assert.IsFalse(result, "Az AddBet nem false értéket ad vissza");
         }
 
+        //TODO:Ez nem azt teszteli ami a teszt metódus nevéből következik
         [TestMethod]
         public void AddComputerBetResultTrueTest()
         {
@@ -198,6 +199,7 @@ namespace UnitTest
             Assert.IsTrue(result, " Az AddComputerBet nem true értéket ad vissza");
         }
 
+        //TODO:Ez nem azt teszteli ami a teszt metódus nevéből következik
         [TestMethod]
         public void AddComputerBetResultFalseTest()
         {
