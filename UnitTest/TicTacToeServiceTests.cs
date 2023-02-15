@@ -159,8 +159,7 @@ namespace UnitTest
             var result_row = (byte)service.Table.GetLength(0);
             var result_col = (byte)service.Table.GetLength(1);
 
-            //TODO: Ez nem jó, a teszt elfogadásához elég ha csak sor vagy csak az oszlop 3. 
-            Assert.IsTrue(result_row == 3 || result_col == 3, "Nem sikerült a táblázat létrehozása");
+            Assert.IsTrue(result_row == 3 && result_col == 3, "Nem sikerült a táblázat létrehozása");
         }
 
         [TestMethod]
@@ -169,45 +168,62 @@ namespace UnitTest
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
-            var result = service.AddBet(2, 2, 2);
+            var result = service.AddBet(1, 2, 2);
 
             Assert.IsTrue(result, "Az AddBet nem true értéket ad vissza");
         }
 
-
-        //TODO:Lehetne olyan teszt is ahol olyan helyre tesz ahová már előzőleg tettek
         [TestMethod]
         public void AddBetResultFalseTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
-            var result = service.AddBet(2, 4, 2);
+            var result = service.AddBet(1, 4, 2);
 
             Assert.IsFalse(result, "Az AddBet nem false értéket ad vissza");
         }
 
-        //TODO:Ez nem azt teszteli ami a teszt metódus nevéből következik
+        [TestMethod]
+        public void AddBetResultFalseTestPlaceOccupied()
+        {
+            var service = new TicTacToeService();
+            Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
+
+            _ = service.AddBet(2, 2, 2);
+            var result = service.AddBet(1, 2, 2);
+
+            Assert.IsFalse(result, "Az AddBet nem false értéket ad vissza");
+        }
+
         [TestMethod]
         public void AddComputerBetResultTrueTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
-
-            var result = service.AddBet(2, 2, 2);
-
-            Assert.IsTrue(result, " Az AddComputerBet nem true értéket ad vissza");
+            
+            var result = service.AddBet(2, 0, 0);
+            Assert.IsTrue(result, "Az AddBet nem true értéket ad vissza");
+            var result2 = service.AddComputerBet(2);
+            Assert.IsTrue(result2, " Az AddComputerBet nem true értéket ad vissza");
         }
 
-        //TODO:Ez nem azt teszteli ami a teszt metódus nevéből következik
         [TestMethod]
         public void AddComputerBetResultFalseTest()
         {
             var service = new TicTacToeService();
             Assert.IsNotNull(service, "Nem sikerült a szervíz létrehozása");
 
-            var result = service.AddBet(2, 4, 2);
-
+            _ = service.AddBet(2, 0, 0);
+            _ = service.AddBet(2, 0, 1);
+            _ = service.AddBet(2, 0, 2);
+            _ = service.AddBet(2, 1, 0);
+            _ = service.AddBet(2, 1, 1);
+            _ = service.AddBet(2, 1, 2);
+            _ = service.AddBet(2, 2, 0);
+            _ = service.AddBet(2, 2, 1);
+            _ = service.AddBet(2, 2, 2);
+            var result = service.AddComputerBet(2);
             Assert.IsFalse(result, "Az AddComputerBet nem false értéket ad vissza");
         }
     }
